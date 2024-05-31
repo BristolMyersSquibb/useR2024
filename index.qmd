@@ -1,0 +1,433 @@
+---
+title: "No-Code Data Analysis and Dashboards with {blockr}"
+author: "John Coene (Opifex) and David Granjon (cynkra GmbH)"
+format: 
+  revealjs:
+    css: [
+      "assets/style/extra.css"
+    ]
+    js:
+      - "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      - "assets/js/extra.js"
+    height: 900
+    width: 1600
+    code-link: true
+    code-copy: true
+    fontsize: 24pt
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    chalkboard: true
+    transition: slide
+    background-transition: fade
+    title-slide-attributes:
+        data-state: "hide-menubar"
+    simplemenu:
+        barhtml:
+            header: "<div class='menubar'><ul class='menu'></ul><div>"
+            #footer: "<img src='...' class='slide-logo r-stretch'>"
+        scale: 0.67
+revealjs-plugins:
+  - simplemenu
+  - attribution
+filters:
+  - quarto-ext/shinylive
+editor:
+    render-on-save: true
+---
+
+```{r setup}
+library(shinylive)
+library(bslib)
+```
+
+# ![](assets/img/shiny.svg){fig-align="center" width=25%}  {data-stack-name="Intro"}
+
+## Easy web apps for data science without the compromises
+
+## ~~Easy~~ web apps for data science without the compromises
+
+## Develop a enterprise grade dashboard isn't that easy
+
+## blockr demo
+
+```{shinylive-r}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 800
+## file: app.R
+webr::install("blockr", repos = "https://blockr-org.github.io/webr-repos")
+webr::install("blockr.data", repos = "https://blockr-org.github.io/webr-repos")
+
+library(blockr)
+
+stack <- new_stack(filesbrowser_block, csv_block, select_block)
+serve_stack(stack)
+
+## file: penguins.csv
+species,island,bill_length_mm,bill_depth_mm,flipper_length_mm,body_mass_g,sex
+Adelie,Torgersen,39.1,18.7,181,3750,MALE
+Adelie,Torgersen,39.5,17.4,186,3800,FEMALE
+Adelie,Torgersen,40.3,18,195,3250,FEMALE
+Adelie,Torgersen,,,,,
+Adelie,Torgersen,36.7,19.3,193,3450,FEMALE
+Adelie,Torgersen,39.3,20.6,190,3650,MALE
+Adelie,Torgersen,38.9,17.8,181,3625,FEMALE
+Adelie,Torgersen,39.2,19.6,195,4675,MALE
+Adelie,Torgersen,34.1,18.1,193,3475,
+Adelie,Torgersen,42,20.2,190,4250,
+Adelie,Torgersen,37.8,17.1,186,3300,
+Adelie,Torgersen,37.8,17.3,180,3700,
+Adelie,Torgersen,41.1,17.6,182,3200,FEMALE
+Adelie,Torgersen,38.6,21.2,191,3800,MALE
+Adelie,Torgersen,34.6,21.1,198,4400,MALE
+Adelie,Torgersen,36.6,17.8,185,3700,FEMALE
+Adelie,Torgersen,38.7,19,195,3450,FEMALE
+Adelie,Torgersen,42.5,20.7,197,4500,MALE
+Adelie,Torgersen,34.4,18.4,184,3325,FEMALE
+Adelie,Torgersen,46,21.5,194,4200,MALE
+Adelie,Biscoe,37.8,18.3,174,3400,FEMALE
+Adelie,Biscoe,37.7,18.7,180,3600,MALE
+Adelie,Biscoe,35.9,19.2,189,3800,FEMALE
+Adelie,Biscoe,38.2,18.1,185,3950,MALE
+Adelie,Biscoe,38.8,17.2,180,3800,MALE
+Adelie,Biscoe,35.3,18.9,187,3800,FEMALE
+Adelie,Biscoe,40.6,18.6,183,3550,MALE
+Adelie,Biscoe,40.5,17.9,187,3200,FEMALE
+Adelie,Biscoe,37.9,18.6,172,3150,FEMALE
+Adelie,Biscoe,40.5,18.9,180,3950,MALE
+Adelie,Dream,39.5,16.7,178,3250,FEMALE
+Adelie,Dream,37.2,18.1,178,3900,MALE
+Adelie,Dream,39.5,17.8,188,3300,FEMALE
+Adelie,Dream,40.9,18.9,184,3900,MALE
+Adelie,Dream,36.4,17,195,3325,FEMALE
+Adelie,Dream,39.2,21.1,196,4150,MALE
+Adelie,Dream,38.8,20,190,3950,MALE
+Adelie,Dream,42.2,18.5,180,3550,FEMALE
+Adelie,Dream,37.6,19.3,181,3300,FEMALE
+Adelie,Dream,39.8,19.1,184,4650,MALE
+Adelie,Dream,36.5,18,182,3150,FEMALE
+Adelie,Dream,40.8,18.4,195,3900,MALE
+Adelie,Dream,36,18.5,186,3100,FEMALE
+Adelie,Dream,44.1,19.7,196,4400,MALE
+Adelie,Dream,37,16.9,185,3000,FEMALE
+Adelie,Dream,39.6,18.8,190,4600,MALE
+Adelie,Dream,41.1,19,182,3425,MALE
+Adelie,Dream,37.5,18.9,179,2975,
+Adelie,Dream,36,17.9,190,3450,FEMALE
+Adelie,Dream,42.3,21.2,191,4150,MALE
+Adelie,Biscoe,39.6,17.7,186,3500,FEMALE
+Adelie,Biscoe,40.1,18.9,188,4300,MALE
+Adelie,Biscoe,35,17.9,190,3450,FEMALE
+Adelie,Biscoe,42,19.5,200,4050,MALE
+Adelie,Biscoe,34.5,18.1,187,2900,FEMALE
+Adelie,Biscoe,41.4,18.6,191,3700,MALE
+Adelie,Biscoe,39,17.5,186,3550,FEMALE
+Adelie,Biscoe,40.6,18.8,193,3800,MALE
+Adelie,Biscoe,36.5,16.6,181,2850,FEMALE
+Adelie,Biscoe,37.6,19.1,194,3750,MALE
+Adelie,Biscoe,35.7,16.9,185,3150,FEMALE
+Adelie,Biscoe,41.3,21.1,195,4400,MALE
+Adelie,Biscoe,37.6,17,185,3600,FEMALE
+Adelie,Biscoe,41.1,18.2,192,4050,MALE
+Adelie,Biscoe,36.4,17.1,184,2850,FEMALE
+Adelie,Biscoe,41.6,18,192,3950,MALE
+Adelie,Biscoe,35.5,16.2,195,3350,FEMALE
+Adelie,Biscoe,41.1,19.1,188,4100,MALE
+Adelie,Torgersen,35.9,16.6,190,3050,FEMALE
+Adelie,Torgersen,41.8,19.4,198,4450,MALE
+Adelie,Torgersen,33.5,19,190,3600,FEMALE
+Adelie,Torgersen,39.7,18.4,190,3900,MALE
+Adelie,Torgersen,39.6,17.2,196,3550,FEMALE
+Adelie,Torgersen,45.8,18.9,197,4150,MALE
+Adelie,Torgersen,35.5,17.5,190,3700,FEMALE
+Adelie,Torgersen,42.8,18.5,195,4250,MALE
+Adelie,Torgersen,40.9,16.8,191,3700,FEMALE
+Adelie,Torgersen,37.2,19.4,184,3900,MALE
+Adelie,Torgersen,36.2,16.1,187,3550,FEMALE
+Adelie,Torgersen,42.1,19.1,195,4000,MALE
+Adelie,Torgersen,34.6,17.2,189,3200,FEMALE
+Adelie,Torgersen,42.9,17.6,196,4700,MALE
+Adelie,Torgersen,36.7,18.8,187,3800,FEMALE
+Adelie,Torgersen,35.1,19.4,193,4200,MALE
+Adelie,Dream,37.3,17.8,191,3350,FEMALE
+Adelie,Dream,41.3,20.3,194,3550,MALE
+Adelie,Dream,36.3,19.5,190,3800,MALE
+Adelie,Dream,36.9,18.6,189,3500,FEMALE
+Adelie,Dream,38.3,19.2,189,3950,MALE
+Adelie,Dream,38.9,18.8,190,3600,FEMALE
+Adelie,Dream,35.7,18,202,3550,FEMALE
+Adelie,Dream,41.1,18.1,205,4300,MALE
+Adelie,Dream,34,17.1,185,3400,FEMALE
+Adelie,Dream,39.6,18.1,186,4450,MALE
+Adelie,Dream,36.2,17.3,187,3300,FEMALE
+Adelie,Dream,40.8,18.9,208,4300,MALE
+Adelie,Dream,38.1,18.6,190,3700,FEMALE
+Adelie,Dream,40.3,18.5,196,4350,MALE
+Adelie,Dream,33.1,16.1,178,2900,FEMALE
+Adelie,Dream,43.2,18.5,192,4100,MALE
+Adelie,Biscoe,35,17.9,192,3725,FEMALE
+Adelie,Biscoe,41,20,203,4725,MALE
+Adelie,Biscoe,37.7,16,183,3075,FEMALE
+Adelie,Biscoe,37.8,20,190,4250,MALE
+Adelie,Biscoe,37.9,18.6,193,2925,FEMALE
+Adelie,Biscoe,39.7,18.9,184,3550,MALE
+Adelie,Biscoe,38.6,17.2,199,3750,FEMALE
+Adelie,Biscoe,38.2,20,190,3900,MALE
+Adelie,Biscoe,38.1,17,181,3175,FEMALE
+Adelie,Biscoe,43.2,19,197,4775,MALE
+Adelie,Biscoe,38.1,16.5,198,3825,FEMALE
+Adelie,Biscoe,45.6,20.3,191,4600,MALE
+Adelie,Biscoe,39.7,17.7,193,3200,FEMALE
+Adelie,Biscoe,42.2,19.5,197,4275,MALE
+Adelie,Biscoe,39.6,20.7,191,3900,FEMALE
+Adelie,Biscoe,42.7,18.3,196,4075,MALE
+Adelie,Torgersen,38.6,17,188,2900,FEMALE
+Adelie,Torgersen,37.3,20.5,199,3775,MALE
+Adelie,Torgersen,35.7,17,189,3350,FEMALE
+Adelie,Torgersen,41.1,18.6,189,3325,MALE
+Adelie,Torgersen,36.2,17.2,187,3150,FEMALE
+Adelie,Torgersen,37.7,19.8,198,3500,MALE
+Adelie,Torgersen,40.2,17,176,3450,FEMALE
+Adelie,Torgersen,41.4,18.5,202,3875,MALE
+Adelie,Torgersen,35.2,15.9,186,3050,FEMALE
+Adelie,Torgersen,40.6,19,199,4000,MALE
+Adelie,Torgersen,38.8,17.6,191,3275,FEMALE
+Adelie,Torgersen,41.5,18.3,195,4300,MALE
+Adelie,Torgersen,39,17.1,191,3050,FEMALE
+Adelie,Torgersen,44.1,18,210,4000,MALE
+Adelie,Torgersen,38.5,17.9,190,3325,FEMALE
+Adelie,Torgersen,43.1,19.2,197,3500,MALE
+Adelie,Dream,36.8,18.5,193,3500,FEMALE
+Adelie,Dream,37.5,18.5,199,4475,MALE
+Adelie,Dream,38.1,17.6,187,3425,FEMALE
+Adelie,Dream,41.1,17.5,190,3900,MALE
+Adelie,Dream,35.6,17.5,191,3175,FEMALE
+Adelie,Dream,40.2,20.1,200,3975,MALE
+Adelie,Dream,37,16.5,185,3400,FEMALE
+Adelie,Dream,39.7,17.9,193,4250,MALE
+Adelie,Dream,40.2,17.1,193,3400,FEMALE
+Adelie,Dream,40.6,17.2,187,3475,MALE
+Adelie,Dream,32.1,15.5,188,3050,FEMALE
+Adelie,Dream,40.7,17,190,3725,MALE
+Adelie,Dream,37.3,16.8,192,3000,FEMALE
+Adelie,Dream,39,18.7,185,3650,MALE
+Adelie,Dream,39.2,18.6,190,4250,MALE
+Adelie,Dream,36.6,18.4,184,3475,FEMALE
+Adelie,Dream,36,17.8,195,3450,FEMALE
+Adelie,Dream,37.8,18.1,193,3750,MALE
+Adelie,Dream,36,17.1,187,3700,FEMALE
+Adelie,Dream,41.5,18.5,201,4000,MALE
+Chinstrap,Dream,46.5,17.9,192,3500,FEMALE
+Chinstrap,Dream,50,19.5,196,3900,MALE
+Chinstrap,Dream,51.3,19.2,193,3650,MALE
+Chinstrap,Dream,45.4,18.7,188,3525,FEMALE
+Chinstrap,Dream,52.7,19.8,197,3725,MALE
+Chinstrap,Dream,45.2,17.8,198,3950,FEMALE
+Chinstrap,Dream,46.1,18.2,178,3250,FEMALE
+Chinstrap,Dream,51.3,18.2,197,3750,MALE
+Chinstrap,Dream,46,18.9,195,4150,FEMALE
+Chinstrap,Dream,51.3,19.9,198,3700,MALE
+Chinstrap,Dream,46.6,17.8,193,3800,FEMALE
+Chinstrap,Dream,51.7,20.3,194,3775,MALE
+Chinstrap,Dream,47,17.3,185,3700,FEMALE
+Chinstrap,Dream,52,18.1,201,4050,MALE
+Chinstrap,Dream,45.9,17.1,190,3575,FEMALE
+Chinstrap,Dream,50.5,19.6,201,4050,MALE
+Chinstrap,Dream,50.3,20,197,3300,MALE
+Chinstrap,Dream,58,17.8,181,3700,FEMALE
+Chinstrap,Dream,46.4,18.6,190,3450,FEMALE
+Chinstrap,Dream,49.2,18.2,195,4400,MALE
+Chinstrap,Dream,42.4,17.3,181,3600,FEMALE
+Chinstrap,Dream,48.5,17.5,191,3400,MALE
+Chinstrap,Dream,43.2,16.6,187,2900,FEMALE
+Chinstrap,Dream,50.6,19.4,193,3800,MALE
+Chinstrap,Dream,46.7,17.9,195,3300,FEMALE
+Chinstrap,Dream,52,19,197,4150,MALE
+Chinstrap,Dream,50.5,18.4,200,3400,FEMALE
+Chinstrap,Dream,49.5,19,200,3800,MALE
+Chinstrap,Dream,46.4,17.8,191,3700,FEMALE
+Chinstrap,Dream,52.8,20,205,4550,MALE
+Chinstrap,Dream,40.9,16.6,187,3200,FEMALE
+Chinstrap,Dream,54.2,20.8,201,4300,MALE
+Chinstrap,Dream,42.5,16.7,187,3350,FEMALE
+Chinstrap,Dream,51,18.8,203,4100,MALE
+Chinstrap,Dream,49.7,18.6,195,3600,MALE
+Chinstrap,Dream,47.5,16.8,199,3900,FEMALE
+Chinstrap,Dream,47.6,18.3,195,3850,FEMALE
+Chinstrap,Dream,52,20.7,210,4800,MALE
+Chinstrap,Dream,46.9,16.6,192,2700,FEMALE
+Chinstrap,Dream,53.5,19.9,205,4500,MALE
+Chinstrap,Dream,49,19.5,210,3950,MALE
+Chinstrap,Dream,46.2,17.5,187,3650,FEMALE
+Chinstrap,Dream,50.9,19.1,196,3550,MALE
+Chinstrap,Dream,45.5,17,196,3500,FEMALE
+Chinstrap,Dream,50.9,17.9,196,3675,FEMALE
+Chinstrap,Dream,50.8,18.5,201,4450,MALE
+Chinstrap,Dream,50.1,17.9,190,3400,FEMALE
+Chinstrap,Dream,49,19.6,212,4300,MALE
+Chinstrap,Dream,51.5,18.7,187,3250,MALE
+Chinstrap,Dream,49.8,17.3,198,3675,FEMALE
+Chinstrap,Dream,48.1,16.4,199,3325,FEMALE
+Chinstrap,Dream,51.4,19,201,3950,MALE
+Chinstrap,Dream,45.7,17.3,193,3600,FEMALE
+Chinstrap,Dream,50.7,19.7,203,4050,MALE
+Chinstrap,Dream,42.5,17.3,187,3350,FEMALE
+Chinstrap,Dream,52.2,18.8,197,3450,MALE
+Chinstrap,Dream,45.2,16.6,191,3250,FEMALE
+Chinstrap,Dream,49.3,19.9,203,4050,MALE
+Chinstrap,Dream,50.2,18.8,202,3800,MALE
+Chinstrap,Dream,45.6,19.4,194,3525,FEMALE
+Chinstrap,Dream,51.9,19.5,206,3950,MALE
+Chinstrap,Dream,46.8,16.5,189,3650,FEMALE
+Chinstrap,Dream,45.7,17,195,3650,FEMALE
+Chinstrap,Dream,55.8,19.8,207,4000,MALE
+Chinstrap,Dream,43.5,18.1,202,3400,FEMALE
+Chinstrap,Dream,49.6,18.2,193,3775,MALE
+Chinstrap,Dream,50.8,19,210,4100,MALE
+Chinstrap,Dream,50.2,18.7,198,3775,FEMALE
+Gentoo,Biscoe,46.1,13.2,211,4500,FEMALE
+Gentoo,Biscoe,50,16.3,230,5700,MALE
+Gentoo,Biscoe,48.7,14.1,210,4450,FEMALE
+Gentoo,Biscoe,50,15.2,218,5700,MALE
+Gentoo,Biscoe,47.6,14.5,215,5400,MALE
+Gentoo,Biscoe,46.5,13.5,210,4550,FEMALE
+Gentoo,Biscoe,45.4,14.6,211,4800,FEMALE
+Gentoo,Biscoe,46.7,15.3,219,5200,MALE
+Gentoo,Biscoe,43.3,13.4,209,4400,FEMALE
+Gentoo,Biscoe,46.8,15.4,215,5150,MALE
+Gentoo,Biscoe,40.9,13.7,214,4650,FEMALE
+Gentoo,Biscoe,49,16.1,216,5550,MALE
+Gentoo,Biscoe,45.5,13.7,214,4650,FEMALE
+Gentoo,Biscoe,48.4,14.6,213,5850,MALE
+Gentoo,Biscoe,45.8,14.6,210,4200,FEMALE
+Gentoo,Biscoe,49.3,15.7,217,5850,MALE
+Gentoo,Biscoe,42,13.5,210,4150,FEMALE
+Gentoo,Biscoe,49.2,15.2,221,6300,MALE
+Gentoo,Biscoe,46.2,14.5,209,4800,FEMALE
+Gentoo,Biscoe,48.7,15.1,222,5350,MALE
+Gentoo,Biscoe,50.2,14.3,218,5700,MALE
+Gentoo,Biscoe,45.1,14.5,215,5000,FEMALE
+Gentoo,Biscoe,46.5,14.5,213,4400,FEMALE
+Gentoo,Biscoe,46.3,15.8,215,5050,MALE
+Gentoo,Biscoe,42.9,13.1,215,5000,FEMALE
+Gentoo,Biscoe,46.1,15.1,215,5100,MALE
+Gentoo,Biscoe,44.5,14.3,216,4100,
+Gentoo,Biscoe,47.8,15,215,5650,MALE
+Gentoo,Biscoe,48.2,14.3,210,4600,FEMALE
+Gentoo,Biscoe,50,15.3,220,5550,MALE
+Gentoo,Biscoe,47.3,15.3,222,5250,MALE
+Gentoo,Biscoe,42.8,14.2,209,4700,FEMALE
+Gentoo,Biscoe,45.1,14.5,207,5050,FEMALE
+Gentoo,Biscoe,59.6,17,230,6050,MALE
+Gentoo,Biscoe,49.1,14.8,220,5150,FEMALE
+Gentoo,Biscoe,48.4,16.3,220,5400,MALE
+Gentoo,Biscoe,42.6,13.7,213,4950,FEMALE
+Gentoo,Biscoe,44.4,17.3,219,5250,MALE
+Gentoo,Biscoe,44,13.6,208,4350,FEMALE
+Gentoo,Biscoe,48.7,15.7,208,5350,MALE
+Gentoo,Biscoe,42.7,13.7,208,3950,FEMALE
+Gentoo,Biscoe,49.6,16,225,5700,MALE
+Gentoo,Biscoe,45.3,13.7,210,4300,FEMALE
+Gentoo,Biscoe,49.6,15,216,4750,MALE
+Gentoo,Biscoe,50.5,15.9,222,5550,MALE
+Gentoo,Biscoe,43.6,13.9,217,4900,FEMALE
+Gentoo,Biscoe,45.5,13.9,210,4200,FEMALE
+Gentoo,Biscoe,50.5,15.9,225,5400,MALE
+Gentoo,Biscoe,44.9,13.3,213,5100,FEMALE
+Gentoo,Biscoe,45.2,15.8,215,5300,MALE
+Gentoo,Biscoe,46.6,14.2,210,4850,FEMALE
+Gentoo,Biscoe,48.5,14.1,220,5300,MALE
+Gentoo,Biscoe,45.1,14.4,210,4400,FEMALE
+Gentoo,Biscoe,50.1,15,225,5000,MALE
+Gentoo,Biscoe,46.5,14.4,217,4900,FEMALE
+Gentoo,Biscoe,45,15.4,220,5050,MALE
+Gentoo,Biscoe,43.8,13.9,208,4300,FEMALE
+Gentoo,Biscoe,45.5,15,220,5000,MALE
+Gentoo,Biscoe,43.2,14.5,208,4450,FEMALE
+Gentoo,Biscoe,50.4,15.3,224,5550,MALE
+Gentoo,Biscoe,45.3,13.8,208,4200,FEMALE
+Gentoo,Biscoe,46.2,14.9,221,5300,MALE
+Gentoo,Biscoe,45.7,13.9,214,4400,FEMALE
+Gentoo,Biscoe,54.3,15.7,231,5650,MALE
+Gentoo,Biscoe,45.8,14.2,219,4700,FEMALE
+Gentoo,Biscoe,49.8,16.8,230,5700,MALE
+Gentoo,Biscoe,46.2,14.4,214,4650,
+Gentoo,Biscoe,49.5,16.2,229,5800,MALE
+Gentoo,Biscoe,43.5,14.2,220,4700,FEMALE
+Gentoo,Biscoe,50.7,15,223,5550,MALE
+Gentoo,Biscoe,47.7,15,216,4750,FEMALE
+Gentoo,Biscoe,46.4,15.6,221,5000,MALE
+Gentoo,Biscoe,48.2,15.6,221,5100,MALE
+Gentoo,Biscoe,46.5,14.8,217,5200,FEMALE
+Gentoo,Biscoe,46.4,15,216,4700,FEMALE
+Gentoo,Biscoe,48.6,16,230,5800,MALE
+Gentoo,Biscoe,47.5,14.2,209,4600,FEMALE
+Gentoo,Biscoe,51.1,16.3,220,6000,MALE
+Gentoo,Biscoe,45.2,13.8,215,4750,FEMALE
+Gentoo,Biscoe,45.2,16.4,223,5950,MALE
+Gentoo,Biscoe,49.1,14.5,212,4625,FEMALE
+Gentoo,Biscoe,52.5,15.6,221,5450,MALE
+Gentoo,Biscoe,47.4,14.6,212,4725,FEMALE
+Gentoo,Biscoe,50,15.9,224,5350,MALE
+Gentoo,Biscoe,44.9,13.8,212,4750,FEMALE
+Gentoo,Biscoe,50.8,17.3,228,5600,MALE
+Gentoo,Biscoe,43.4,14.4,218,4600,FEMALE
+Gentoo,Biscoe,51.3,14.2,218,5300,MALE
+Gentoo,Biscoe,47.5,14,212,4875,FEMALE
+Gentoo,Biscoe,52.1,17,230,5550,MALE
+Gentoo,Biscoe,47.5,15,218,4950,FEMALE
+Gentoo,Biscoe,52.2,17.1,228,5400,MALE
+Gentoo,Biscoe,45.5,14.5,212,4750,FEMALE
+Gentoo,Biscoe,49.5,16.1,224,5650,MALE
+Gentoo,Biscoe,44.5,14.7,214,4850,FEMALE
+Gentoo,Biscoe,50.8,15.7,226,5200,MALE
+Gentoo,Biscoe,49.4,15.8,216,4925,MALE
+Gentoo,Biscoe,46.9,14.6,222,4875,FEMALE
+Gentoo,Biscoe,48.4,14.4,203,4625,FEMALE
+Gentoo,Biscoe,51.1,16.5,225,5250,MALE
+Gentoo,Biscoe,48.5,15,219,4850,FEMALE
+Gentoo,Biscoe,55.9,17,228,5600,MALE
+Gentoo,Biscoe,47.2,15.5,215,4975,FEMALE
+Gentoo,Biscoe,49.1,15,228,5500,MALE
+Gentoo,Biscoe,47.3,13.8,216,4725,
+Gentoo,Biscoe,46.8,16.1,215,5500,MALE
+Gentoo,Biscoe,41.7,14.7,210,4700,FEMALE
+Gentoo,Biscoe,53.4,15.8,219,5500,MALE
+Gentoo,Biscoe,43.3,14,208,4575,FEMALE
+Gentoo,Biscoe,48.1,15.1,209,5500,MALE
+Gentoo,Biscoe,50.5,15.2,216,5000,FEMALE
+Gentoo,Biscoe,49.8,15.9,229,5950,MALE
+Gentoo,Biscoe,43.5,15.2,213,4650,FEMALE
+Gentoo,Biscoe,51.5,16.3,230,5500,MALE
+Gentoo,Biscoe,46.2,14.1,217,4375,FEMALE
+Gentoo,Biscoe,55.1,16,230,5850,MALE
+Gentoo,Biscoe,44.5,15.7,217,4875,
+Gentoo,Biscoe,48.8,16.2,222,6000,MALE
+Gentoo,Biscoe,47.2,13.7,214,4925,FEMALE
+Gentoo,Biscoe,,,,,
+Gentoo,Biscoe,46.8,14.3,215,4850,FEMALE
+Gentoo,Biscoe,50.4,15.7,222,5750,MALE
+Gentoo,Biscoe,45.2,14.8,212,5200,FEMALE
+Gentoo,Biscoe,49.9,16.1,213,5400,MALE
+```
+
+
+## Pouet
+
+```{r}
+card(
+  full_screen = TRUE,
+  shiny::tags$iframe(
+    # To allow the content to fill the full screen card
+    class = "html-fill-item",
+    src = "https://shinylive.io/r/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAdzgCMAnRRASwgGdSoAbbgCgA6YOtyIEA1gyG4ABAzioi7GQF4ZQgBalSqdogD0+kWMkBaIgwDmGSy1IaArnQwsi+2o1PzF7IQEoBCA8mVg4uXkFhUQkGDAATKC5pOQUlVXUwLR09Q2MY8ysbO0dnV3d6Bi9U3zAAiEDuFkYoBgBPPjzJOsDOKAkZAB5TGQg4agB9Xok+ADMWbjh2RiJqdjgGcc7ZAnYAN03o8Vk1hYJSA5M6tYZduEmuaanxPzAAX1xwaHgqVApLBzY7AwO12eEIJHIlGQ7F+BBYi1wLHY3CgEDiuDo8244wWEEs9nGMBgGKx4ziCgJRNwM0a6HWOL+lOJdCIcVahKg7HY40suDWAA9AgBBcmNOC4AAqFks6zWEFwAGYAJwYACMuFVAA4MAB2DWa9UKnUAVgADLgALJCgAyAFFhaL4ZLpbKKIqVcaNTqMAAWfUANkVmtN5oAYrarXaHXAxc6rK75T7TRgFfqNUrPQqAExm3DhyP2iAimNOqXxhhy3BVqvR2NlmUVt0K-269Mp9OphU+3P5m2F4t1l2N+XK9tZ5OB1VK83N3MF2uloeVhXapVejCa-WG-05vMRvsL8X1hPujBZtuTjO4H3+k2Wg9Fx1HpdNn1q-Xvqedn13w9xhuVj657jme6bmkBuZ-sew6Kt6m6qt66paoGCoKiGuBQS+I5weuqZajOOroZh5aAaqn7epOmrntm6G9lGj4ls+JFNtqgZZmR55ToawbmvODGDsxI5vmxZFIUqm4+kmvEPgOi6CYqLaTjhWqZoRYb7vRslMQBLGtlO6aZt26l8Vp-4nkBGCeiBepTnqRnSZpT5mTBXa+h+fpan6qG7nR-ZOdBgEiZZ6Z+kB6EmU5ABCSLEOKRobh+eE6l5Ul7hFjG4NF7CxbBenajZwYKeFMlRTFRBxcaGBrlOoFamuK60RpfkZVlOUrrV2pIZqmYZg5zWxq15VBglCEdTOPH3o5LVlRV7ZalV+p6g1xkldN2VDUmGCUVt+qdsac6rQNM3XsmnqjdVmpLeOK1TUd61xd6F07Qh1Gqj2TV-oN4qbWdq76jOvWTf1ToACLyLAp5nS2Nk6pu2bvelsZg3AEPxZxnVenD059X+yOox667wZqcNoTdwPinjxKbU9F1edjQO4+DxLNm5CEGYq8NpYdoNM6ewGiemgY+m9OP8TzKPM9qm7jmB7oHbd4sQxZ6PBfhir7WTjMS7ll5zQaHONYjivMyq8Eql1oX+vL5O4JTCmq0Tr0I9zFO85tROs1eyrFQrrva82H6-ShqqGy7ttu2+Yl6UqQupUbfuozZLYXZmIaa2LCcm89UuyzePs23bwufhd1EQQzGfh-73q-QtCFrlmSq-hXdsB+dstds7vuV0rWZjhx6bqsL1ufcdo5KXlKFmunplfSdn5-VqEmk+XM+j2dj3t0ZXNd7PQFtlZ6FJsPFez65NddXqDehzvx1Fx5rED7B+cj-d7rrkH6udzbu8Th+ZudhNeOmVR4tihtndUWZurT1Kq-eKusxJeRNKLVesDKpJ1rt1RUItt7f1vmRVM7Fi6ekks-E+o8KJen1Jmf019cGvyLl1WqSpzxH2QTAtqLYPKIX1H6SBX8X45SLpRdM1FAZANPpVMBnEvYKn4WQ+hAsapdQkiHNhGUApNkqtVRS7dTRyNMhoxMZEzaewklvIBhiOaq2qtOIq0D1FYVPAVT2ANSEGMcWPdc0jJ76P8o47sI0F6N2vNgixHjJHv3bmpHBxEdKJl7h7M6V4IJqIEnEue2iRpKkNNE3ysSTxozbPfOmbi-HyRZpxFsF9P72LSeZXuUcxLELTivMp6TXLj3RvVa6MSK6WIstVChU4hbRLCeU6Gf9FpBlofklylUo4eSVKmMKqTja5SSlkw0sjalrKLgQ5MeElReQ1q0jKLcWyHOseNUpZzeYsyepReqU9emmRbtqS5XS5arMzsNJ6ZsZw0J2T82ReVcDjmoicvJzc3aKIxuOYhy8gEty4fPQyMzoX+xVNtLqsdj6vLuS2Ti3o8KXQNkC7uVNkwe3rqaJeNykZ3IxvNS8BF0X4u1ptEl1ihbbNOQy-2CpPxVMxmC+mUL2VK0FSrJJLDVF8qdBI9cNjqI6h8h9eRgiIHmnHMs1VnpxHkL0pRTspo7zivYUNeK0tzRTnAjmb5wDYEb2ZR2UVaqDWwJVM42mNT5XilPg-Ua0j6pIJeRauK2pgI2tsd7B1AbyJbiwWa9VKDBFSvTOmOyOo7weraky0B6Y4ZUU9OatagjKpsQOY-POcbR5evXDZJZioemlruoI3u0jrF2SzDmsOp8sVguTI2w0YqU3huvL3Zxhyhamv1WHSx7UlL6mlqOsZ7TiWDusSG3tXcF1oMoXVDmviHHyQYR+R5HNdxroKYSrxUyFTYNbXJdd0cslw2edemCm0iVehQlvJ92lzJkXvsFcFQYd02z3bVLRAZFR6PJf03++kpxrikg6hdOdRqXkND2ktY6T3pKLjXQ5CL6XPoKYM4uhp4NhoI+ZSOaZ2LgRaZ+5c2p161xjZzADzlAKCqjtIpaH6w7nMCdYvabKnIt2roHdMqGfxzq7m88i2clplx44XRRMnbXujI8CitkSuJJrw0it2yYo3vh6cqCDWtE4agLSpRUqUNN3PrW3L8E68VSbM7VbhHmuySduRypD3p0ZqZsxi1GDSNQRMXnB49-KlZDoPTGvVfqKXrPs1k6iLSXOYo-AVahXmgv4w6s9WxKT0uie2sUpzybTP+3HmbQyCW1lWo-GJTsoaGuo3HtUo0gXEtUzIjXA+g8WMPgAMIaEBKQBgaAMs3lVs65h6t0XTdm-N1AGXcw1SSShemfENthC2zt-BbZpGditqLY7nBTuF0qiBgq773VTZmydhbdtjSTrbGbJaaWjvvbu59t2lUiVvq+b027c2QccuFfNIlcN7VQ6BzD7bX3zsI8zbBY+0P7tu22jY4hj71V49hxDY0mOVQ2LhqMt7m3ydUx0aNf+0z05k-R7zSnrYQKHMQRFjni2YZ61Uut1H+PtbfY64O8buPxeM+vDB0aYkZzGnq-Tj7nPJenQvDLk6cuGda4p1WmWtkyXl0F19+Cyl9YDfZ-Lo3TPWaBpjf+0nDvFsqhVtI4hccNfA8dxO1mG6tTbjF4bxb7HDPZKc6Qy3bt02qmZ6Sq+9uI9faQyqRZAC48e8LhM9zMjw+a529I7HQ8bt565zr+avD0IBbTyXwuBN9JWcAf7tHi3OGE0fnblH6eucJMHYO4hJzAcD+C7XZPV1i8B522+Cz1rB6Io7xLnuqsC+ktQnI+PkvGHWuWXK8fTe3ZuZd9Q3PE+lbaZbGbeqq7V8K5-NnOaXsoH95P5Lizl8Q7Xnb-RXfJWZOLLS8YCXJd3K-YkY0QVJJBaeFRXS-T-JWGxUDX-ZUA3JAp3cHX6Jaa7D-OfDPTjYuHxSvSAxXZbQWNbRvAg6vWuFbFCW8EzR-QPM0MTMba8cxZgnbZMJCFbGcZzCAzA68FAkSFhFfAAqvPfB2PKK6DAmgjlU2XCQtBSdXCQsgn0fNT2eqbjQQ+QinYDDNccEdOQzvB7PSEPJtZsWfUw2gxtHnU0ZZGjY-PQqmXuDjElJaXlKFQAqAjtSZM3DuUgoQgJSpcrHDHfSQ5A1-OAhw-XIIlw3AVglWa1aif-QsHw8g3WRZY5V7NQoQ7nFAg+A7EwtfJ3eCBzTUeqPA7wyIqmfdNmKcIragmwyXSqExa1OyCbPIhIn0GA6XMDBvfAloqI7aS7WCAXWoxIqlQw3-YWRAhIpIgrZQo0VQwsAAcQoFICICIEdUEXh3TXYkHmeShQ2LIG2N2KGl2wuTBTQkSLp3olOK2J2N3nyg1AYyYw4LkUePONnl2zBzBS1DuNIW+OeNviGTfCsjekSL9weM2J+Nvgcz6I+O7C+LhNBPoUezeJ2kOL-3RRBIuO+gL0qgIX0m+2BLRIJOvEFTwkFTr3kzxIpN3lvxizcnYk9Ep2PnxJ-lrkFR-0tlRLOPRMEUyQgST0SLHwfC5Nvli15IBP5PTilPoW1A8mEgBNTGNHfz4kVPLRGlVORJbXVW1I2hVDwn3XYj1A1M5MZNvk4iRNmJJy1OtPoS9xZOAnYlwH9HEPWKdL2NqghMHVQwmhOJ9I2leLeksyzHPGgKtMFMpMWNVDfBJM3DV3JNjN3nmSxMhPZNy0NJDMJNVn9PYmWQEMdLTIRLmjaIBOzJjKeMpIGQ1H4yrKmIZLLPoXhwzLZMSKP0lLzI4ILL7iFjlUCCNO+mUizMSLwNLNrJeL9L7nAkBV6RHKmJZIIRln2hrPhPoRD2JLBUjMSORynM3PbV1NAnHFQ3AMPKFI2gzITNA1NSmIFOnOOmNAHTZizFuJoQ3KvO+nNixOljXIdJ7NbMEWVKy1XPNGNBhO9OAo2l7knFlKLOEMfKPI2jfBRRJLXG+y-LrI8kFUrSXmQu-L-z0jNNpUSN5UvLrJ+1VAQrIvQIVN7J9FfLYl3BTNFiXICRpJ51mOXmDJgp-OekhJGWwt+Jrxg0jKjIlNhP4qpOekFXrjZiYpbKfIxNVnkoBLtWUpQvFFYLOnEtYqguHMYrfGqmpLVK7K0qIpCJZOlihOgNTJUt9MnAXw0r-0IrrKj1vIgTXK9KMpkoCSQjQtcpIQYpktYKQislYq6Ogsco2gcyCvNOEMsrrL0tZLXKcKAtiu+kFXgnUvHDpVCqyvIL0t3Iguir8qKt6NnIPjMXctEtZh3MjL9HXPYsYp3JooSnyonWSqZNnPrndPstav8vqLyoTI4J6ufMTJZMvgfQnJEulJPP5nPImudJGmZPfIgvuJiu0uvFvVvN4TGpvEgggA4pb1vUjMwrSIqp2qqrOhcsjPAgvMyp2tYJskivVKku2qsu9DeoBOEsKpuu73DJYvVCniGsqsjRZJBosvBsBv7NsotINMot6o8iEuvCeukohuejYluI1Icpuu03utNFQwXL4qKu5yQmuIeo9PKpOratqhyqbIUwBqsv+KTzSvVLEWeqst-NvMhJYR3CYMxpercKht3NBs4OFu+tZj1NVBYTSzJpeptX0uaoou5pwp5M6rlvRrqufOmNGlXOTIXORtvlpKxIOoklJtzLCsx3usBMGvLg4sJoBJYUuiFq+rjOizfNxs+uuulpKvYgkkBkVqIu+18wjOTMMrpuGv7P5p1pZrrLOojOasnPVt3n9NvL5LcoTvqvgjNKzEDDJNhp5oaq1qFmYUUw9t6uqj1L3I0NWL9o8pltZNiJvFyKrufMUQLUjPZIPLTtvk8shMDN1tfn2joN3KNvxuls4giU7KYobujsqt5siuTOEylrrJD0ZvYhGV3Ebt6vKMszsrXo7oUT0jfB-0epWpymgNLtsswuPr3tNrmjrwkjV3dsfqVM-A7OJvFKnrjLEtPLFLBsXMYsUPDP6swq5vXt3j6PDP5mWWqOtvJpGzApuIgofsXrhs4neMUqNHfswdDpvJxogs1P7voQzrNMUrdowgIaboPrdPPEBWLo3oZu4tCgrpAZkurBoY4uZNvJJOIXfxDv-tLsvj3LfuYfTNnNsqjKRrIeFKn0PvVKjreAAF0gA",
+    height = 800,
+    width = "100%",
+    style = "border: 1px solid rgba(0,0,0,0.175); border-radius: .375rem;",
+    allowfullscreen = "",
+    allow = "autoplay",
+    `data-external` = "1"
+  )
+)
+```
