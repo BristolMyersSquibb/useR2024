@@ -101,7 +101,6 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
-<link rel="stylesheet" href="assets/style/extra.css">
 <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
 <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
 <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -395,9 +394,8 @@
       margin-right: 0; 
     }
   </style>
-<link href="index_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-<script src="index_files/libs/bslib-component-js-0.7.0/components.min.js"></script><script src="index_files/libs/bslib-component-js-0.7.0/web-components.min.js" type="module"></script><link href="index_files/libs/bslib-component-css-0.7.0/components.css" rel="stylesheet">
-<script src="index_files/libs/bslib-tag-require-0.7.0/tag-require.js"></script>
+<meta name="mermaid-theme" content="default">
+<script src="index_files/libs/quarto-diagram/mermaid.min.js"></script><script src="index_files/libs/quarto-diagram/mermaid-init.js"></script><link href="index_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -413,12 +411,141 @@ John Coene (Opifex) and David Granjon (cynkra GmbH)
 </div>
 </div>
 
-</section><section><section id="section" class="title-slide slide level1 center" data-stack-name="Intro"><h1><img data-src="assets/img/shiny.svg" class="quarto-figure quarto-figure-center" style="width:25.0%"></h1>
+</section><section><section id="shiny-logo" class="title-slide slide level1 center" data-stack-name="Intro"><h1><img data-src="assets/img/shiny.svg" class="quarto-figure quarto-figure-center" style="width:50.0%" alt="shiny logo"></h1>
+<blockquote>
+<p><strong>Easy</strong> web apps for data science without the compromises</p>
+</blockquote>
+</section><section id="easy-not-so-easy-web-apps-for-data-science-without-the-compromises" class="slide level2" data-auto-animate="true" style="margin-top: 200px; font-size: 3em; color: red;"><h2 data-id="quarto-animate-title">
+<del>Easy</del> Not so easy web apps for data science without the compromises</h2>
+</section><section id="develop-a-enterprise-grade-dashboard-isnt-easy" class="slide level2"><h2>Develop a enterprise grade dashboard isn’t easy</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/img/undraw_cooking_p7m1.svg"></p>
+</div><div class="column">
+<ul>
+<li>Do you know how to prepare a meal without the right recipe?</li>
+<li>Do you have the right ingredients?</li>
+</ul>
+</div>
+</div>
+</section><section id="introducing-blockr" class="slide level2"><h2>💡 Introducing {blockr}</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/img/undraw_empty_cart_co35.svg"></p>
+</div><div class="column">
+<ul>
+<li>
+<strong>No-Code</strong> Dashboard builder for R</li>
+<li>“Shiny’s WordPress”</li>
+<li>
+<strong>Supermarket</strong> for data analysis with R</li>
+</ul>
+</div>
+</div>
+</section><section id="blockr-vs-shiny" class="slide level2"><h2>blockr vs Shiny</h2>
+<div class="columns">
+<div class="column">
 
-</section><section id="easy-web-apps-for-data-science-without-the-compromises" class="slide level2"><h2>Easy web apps for data science without the compromises</h2>
-</section><section id="easy-web-apps-for-data-science-without-the-compromises-1" class="slide level2"><h2>
-<del>Easy</del> web apps for data science without the compromises</h2>
-</section><section id="develop-a-enterprise-grade-dashboard-isnt-that-easy" class="slide level2"><h2>Develop a enterprise grade dashboard isn’t that easy</h2>
+</div><div class="column">
+
+</div>
+</div>
+</section><section id="blockrs-mission-statement" class="slide level2"><h2>{blockr}’s mission statement</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/img/undraw_super_woman_dv-0-y.svg"></p>
+</div><div class="column">
+<ul>
+<li>Reduce back and forth between Shiny developers and data scientist</li>
+<li>Cut down development time from <strong>weeks</strong> to <strong>day</strong>.</li>
+<li>Extendable.</li>
+<li>Reproducible code.</li>
+</ul>
+</div>
+</div>
+</section></section><section><section id="bockr-101" class="title-slide slide level1 center" data-stack-name="blockr 101"><h1>bockr 101</h1>
+
+</section><section id="blocks-and-fields-the-ingredients" class="slide level2"><h2>Blocks and fields: the ingredients 🥦 🥚</h2>
+<div class="columns">
+<div class="column">
+<p>Select block</p>
+<div class="cell" data-reveal="true" data-fig-width="2" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""></figure><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  data_in(Data input)
+  data_out(Transformed data)
+  subgraph block
+    select_col[Select column]
+  end
+  data_in --&gt; block --&gt; data_out
+</pre>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</div><div class="column">
+<p>Filter block</p>
+<div class="cell" data-reveal="true" data-fig-width="2" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""></figure><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  data_in(Data input)
+  data_out(Transformed data)
+  subgraph block
+    select_col[Select columns] --&gt; filter_func[Filter function ==, !=] --&gt; filter_val[Filter values]
+  end
+  data_in --&gt; block --&gt; data_out
+</pre>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="the-stack-data-analysis-recipe" class="slide level2"><h2>The stack: data analysis recipe 📜</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="assets/img/undraw_diet_ghvw.svg"></p>
+</div><div class="column">
+<p>Collection of instructions to go from <strong>data import</strong> to <strong>wrangling</strong> (and optionally visualisation)</p>
+<div class="cell" data-reveal="true" data-fig-width="6" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""></figure><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  subgraph stack
+    direction TB
+    input_1(Data);
+    transform_1(Transform);
+    output_1(Visualize);
+    input_1 --&gt; transform_1 --&gt; output_1;
+  end
+  stack --&gt; stack2
+  subgraph stack2
+    direction TB
+    input_2(Data);
+    transform_2(Transform);
+    output_2(Visualize);
+    input_2 --&gt; transform_2 --&gt; output_2;
+  end
+</pre>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="the-workspace-the-dinner-party" class="slide level2"><h2>The workspace: the dinner party</h2>
+<p>Binds multiple recipes together</p>
 </section><section id="blockr-demo" class="slide level2"><h2>blockr demo</h2>
 <div class="sourceCode" id="cb1" data-engine="r"><pre class="sourceCode numberSource shinylive-r number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>#| standalone: true</span>
 <span id="cb1-2"><a href=""></a>#| components: [viewer]</span>
@@ -434,362 +561,39 @@ John Coene (Opifex) and David Granjon (cynkra GmbH)
 <span id="cb1-12"><a href=""></a></span>
 <span id="cb1-13"><a href=""></a>## file: penguins.csv</span>
 <span id="cb1-14"><a href=""></a>species,island,bill_length_mm,bill_depth_mm,flipper_length_mm,body_mass_g,sex</span>
-<span id="cb1-15"><a href=""></a>Adelie,Torgersen,39.1,18.7,181,3750,MALE</span>
-<span id="cb1-16"><a href=""></a>Adelie,Torgersen,39.5,17.4,186,3800,FEMALE</span>
-<span id="cb1-17"><a href=""></a>Adelie,Torgersen,40.3,18,195,3250,FEMALE</span>
-<span id="cb1-18"><a href=""></a>Adelie,Torgersen,,,,,</span>
-<span id="cb1-19"><a href=""></a>Adelie,Torgersen,36.7,19.3,193,3450,FEMALE</span>
-<span id="cb1-20"><a href=""></a>Adelie,Torgersen,39.3,20.6,190,3650,MALE</span>
-<span id="cb1-21"><a href=""></a>Adelie,Torgersen,38.9,17.8,181,3625,FEMALE</span>
-<span id="cb1-22"><a href=""></a>Adelie,Torgersen,39.2,19.6,195,4675,MALE</span>
-<span id="cb1-23"><a href=""></a>Adelie,Torgersen,34.1,18.1,193,3475,</span>
-<span id="cb1-24"><a href=""></a>Adelie,Torgersen,42,20.2,190,4250,</span>
-<span id="cb1-25"><a href=""></a>Adelie,Torgersen,37.8,17.1,186,3300,</span>
-<span id="cb1-26"><a href=""></a>Adelie,Torgersen,37.8,17.3,180,3700,</span>
-<span id="cb1-27"><a href=""></a>Adelie,Torgersen,41.1,17.6,182,3200,FEMALE</span>
-<span id="cb1-28"><a href=""></a>Adelie,Torgersen,38.6,21.2,191,3800,MALE</span>
-<span id="cb1-29"><a href=""></a>Adelie,Torgersen,34.6,21.1,198,4400,MALE</span>
-<span id="cb1-30"><a href=""></a>Adelie,Torgersen,36.6,17.8,185,3700,FEMALE</span>
-<span id="cb1-31"><a href=""></a>Adelie,Torgersen,38.7,19,195,3450,FEMALE</span>
-<span id="cb1-32"><a href=""></a>Adelie,Torgersen,42.5,20.7,197,4500,MALE</span>
-<span id="cb1-33"><a href=""></a>Adelie,Torgersen,34.4,18.4,184,3325,FEMALE</span>
-<span id="cb1-34"><a href=""></a>Adelie,Torgersen,46,21.5,194,4200,MALE</span>
-<span id="cb1-35"><a href=""></a>Adelie,Biscoe,37.8,18.3,174,3400,FEMALE</span>
-<span id="cb1-36"><a href=""></a>Adelie,Biscoe,37.7,18.7,180,3600,MALE</span>
-<span id="cb1-37"><a href=""></a>Adelie,Biscoe,35.9,19.2,189,3800,FEMALE</span>
-<span id="cb1-38"><a href=""></a>Adelie,Biscoe,38.2,18.1,185,3950,MALE</span>
-<span id="cb1-39"><a href=""></a>Adelie,Biscoe,38.8,17.2,180,3800,MALE</span>
-<span id="cb1-40"><a href=""></a>Adelie,Biscoe,35.3,18.9,187,3800,FEMALE</span>
-<span id="cb1-41"><a href=""></a>Adelie,Biscoe,40.6,18.6,183,3550,MALE</span>
-<span id="cb1-42"><a href=""></a>Adelie,Biscoe,40.5,17.9,187,3200,FEMALE</span>
-<span id="cb1-43"><a href=""></a>Adelie,Biscoe,37.9,18.6,172,3150,FEMALE</span>
-<span id="cb1-44"><a href=""></a>Adelie,Biscoe,40.5,18.9,180,3950,MALE</span>
-<span id="cb1-45"><a href=""></a>Adelie,Dream,39.5,16.7,178,3250,FEMALE</span>
-<span id="cb1-46"><a href=""></a>Adelie,Dream,37.2,18.1,178,3900,MALE</span>
-<span id="cb1-47"><a href=""></a>Adelie,Dream,39.5,17.8,188,3300,FEMALE</span>
-<span id="cb1-48"><a href=""></a>Adelie,Dream,40.9,18.9,184,3900,MALE</span>
-<span id="cb1-49"><a href=""></a>Adelie,Dream,36.4,17,195,3325,FEMALE</span>
-<span id="cb1-50"><a href=""></a>Adelie,Dream,39.2,21.1,196,4150,MALE</span>
-<span id="cb1-51"><a href=""></a>Adelie,Dream,38.8,20,190,3950,MALE</span>
-<span id="cb1-52"><a href=""></a>Adelie,Dream,42.2,18.5,180,3550,FEMALE</span>
-<span id="cb1-53"><a href=""></a>Adelie,Dream,37.6,19.3,181,3300,FEMALE</span>
-<span id="cb1-54"><a href=""></a>Adelie,Dream,39.8,19.1,184,4650,MALE</span>
-<span id="cb1-55"><a href=""></a>Adelie,Dream,36.5,18,182,3150,FEMALE</span>
-<span id="cb1-56"><a href=""></a>Adelie,Dream,40.8,18.4,195,3900,MALE</span>
-<span id="cb1-57"><a href=""></a>Adelie,Dream,36,18.5,186,3100,FEMALE</span>
-<span id="cb1-58"><a href=""></a>Adelie,Dream,44.1,19.7,196,4400,MALE</span>
-<span id="cb1-59"><a href=""></a>Adelie,Dream,37,16.9,185,3000,FEMALE</span>
-<span id="cb1-60"><a href=""></a>Adelie,Dream,39.6,18.8,190,4600,MALE</span>
-<span id="cb1-61"><a href=""></a>Adelie,Dream,41.1,19,182,3425,MALE</span>
-<span id="cb1-62"><a href=""></a>Adelie,Dream,37.5,18.9,179,2975,</span>
-<span id="cb1-63"><a href=""></a>Adelie,Dream,36,17.9,190,3450,FEMALE</span>
-<span id="cb1-64"><a href=""></a>Adelie,Dream,42.3,21.2,191,4150,MALE</span>
-<span id="cb1-65"><a href=""></a>Adelie,Biscoe,39.6,17.7,186,3500,FEMALE</span>
-<span id="cb1-66"><a href=""></a>Adelie,Biscoe,40.1,18.9,188,4300,MALE</span>
-<span id="cb1-67"><a href=""></a>Adelie,Biscoe,35,17.9,190,3450,FEMALE</span>
-<span id="cb1-68"><a href=""></a>Adelie,Biscoe,42,19.5,200,4050,MALE</span>
-<span id="cb1-69"><a href=""></a>Adelie,Biscoe,34.5,18.1,187,2900,FEMALE</span>
-<span id="cb1-70"><a href=""></a>Adelie,Biscoe,41.4,18.6,191,3700,MALE</span>
-<span id="cb1-71"><a href=""></a>Adelie,Biscoe,39,17.5,186,3550,FEMALE</span>
-<span id="cb1-72"><a href=""></a>Adelie,Biscoe,40.6,18.8,193,3800,MALE</span>
-<span id="cb1-73"><a href=""></a>Adelie,Biscoe,36.5,16.6,181,2850,FEMALE</span>
-<span id="cb1-74"><a href=""></a>Adelie,Biscoe,37.6,19.1,194,3750,MALE</span>
-<span id="cb1-75"><a href=""></a>Adelie,Biscoe,35.7,16.9,185,3150,FEMALE</span>
-<span id="cb1-76"><a href=""></a>Adelie,Biscoe,41.3,21.1,195,4400,MALE</span>
-<span id="cb1-77"><a href=""></a>Adelie,Biscoe,37.6,17,185,3600,FEMALE</span>
-<span id="cb1-78"><a href=""></a>Adelie,Biscoe,41.1,18.2,192,4050,MALE</span>
-<span id="cb1-79"><a href=""></a>Adelie,Biscoe,36.4,17.1,184,2850,FEMALE</span>
-<span id="cb1-80"><a href=""></a>Adelie,Biscoe,41.6,18,192,3950,MALE</span>
-<span id="cb1-81"><a href=""></a>Adelie,Biscoe,35.5,16.2,195,3350,FEMALE</span>
-<span id="cb1-82"><a href=""></a>Adelie,Biscoe,41.1,19.1,188,4100,MALE</span>
-<span id="cb1-83"><a href=""></a>Adelie,Torgersen,35.9,16.6,190,3050,FEMALE</span>
-<span id="cb1-84"><a href=""></a>Adelie,Torgersen,41.8,19.4,198,4450,MALE</span>
-<span id="cb1-85"><a href=""></a>Adelie,Torgersen,33.5,19,190,3600,FEMALE</span>
-<span id="cb1-86"><a href=""></a>Adelie,Torgersen,39.7,18.4,190,3900,MALE</span>
-<span id="cb1-87"><a href=""></a>Adelie,Torgersen,39.6,17.2,196,3550,FEMALE</span>
-<span id="cb1-88"><a href=""></a>Adelie,Torgersen,45.8,18.9,197,4150,MALE</span>
-<span id="cb1-89"><a href=""></a>Adelie,Torgersen,35.5,17.5,190,3700,FEMALE</span>
-<span id="cb1-90"><a href=""></a>Adelie,Torgersen,42.8,18.5,195,4250,MALE</span>
-<span id="cb1-91"><a href=""></a>Adelie,Torgersen,40.9,16.8,191,3700,FEMALE</span>
-<span id="cb1-92"><a href=""></a>Adelie,Torgersen,37.2,19.4,184,3900,MALE</span>
-<span id="cb1-93"><a href=""></a>Adelie,Torgersen,36.2,16.1,187,3550,FEMALE</span>
-<span id="cb1-94"><a href=""></a>Adelie,Torgersen,42.1,19.1,195,4000,MALE</span>
-<span id="cb1-95"><a href=""></a>Adelie,Torgersen,34.6,17.2,189,3200,FEMALE</span>
-<span id="cb1-96"><a href=""></a>Adelie,Torgersen,42.9,17.6,196,4700,MALE</span>
-<span id="cb1-97"><a href=""></a>Adelie,Torgersen,36.7,18.8,187,3800,FEMALE</span>
-<span id="cb1-98"><a href=""></a>Adelie,Torgersen,35.1,19.4,193,4200,MALE</span>
-<span id="cb1-99"><a href=""></a>Adelie,Dream,37.3,17.8,191,3350,FEMALE</span>
-<span id="cb1-100"><a href=""></a>Adelie,Dream,41.3,20.3,194,3550,MALE</span>
-<span id="cb1-101"><a href=""></a>Adelie,Dream,36.3,19.5,190,3800,MALE</span>
-<span id="cb1-102"><a href=""></a>Adelie,Dream,36.9,18.6,189,3500,FEMALE</span>
-<span id="cb1-103"><a href=""></a>Adelie,Dream,38.3,19.2,189,3950,MALE</span>
-<span id="cb1-104"><a href=""></a>Adelie,Dream,38.9,18.8,190,3600,FEMALE</span>
-<span id="cb1-105"><a href=""></a>Adelie,Dream,35.7,18,202,3550,FEMALE</span>
-<span id="cb1-106"><a href=""></a>Adelie,Dream,41.1,18.1,205,4300,MALE</span>
-<span id="cb1-107"><a href=""></a>Adelie,Dream,34,17.1,185,3400,FEMALE</span>
-<span id="cb1-108"><a href=""></a>Adelie,Dream,39.6,18.1,186,4450,MALE</span>
-<span id="cb1-109"><a href=""></a>Adelie,Dream,36.2,17.3,187,3300,FEMALE</span>
-<span id="cb1-110"><a href=""></a>Adelie,Dream,40.8,18.9,208,4300,MALE</span>
-<span id="cb1-111"><a href=""></a>Adelie,Dream,38.1,18.6,190,3700,FEMALE</span>
-<span id="cb1-112"><a href=""></a>Adelie,Dream,40.3,18.5,196,4350,MALE</span>
-<span id="cb1-113"><a href=""></a>Adelie,Dream,33.1,16.1,178,2900,FEMALE</span>
-<span id="cb1-114"><a href=""></a>Adelie,Dream,43.2,18.5,192,4100,MALE</span>
-<span id="cb1-115"><a href=""></a>Adelie,Biscoe,35,17.9,192,3725,FEMALE</span>
-<span id="cb1-116"><a href=""></a>Adelie,Biscoe,41,20,203,4725,MALE</span>
-<span id="cb1-117"><a href=""></a>Adelie,Biscoe,37.7,16,183,3075,FEMALE</span>
-<span id="cb1-118"><a href=""></a>Adelie,Biscoe,37.8,20,190,4250,MALE</span>
-<span id="cb1-119"><a href=""></a>Adelie,Biscoe,37.9,18.6,193,2925,FEMALE</span>
-<span id="cb1-120"><a href=""></a>Adelie,Biscoe,39.7,18.9,184,3550,MALE</span>
-<span id="cb1-121"><a href=""></a>Adelie,Biscoe,38.6,17.2,199,3750,FEMALE</span>
-<span id="cb1-122"><a href=""></a>Adelie,Biscoe,38.2,20,190,3900,MALE</span>
-<span id="cb1-123"><a href=""></a>Adelie,Biscoe,38.1,17,181,3175,FEMALE</span>
-<span id="cb1-124"><a href=""></a>Adelie,Biscoe,43.2,19,197,4775,MALE</span>
-<span id="cb1-125"><a href=""></a>Adelie,Biscoe,38.1,16.5,198,3825,FEMALE</span>
-<span id="cb1-126"><a href=""></a>Adelie,Biscoe,45.6,20.3,191,4600,MALE</span>
-<span id="cb1-127"><a href=""></a>Adelie,Biscoe,39.7,17.7,193,3200,FEMALE</span>
-<span id="cb1-128"><a href=""></a>Adelie,Biscoe,42.2,19.5,197,4275,MALE</span>
-<span id="cb1-129"><a href=""></a>Adelie,Biscoe,39.6,20.7,191,3900,FEMALE</span>
-<span id="cb1-130"><a href=""></a>Adelie,Biscoe,42.7,18.3,196,4075,MALE</span>
-<span id="cb1-131"><a href=""></a>Adelie,Torgersen,38.6,17,188,2900,FEMALE</span>
-<span id="cb1-132"><a href=""></a>Adelie,Torgersen,37.3,20.5,199,3775,MALE</span>
-<span id="cb1-133"><a href=""></a>Adelie,Torgersen,35.7,17,189,3350,FEMALE</span>
-<span id="cb1-134"><a href=""></a>Adelie,Torgersen,41.1,18.6,189,3325,MALE</span>
-<span id="cb1-135"><a href=""></a>Adelie,Torgersen,36.2,17.2,187,3150,FEMALE</span>
-<span id="cb1-136"><a href=""></a>Adelie,Torgersen,37.7,19.8,198,3500,MALE</span>
-<span id="cb1-137"><a href=""></a>Adelie,Torgersen,40.2,17,176,3450,FEMALE</span>
-<span id="cb1-138"><a href=""></a>Adelie,Torgersen,41.4,18.5,202,3875,MALE</span>
-<span id="cb1-139"><a href=""></a>Adelie,Torgersen,35.2,15.9,186,3050,FEMALE</span>
-<span id="cb1-140"><a href=""></a>Adelie,Torgersen,40.6,19,199,4000,MALE</span>
-<span id="cb1-141"><a href=""></a>Adelie,Torgersen,38.8,17.6,191,3275,FEMALE</span>
-<span id="cb1-142"><a href=""></a>Adelie,Torgersen,41.5,18.3,195,4300,MALE</span>
-<span id="cb1-143"><a href=""></a>Adelie,Torgersen,39,17.1,191,3050,FEMALE</span>
-<span id="cb1-144"><a href=""></a>Adelie,Torgersen,44.1,18,210,4000,MALE</span>
-<span id="cb1-145"><a href=""></a>Adelie,Torgersen,38.5,17.9,190,3325,FEMALE</span>
-<span id="cb1-146"><a href=""></a>Adelie,Torgersen,43.1,19.2,197,3500,MALE</span>
-<span id="cb1-147"><a href=""></a>Adelie,Dream,36.8,18.5,193,3500,FEMALE</span>
-<span id="cb1-148"><a href=""></a>Adelie,Dream,37.5,18.5,199,4475,MALE</span>
-<span id="cb1-149"><a href=""></a>Adelie,Dream,38.1,17.6,187,3425,FEMALE</span>
-<span id="cb1-150"><a href=""></a>Adelie,Dream,41.1,17.5,190,3900,MALE</span>
-<span id="cb1-151"><a href=""></a>Adelie,Dream,35.6,17.5,191,3175,FEMALE</span>
-<span id="cb1-152"><a href=""></a>Adelie,Dream,40.2,20.1,200,3975,MALE</span>
-<span id="cb1-153"><a href=""></a>Adelie,Dream,37,16.5,185,3400,FEMALE</span>
-<span id="cb1-154"><a href=""></a>Adelie,Dream,39.7,17.9,193,4250,MALE</span>
-<span id="cb1-155"><a href=""></a>Adelie,Dream,40.2,17.1,193,3400,FEMALE</span>
-<span id="cb1-156"><a href=""></a>Adelie,Dream,40.6,17.2,187,3475,MALE</span>
-<span id="cb1-157"><a href=""></a>Adelie,Dream,32.1,15.5,188,3050,FEMALE</span>
-<span id="cb1-158"><a href=""></a>Adelie,Dream,40.7,17,190,3725,MALE</span>
-<span id="cb1-159"><a href=""></a>Adelie,Dream,37.3,16.8,192,3000,FEMALE</span>
-<span id="cb1-160"><a href=""></a>Adelie,Dream,39,18.7,185,3650,MALE</span>
-<span id="cb1-161"><a href=""></a>Adelie,Dream,39.2,18.6,190,4250,MALE</span>
-<span id="cb1-162"><a href=""></a>Adelie,Dream,36.6,18.4,184,3475,FEMALE</span>
-<span id="cb1-163"><a href=""></a>Adelie,Dream,36,17.8,195,3450,FEMALE</span>
-<span id="cb1-164"><a href=""></a>Adelie,Dream,37.8,18.1,193,3750,MALE</span>
-<span id="cb1-165"><a href=""></a>Adelie,Dream,36,17.1,187,3700,FEMALE</span>
-<span id="cb1-166"><a href=""></a>Adelie,Dream,41.5,18.5,201,4000,MALE</span>
-<span id="cb1-167"><a href=""></a>Chinstrap,Dream,46.5,17.9,192,3500,FEMALE</span>
-<span id="cb1-168"><a href=""></a>Chinstrap,Dream,50,19.5,196,3900,MALE</span>
-<span id="cb1-169"><a href=""></a>Chinstrap,Dream,51.3,19.2,193,3650,MALE</span>
-<span id="cb1-170"><a href=""></a>Chinstrap,Dream,45.4,18.7,188,3525,FEMALE</span>
-<span id="cb1-171"><a href=""></a>Chinstrap,Dream,52.7,19.8,197,3725,MALE</span>
-<span id="cb1-172"><a href=""></a>Chinstrap,Dream,45.2,17.8,198,3950,FEMALE</span>
-<span id="cb1-173"><a href=""></a>Chinstrap,Dream,46.1,18.2,178,3250,FEMALE</span>
-<span id="cb1-174"><a href=""></a>Chinstrap,Dream,51.3,18.2,197,3750,MALE</span>
-<span id="cb1-175"><a href=""></a>Chinstrap,Dream,46,18.9,195,4150,FEMALE</span>
-<span id="cb1-176"><a href=""></a>Chinstrap,Dream,51.3,19.9,198,3700,MALE</span>
-<span id="cb1-177"><a href=""></a>Chinstrap,Dream,46.6,17.8,193,3800,FEMALE</span>
-<span id="cb1-178"><a href=""></a>Chinstrap,Dream,51.7,20.3,194,3775,MALE</span>
-<span id="cb1-179"><a href=""></a>Chinstrap,Dream,47,17.3,185,3700,FEMALE</span>
-<span id="cb1-180"><a href=""></a>Chinstrap,Dream,52,18.1,201,4050,MALE</span>
-<span id="cb1-181"><a href=""></a>Chinstrap,Dream,45.9,17.1,190,3575,FEMALE</span>
-<span id="cb1-182"><a href=""></a>Chinstrap,Dream,50.5,19.6,201,4050,MALE</span>
-<span id="cb1-183"><a href=""></a>Chinstrap,Dream,50.3,20,197,3300,MALE</span>
-<span id="cb1-184"><a href=""></a>Chinstrap,Dream,58,17.8,181,3700,FEMALE</span>
-<span id="cb1-185"><a href=""></a>Chinstrap,Dream,46.4,18.6,190,3450,FEMALE</span>
-<span id="cb1-186"><a href=""></a>Chinstrap,Dream,49.2,18.2,195,4400,MALE</span>
-<span id="cb1-187"><a href=""></a>Chinstrap,Dream,42.4,17.3,181,3600,FEMALE</span>
-<span id="cb1-188"><a href=""></a>Chinstrap,Dream,48.5,17.5,191,3400,MALE</span>
-<span id="cb1-189"><a href=""></a>Chinstrap,Dream,43.2,16.6,187,2900,FEMALE</span>
-<span id="cb1-190"><a href=""></a>Chinstrap,Dream,50.6,19.4,193,3800,MALE</span>
-<span id="cb1-191"><a href=""></a>Chinstrap,Dream,46.7,17.9,195,3300,FEMALE</span>
-<span id="cb1-192"><a href=""></a>Chinstrap,Dream,52,19,197,4150,MALE</span>
-<span id="cb1-193"><a href=""></a>Chinstrap,Dream,50.5,18.4,200,3400,FEMALE</span>
-<span id="cb1-194"><a href=""></a>Chinstrap,Dream,49.5,19,200,3800,MALE</span>
-<span id="cb1-195"><a href=""></a>Chinstrap,Dream,46.4,17.8,191,3700,FEMALE</span>
-<span id="cb1-196"><a href=""></a>Chinstrap,Dream,52.8,20,205,4550,MALE</span>
-<span id="cb1-197"><a href=""></a>Chinstrap,Dream,40.9,16.6,187,3200,FEMALE</span>
-<span id="cb1-198"><a href=""></a>Chinstrap,Dream,54.2,20.8,201,4300,MALE</span>
-<span id="cb1-199"><a href=""></a>Chinstrap,Dream,42.5,16.7,187,3350,FEMALE</span>
-<span id="cb1-200"><a href=""></a>Chinstrap,Dream,51,18.8,203,4100,MALE</span>
-<span id="cb1-201"><a href=""></a>Chinstrap,Dream,49.7,18.6,195,3600,MALE</span>
-<span id="cb1-202"><a href=""></a>Chinstrap,Dream,47.5,16.8,199,3900,FEMALE</span>
-<span id="cb1-203"><a href=""></a>Chinstrap,Dream,47.6,18.3,195,3850,FEMALE</span>
-<span id="cb1-204"><a href=""></a>Chinstrap,Dream,52,20.7,210,4800,MALE</span>
-<span id="cb1-205"><a href=""></a>Chinstrap,Dream,46.9,16.6,192,2700,FEMALE</span>
-<span id="cb1-206"><a href=""></a>Chinstrap,Dream,53.5,19.9,205,4500,MALE</span>
-<span id="cb1-207"><a href=""></a>Chinstrap,Dream,49,19.5,210,3950,MALE</span>
-<span id="cb1-208"><a href=""></a>Chinstrap,Dream,46.2,17.5,187,3650,FEMALE</span>
-<span id="cb1-209"><a href=""></a>Chinstrap,Dream,50.9,19.1,196,3550,MALE</span>
-<span id="cb1-210"><a href=""></a>Chinstrap,Dream,45.5,17,196,3500,FEMALE</span>
-<span id="cb1-211"><a href=""></a>Chinstrap,Dream,50.9,17.9,196,3675,FEMALE</span>
-<span id="cb1-212"><a href=""></a>Chinstrap,Dream,50.8,18.5,201,4450,MALE</span>
-<span id="cb1-213"><a href=""></a>Chinstrap,Dream,50.1,17.9,190,3400,FEMALE</span>
-<span id="cb1-214"><a href=""></a>Chinstrap,Dream,49,19.6,212,4300,MALE</span>
-<span id="cb1-215"><a href=""></a>Chinstrap,Dream,51.5,18.7,187,3250,MALE</span>
-<span id="cb1-216"><a href=""></a>Chinstrap,Dream,49.8,17.3,198,3675,FEMALE</span>
-<span id="cb1-217"><a href=""></a>Chinstrap,Dream,48.1,16.4,199,3325,FEMALE</span>
-<span id="cb1-218"><a href=""></a>Chinstrap,Dream,51.4,19,201,3950,MALE</span>
-<span id="cb1-219"><a href=""></a>Chinstrap,Dream,45.7,17.3,193,3600,FEMALE</span>
-<span id="cb1-220"><a href=""></a>Chinstrap,Dream,50.7,19.7,203,4050,MALE</span>
-<span id="cb1-221"><a href=""></a>Chinstrap,Dream,42.5,17.3,187,3350,FEMALE</span>
-<span id="cb1-222"><a href=""></a>Chinstrap,Dream,52.2,18.8,197,3450,MALE</span>
-<span id="cb1-223"><a href=""></a>Chinstrap,Dream,45.2,16.6,191,3250,FEMALE</span>
-<span id="cb1-224"><a href=""></a>Chinstrap,Dream,49.3,19.9,203,4050,MALE</span>
-<span id="cb1-225"><a href=""></a>Chinstrap,Dream,50.2,18.8,202,3800,MALE</span>
-<span id="cb1-226"><a href=""></a>Chinstrap,Dream,45.6,19.4,194,3525,FEMALE</span>
-<span id="cb1-227"><a href=""></a>Chinstrap,Dream,51.9,19.5,206,3950,MALE</span>
-<span id="cb1-228"><a href=""></a>Chinstrap,Dream,46.8,16.5,189,3650,FEMALE</span>
-<span id="cb1-229"><a href=""></a>Chinstrap,Dream,45.7,17,195,3650,FEMALE</span>
-<span id="cb1-230"><a href=""></a>Chinstrap,Dream,55.8,19.8,207,4000,MALE</span>
-<span id="cb1-231"><a href=""></a>Chinstrap,Dream,43.5,18.1,202,3400,FEMALE</span>
-<span id="cb1-232"><a href=""></a>Chinstrap,Dream,49.6,18.2,193,3775,MALE</span>
-<span id="cb1-233"><a href=""></a>Chinstrap,Dream,50.8,19,210,4100,MALE</span>
-<span id="cb1-234"><a href=""></a>Chinstrap,Dream,50.2,18.7,198,3775,FEMALE</span>
-<span id="cb1-235"><a href=""></a>Gentoo,Biscoe,46.1,13.2,211,4500,FEMALE</span>
-<span id="cb1-236"><a href=""></a>Gentoo,Biscoe,50,16.3,230,5700,MALE</span>
-<span id="cb1-237"><a href=""></a>Gentoo,Biscoe,48.7,14.1,210,4450,FEMALE</span>
-<span id="cb1-238"><a href=""></a>Gentoo,Biscoe,50,15.2,218,5700,MALE</span>
-<span id="cb1-239"><a href=""></a>Gentoo,Biscoe,47.6,14.5,215,5400,MALE</span>
-<span id="cb1-240"><a href=""></a>Gentoo,Biscoe,46.5,13.5,210,4550,FEMALE</span>
-<span id="cb1-241"><a href=""></a>Gentoo,Biscoe,45.4,14.6,211,4800,FEMALE</span>
-<span id="cb1-242"><a href=""></a>Gentoo,Biscoe,46.7,15.3,219,5200,MALE</span>
-<span id="cb1-243"><a href=""></a>Gentoo,Biscoe,43.3,13.4,209,4400,FEMALE</span>
-<span id="cb1-244"><a href=""></a>Gentoo,Biscoe,46.8,15.4,215,5150,MALE</span>
-<span id="cb1-245"><a href=""></a>Gentoo,Biscoe,40.9,13.7,214,4650,FEMALE</span>
-<span id="cb1-246"><a href=""></a>Gentoo,Biscoe,49,16.1,216,5550,MALE</span>
-<span id="cb1-247"><a href=""></a>Gentoo,Biscoe,45.5,13.7,214,4650,FEMALE</span>
-<span id="cb1-248"><a href=""></a>Gentoo,Biscoe,48.4,14.6,213,5850,MALE</span>
-<span id="cb1-249"><a href=""></a>Gentoo,Biscoe,45.8,14.6,210,4200,FEMALE</span>
-<span id="cb1-250"><a href=""></a>Gentoo,Biscoe,49.3,15.7,217,5850,MALE</span>
-<span id="cb1-251"><a href=""></a>Gentoo,Biscoe,42,13.5,210,4150,FEMALE</span>
-<span id="cb1-252"><a href=""></a>Gentoo,Biscoe,49.2,15.2,221,6300,MALE</span>
-<span id="cb1-253"><a href=""></a>Gentoo,Biscoe,46.2,14.5,209,4800,FEMALE</span>
-<span id="cb1-254"><a href=""></a>Gentoo,Biscoe,48.7,15.1,222,5350,MALE</span>
-<span id="cb1-255"><a href=""></a>Gentoo,Biscoe,50.2,14.3,218,5700,MALE</span>
-<span id="cb1-256"><a href=""></a>Gentoo,Biscoe,45.1,14.5,215,5000,FEMALE</span>
-<span id="cb1-257"><a href=""></a>Gentoo,Biscoe,46.5,14.5,213,4400,FEMALE</span>
-<span id="cb1-258"><a href=""></a>Gentoo,Biscoe,46.3,15.8,215,5050,MALE</span>
-<span id="cb1-259"><a href=""></a>Gentoo,Biscoe,42.9,13.1,215,5000,FEMALE</span>
-<span id="cb1-260"><a href=""></a>Gentoo,Biscoe,46.1,15.1,215,5100,MALE</span>
-<span id="cb1-261"><a href=""></a>Gentoo,Biscoe,44.5,14.3,216,4100,</span>
-<span id="cb1-262"><a href=""></a>Gentoo,Biscoe,47.8,15,215,5650,MALE</span>
-<span id="cb1-263"><a href=""></a>Gentoo,Biscoe,48.2,14.3,210,4600,FEMALE</span>
-<span id="cb1-264"><a href=""></a>Gentoo,Biscoe,50,15.3,220,5550,MALE</span>
-<span id="cb1-265"><a href=""></a>Gentoo,Biscoe,47.3,15.3,222,5250,MALE</span>
-<span id="cb1-266"><a href=""></a>Gentoo,Biscoe,42.8,14.2,209,4700,FEMALE</span>
-<span id="cb1-267"><a href=""></a>Gentoo,Biscoe,45.1,14.5,207,5050,FEMALE</span>
-<span id="cb1-268"><a href=""></a>Gentoo,Biscoe,59.6,17,230,6050,MALE</span>
-<span id="cb1-269"><a href=""></a>Gentoo,Biscoe,49.1,14.8,220,5150,FEMALE</span>
-<span id="cb1-270"><a href=""></a>Gentoo,Biscoe,48.4,16.3,220,5400,MALE</span>
-<span id="cb1-271"><a href=""></a>Gentoo,Biscoe,42.6,13.7,213,4950,FEMALE</span>
-<span id="cb1-272"><a href=""></a>Gentoo,Biscoe,44.4,17.3,219,5250,MALE</span>
-<span id="cb1-273"><a href=""></a>Gentoo,Biscoe,44,13.6,208,4350,FEMALE</span>
-<span id="cb1-274"><a href=""></a>Gentoo,Biscoe,48.7,15.7,208,5350,MALE</span>
-<span id="cb1-275"><a href=""></a>Gentoo,Biscoe,42.7,13.7,208,3950,FEMALE</span>
-<span id="cb1-276"><a href=""></a>Gentoo,Biscoe,49.6,16,225,5700,MALE</span>
-<span id="cb1-277"><a href=""></a>Gentoo,Biscoe,45.3,13.7,210,4300,FEMALE</span>
-<span id="cb1-278"><a href=""></a>Gentoo,Biscoe,49.6,15,216,4750,MALE</span>
-<span id="cb1-279"><a href=""></a>Gentoo,Biscoe,50.5,15.9,222,5550,MALE</span>
-<span id="cb1-280"><a href=""></a>Gentoo,Biscoe,43.6,13.9,217,4900,FEMALE</span>
-<span id="cb1-281"><a href=""></a>Gentoo,Biscoe,45.5,13.9,210,4200,FEMALE</span>
-<span id="cb1-282"><a href=""></a>Gentoo,Biscoe,50.5,15.9,225,5400,MALE</span>
-<span id="cb1-283"><a href=""></a>Gentoo,Biscoe,44.9,13.3,213,5100,FEMALE</span>
-<span id="cb1-284"><a href=""></a>Gentoo,Biscoe,45.2,15.8,215,5300,MALE</span>
-<span id="cb1-285"><a href=""></a>Gentoo,Biscoe,46.6,14.2,210,4850,FEMALE</span>
-<span id="cb1-286"><a href=""></a>Gentoo,Biscoe,48.5,14.1,220,5300,MALE</span>
-<span id="cb1-287"><a href=""></a>Gentoo,Biscoe,45.1,14.4,210,4400,FEMALE</span>
-<span id="cb1-288"><a href=""></a>Gentoo,Biscoe,50.1,15,225,5000,MALE</span>
-<span id="cb1-289"><a href=""></a>Gentoo,Biscoe,46.5,14.4,217,4900,FEMALE</span>
-<span id="cb1-290"><a href=""></a>Gentoo,Biscoe,45,15.4,220,5050,MALE</span>
-<span id="cb1-291"><a href=""></a>Gentoo,Biscoe,43.8,13.9,208,4300,FEMALE</span>
-<span id="cb1-292"><a href=""></a>Gentoo,Biscoe,45.5,15,220,5000,MALE</span>
-<span id="cb1-293"><a href=""></a>Gentoo,Biscoe,43.2,14.5,208,4450,FEMALE</span>
-<span id="cb1-294"><a href=""></a>Gentoo,Biscoe,50.4,15.3,224,5550,MALE</span>
-<span id="cb1-295"><a href=""></a>Gentoo,Biscoe,45.3,13.8,208,4200,FEMALE</span>
-<span id="cb1-296"><a href=""></a>Gentoo,Biscoe,46.2,14.9,221,5300,MALE</span>
-<span id="cb1-297"><a href=""></a>Gentoo,Biscoe,45.7,13.9,214,4400,FEMALE</span>
-<span id="cb1-298"><a href=""></a>Gentoo,Biscoe,54.3,15.7,231,5650,MALE</span>
-<span id="cb1-299"><a href=""></a>Gentoo,Biscoe,45.8,14.2,219,4700,FEMALE</span>
-<span id="cb1-300"><a href=""></a>Gentoo,Biscoe,49.8,16.8,230,5700,MALE</span>
-<span id="cb1-301"><a href=""></a>Gentoo,Biscoe,46.2,14.4,214,4650,</span>
-<span id="cb1-302"><a href=""></a>Gentoo,Biscoe,49.5,16.2,229,5800,MALE</span>
-<span id="cb1-303"><a href=""></a>Gentoo,Biscoe,43.5,14.2,220,4700,FEMALE</span>
-<span id="cb1-304"><a href=""></a>Gentoo,Biscoe,50.7,15,223,5550,MALE</span>
-<span id="cb1-305"><a href=""></a>Gentoo,Biscoe,47.7,15,216,4750,FEMALE</span>
-<span id="cb1-306"><a href=""></a>Gentoo,Biscoe,46.4,15.6,221,5000,MALE</span>
-<span id="cb1-307"><a href=""></a>Gentoo,Biscoe,48.2,15.6,221,5100,MALE</span>
-<span id="cb1-308"><a href=""></a>Gentoo,Biscoe,46.5,14.8,217,5200,FEMALE</span>
-<span id="cb1-309"><a href=""></a>Gentoo,Biscoe,46.4,15,216,4700,FEMALE</span>
-<span id="cb1-310"><a href=""></a>Gentoo,Biscoe,48.6,16,230,5800,MALE</span>
-<span id="cb1-311"><a href=""></a>Gentoo,Biscoe,47.5,14.2,209,4600,FEMALE</span>
-<span id="cb1-312"><a href=""></a>Gentoo,Biscoe,51.1,16.3,220,6000,MALE</span>
-<span id="cb1-313"><a href=""></a>Gentoo,Biscoe,45.2,13.8,215,4750,FEMALE</span>
-<span id="cb1-314"><a href=""></a>Gentoo,Biscoe,45.2,16.4,223,5950,MALE</span>
-<span id="cb1-315"><a href=""></a>Gentoo,Biscoe,49.1,14.5,212,4625,FEMALE</span>
-<span id="cb1-316"><a href=""></a>Gentoo,Biscoe,52.5,15.6,221,5450,MALE</span>
-<span id="cb1-317"><a href=""></a>Gentoo,Biscoe,47.4,14.6,212,4725,FEMALE</span>
-<span id="cb1-318"><a href=""></a>Gentoo,Biscoe,50,15.9,224,5350,MALE</span>
-<span id="cb1-319"><a href=""></a>Gentoo,Biscoe,44.9,13.8,212,4750,FEMALE</span>
-<span id="cb1-320"><a href=""></a>Gentoo,Biscoe,50.8,17.3,228,5600,MALE</span>
-<span id="cb1-321"><a href=""></a>Gentoo,Biscoe,43.4,14.4,218,4600,FEMALE</span>
-<span id="cb1-322"><a href=""></a>Gentoo,Biscoe,51.3,14.2,218,5300,MALE</span>
-<span id="cb1-323"><a href=""></a>Gentoo,Biscoe,47.5,14,212,4875,FEMALE</span>
-<span id="cb1-324"><a href=""></a>Gentoo,Biscoe,52.1,17,230,5550,MALE</span>
-<span id="cb1-325"><a href=""></a>Gentoo,Biscoe,47.5,15,218,4950,FEMALE</span>
-<span id="cb1-326"><a href=""></a>Gentoo,Biscoe,52.2,17.1,228,5400,MALE</span>
-<span id="cb1-327"><a href=""></a>Gentoo,Biscoe,45.5,14.5,212,4750,FEMALE</span>
-<span id="cb1-328"><a href=""></a>Gentoo,Biscoe,49.5,16.1,224,5650,MALE</span>
-<span id="cb1-329"><a href=""></a>Gentoo,Biscoe,44.5,14.7,214,4850,FEMALE</span>
-<span id="cb1-330"><a href=""></a>Gentoo,Biscoe,50.8,15.7,226,5200,MALE</span>
-<span id="cb1-331"><a href=""></a>Gentoo,Biscoe,49.4,15.8,216,4925,MALE</span>
-<span id="cb1-332"><a href=""></a>Gentoo,Biscoe,46.9,14.6,222,4875,FEMALE</span>
-<span id="cb1-333"><a href=""></a>Gentoo,Biscoe,48.4,14.4,203,4625,FEMALE</span>
-<span id="cb1-334"><a href=""></a>Gentoo,Biscoe,51.1,16.5,225,5250,MALE</span>
-<span id="cb1-335"><a href=""></a>Gentoo,Biscoe,48.5,15,219,4850,FEMALE</span>
-<span id="cb1-336"><a href=""></a>Gentoo,Biscoe,55.9,17,228,5600,MALE</span>
-<span id="cb1-337"><a href=""></a>Gentoo,Biscoe,47.2,15.5,215,4975,FEMALE</span>
-<span id="cb1-338"><a href=""></a>Gentoo,Biscoe,49.1,15,228,5500,MALE</span>
-<span id="cb1-339"><a href=""></a>Gentoo,Biscoe,47.3,13.8,216,4725,</span>
-<span id="cb1-340"><a href=""></a>Gentoo,Biscoe,46.8,16.1,215,5500,MALE</span>
-<span id="cb1-341"><a href=""></a>Gentoo,Biscoe,41.7,14.7,210,4700,FEMALE</span>
-<span id="cb1-342"><a href=""></a>Gentoo,Biscoe,53.4,15.8,219,5500,MALE</span>
-<span id="cb1-343"><a href=""></a>Gentoo,Biscoe,43.3,14,208,4575,FEMALE</span>
-<span id="cb1-344"><a href=""></a>Gentoo,Biscoe,48.1,15.1,209,5500,MALE</span>
-<span id="cb1-345"><a href=""></a>Gentoo,Biscoe,50.5,15.2,216,5000,FEMALE</span>
-<span id="cb1-346"><a href=""></a>Gentoo,Biscoe,49.8,15.9,229,5950,MALE</span>
-<span id="cb1-347"><a href=""></a>Gentoo,Biscoe,43.5,15.2,213,4650,FEMALE</span>
-<span id="cb1-348"><a href=""></a>Gentoo,Biscoe,51.5,16.3,230,5500,MALE</span>
-<span id="cb1-349"><a href=""></a>Gentoo,Biscoe,46.2,14.1,217,4375,FEMALE</span>
-<span id="cb1-350"><a href=""></a>Gentoo,Biscoe,55.1,16,230,5850,MALE</span>
-<span id="cb1-351"><a href=""></a>Gentoo,Biscoe,44.5,15.7,217,4875,</span>
-<span id="cb1-352"><a href=""></a>Gentoo,Biscoe,48.8,16.2,222,6000,MALE</span>
-<span id="cb1-353"><a href=""></a>Gentoo,Biscoe,47.2,13.7,214,4925,FEMALE</span>
-<span id="cb1-354"><a href=""></a>Gentoo,Biscoe,,,,,</span>
-<span id="cb1-355"><a href=""></a>Gentoo,Biscoe,46.8,14.3,215,4850,FEMALE</span>
-<span id="cb1-356"><a href=""></a>Gentoo,Biscoe,50.4,15.7,222,5750,MALE</span>
-<span id="cb1-357"><a href=""></a>Gentoo,Biscoe,45.2,14.8,212,5200,FEMALE</span>
-<span id="cb1-358"><a href=""></a>Gentoo,Biscoe,49.9,16.1,213,5400,MALE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="pouet" class="slide level2"><h2>Pouet</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div class="card bslib-card bslib-mb-spacing html-fill-item html-fill-container" data-bslib-card-init="" data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="bslib-card-1099">
-<div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
-<iframe class="html-fill-item" src="https://shinylive.io/r/app/#h=0&amp;code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAdzgCMAnRRASwgGdSoAbbgCgA6YOtyIEA1gyG4ABAzioi7GQF4ZQgBalSqdogD0+kWMkBaIgwDmGSy1IaArnQwsi+2o1PzF7IQEoBCA8mVg4uXkFhUQkGDAATKC5pOQUlVXUwLR09Q2MY8ysbO0dnV3d6Bi9U3zAAiEDuFkYoBgBPPjzJOsDOKAkZAB5TGQg4agB9Xok+ADMWbjh2RiJqdjgGcc7ZAnYAN03o8Vk1hYJSA5M6tYZduEmuaanxPzAAX1xwaHgqVApLBzY7AwO12eEIJHIlGQ7F+BBYi1wLHY3CgEDiuDo8244wWEEs9nGMBgGKx4ziCgJRNwM0a6HWOL+lOJdCIcVahKg7HY40suDWAA9AgBBcmNOC4AAqFks6zWEFwAGYAJwYACMuFVAA4MAB2DWa9UKnUAVgADLgALJCgAyAFFhaL4ZLpbKKIqVcaNTqMAAWfUANkVmtN5oAYrarXaHXAxc6rK75T7TRgFfqNUrPQqAExm3DhyP2iAimNOqXxhhy3BVqvR2NlmUVt0K-269Mp9OphU+3P5m2F4t1l2N+XK9tZ5OB1VK83N3MF2uloeVhXapVejCa-WG-05vMRvsL8X1hPujBZtuTjO4H3+k2Wg9Fx1HpdNn1q-Xvqedn13w9xhuVj657jme6bmkBuZ-sew6Kt6m6qt66paoGCoKiGuBQS+I5weuqZajOOroZh5aAaqn7epOmrntm6G9lGj4ls+JFNtqgZZmR55ToawbmvODGDsxI5vmxZFIUqm4+kmvEPgOi6CYqLaTjhWqZoRYb7vRslMQBLGtlO6aZt26l8Vp-4nkBGCeiBepTnqRnSZpT5mTBXa+h+fpan6qG7nR-ZOdBgEiZZ6Z+kB6EmU5ABCSLEOKRobh+eE6l5Ul7hFjG4NF7CxbBenajZwYKeFMlRTFRBxcaGBrlOoFamuK60RpfkZVlOUrrV2pIZqmYZg5zWxq15VBglCEdTOPH3o5LVlRV7ZalV+p6g1xkldN2VDUmGCUVt+qdsac6rQNM3XsmnqjdVmpLeOK1TUd61xd6F07Qh1Gqj2TV-oN4qbWdq76jOvWTf1ToACLyLAp5nS2Nk6pu2bvelsZg3AEPxZxnVenD059X+yOox667wZqcNoTdwPinjxKbU9F1edjQO4+DxLNm5CEGYq8NpYdoNM6ewGiemgY+m9OP8TzKPM9qm7jmB7oHbd4sQxZ6PBfhir7WTjMS7ll5zQaHONYjivMyq8Eql1oX+vL5O4JTCmq0Tr0I9zFO85tROs1eyrFQrrva82H6-ShqqGy7ttu2+Yl6UqQupUbfuozZLYXZmIaa2LCcm89UuyzePs23bwufhd1EQQzGfh-73q-QtCFrlmSq-hXdsB+dstds7vuV0rWZjhx6bqsL1ufcdo5KXlKFmunplfSdn5-VqEmk+XM+j2dj3t0ZXNd7PQFtlZ6FJsPFez65NddXqDehzvx1Fx5rED7B+cj-d7rrkH6udzbu8Th+ZudhNeOmVR4tihtndUWZurT1Kq-eKusxJeRNKLVesDKpJ1rt1RUItt7f1vmRVM7Fi6ekks-E+o8KJen1Jmf019cGvyLl1WqSpzxH2QTAtqLYPKIX1H6SBX8X45SLpRdM1FAZANPpVMBnEvYKn4WQ+hAsapdQkiHNhGUApNkqtVRS7dTRyNMhoxMZEzaewklvIBhiOaq2qtOIq0D1FYVPAVT2ANSEGMcWPdc0jJ76P8o47sI0F6N2vNgixHjJHv3bmpHBxEdKJl7h7M6V4IJqIEnEue2iRpKkNNE3ysSTxozbPfOmbi-HyRZpxFsF9P72LSeZXuUcxLELTivMp6TXLj3RvVa6MSK6WIstVChU4hbRLCeU6Gf9FpBlofklylUo4eSVKmMKqTja5SSlkw0sjalrKLgQ5MeElReQ1q0jKLcWyHOseNUpZzeYsyepReqU9emmRbtqS5XS5arMzsNJ6ZsZw0J2T82ReVcDjmoicvJzc3aKIxuOYhy8gEty4fPQyMzoX+xVNtLqsdj6vLuS2Ti3o8KXQNkC7uVNkwe3rqaJeNykZ3IxvNS8BF0X4u1ptEl1ihbbNOQy-2CpPxVMxmC+mUL2VK0FSrJJLDVF8qdBI9cNjqI6h8h9eRgiIHmnHMs1VnpxHkL0pRTspo7zivYUNeK0tzRTnAjmb5wDYEb2ZR2UVaqDWwJVM42mNT5XilPg-Ua0j6pIJeRauK2pgI2tsd7B1AbyJbiwWa9VKDBFSvTOmOyOo7weraky0B6Y4ZUU9OatagjKpsQOY-POcbR5evXDZJZioemlruoI3u0jrF2SzDmsOp8sVguTI2w0YqU3huvL3Zxhyhamv1WHSx7UlL6mlqOsZ7TiWDusSG3tXcF1oMoXVDmviHHyQYR+R5HNdxroKYSrxUyFTYNbXJdd0cslw2edemCm0iVehQlvJ92lzJkXvsFcFQYd02z3bVLRAZFR6PJf03++kpxrikg6hdOdRqXkND2ktY6T3pKLjXQ5CL6XPoKYM4uhp4NhoI+ZSOaZ2LgRaZ+5c2p161xjZzADzlAKCqjtIpaH6w7nMCdYvabKnIt2roHdMqGfxzq7m88i2clplx44XRRMnbXujI8CitkSuJJrw0it2yYo3vh6cqCDWtE4agLSpRUqUNN3PrW3L8E68VSbM7VbhHmuySduRypD3p0ZqZsxi1GDSNQRMXnB49-KlZDoPTGvVfqKXrPs1k6iLSXOYo-AVahXmgv4w6s9WxKT0uie2sUpzybTP+3HmbQyCW1lWo-GJTsoaGuo3HtUo0gXEtUzIjXA+g8WMPgAMIaEBKQBgaAMs3lVs65h6t0XTdm-N1AGXcw1SSShemfENthC2zt-BbZpGditqLY7nBTuF0qiBgq773VTZmydhbdtjSTrbGbJaaWjvvbu59t2lUiVvq+b027c2QccuFfNIlcN7VQ6BzD7bX3zsI8zbBY+0P7tu22jY4hj71V49hxDY0mOVQ2LhqMt7m3ydUx0aNf+0z05k-R7zSnrYQKHMQRFjni2YZ61Uut1H+PtbfY64O8buPxeM+vDB0aYkZzGnq-Tj7nPJenQvDLk6cuGda4p1WmWtkyXl0F19+Cyl9YDfZ-Lo3TPWaBpjf+0nDvFsqhVtI4hccNfA8dxO1mG6tTbjF4bxb7HDPZKc6Qy3bt02qmZ6Sq+9uI9faQyqRZAC48e8LhM9zMjw+a529I7HQ8bt565zr+avD0IBbTyXwuBN9JWcAf7tHi3OGE0fnblH6eucJMHYO4hJzAcD+C7XZPV1i8B522+Cz1rB6Io7xLnuqsC+ktQnI+PkvGHWuWXK8fTe3ZuZd9Q3PE+lbaZbGbeqq7V8K5-NnOaXsoH95P5Lizl8Q7Xnb-RXfJWZOLLS8YCXJd3K-YkY0QVJJBaeFRXS-T-JWGxUDX-ZUA3JAp3cHX6Jaa7D-OfDPTjYuHxSvSAxXZbQWNbRvAg6vWuFbFCW8EzR-QPM0MTMba8cxZgnbZMJCFbGcZzCAzA68FAkSFhFfAAqvPfB2PKK6DAmgjlU2XCQtBSdXCQsgn0fNT2eqbjQQ+QinYDDNccEdOQzvB7PSEPJtZsWfUw2gxtHnU0ZZGjY-PQqmXuDjElJaXlKFQAqAjtSZM3DuUgoQgJSpcrHDHfSQ5A1-OAhw-XIIlw3AVglWa1aif-QsHw8g3WRZY5V7NQoQ7nFAg+A7EwtfJ3eCBzTUeqPA7wyIqmfdNmKcIragmwyXSqExa1OyCbPIhIn0GA6XMDBvfAloqI7aS7WCAXWoxIqlQw3-YWRAhIpIgrZQo0VQwsAAcQoFICICIEdUEXh3TXYkHmeShQ2LIG2N2KGl2wuTBTQkSLp3olOK2J2N3nyg1AYyYw4LkUePONnl2zBzBS1DuNIW+OeNviGTfCsjekSL9weM2J+Nvgcz6I+O7C+LhNBPoUezeJ2kOL-3RRBIuO+gL0qgIX0m+2BLRIJOvEFTwkFTr3kzxIpN3lvxizcnYk9Ep2PnxJ-lrkFR-0tlRLOPRMEUyQgST0SLHwfC5Nvli15IBP5PTilPoW1A8mEgBNTGNHfz4kVPLRGlVORJbXVW1I2hVDwn3XYj1A1M5MZNvk4iRNmJJy1OtPoS9xZOAnYlwH9HEPWKdL2NqghMHVQwmhOJ9I2leLeksyzHPGgKtMFMpMWNVDfBJM3DV3JNjN3nmSxMhPZNy0NJDMJNVn9PYmWQEMdLTIRLmjaIBOzJjKeMpIGQ1H4yrKmIZLLPoXhwzLZMSKP0lLzI4ILL7iFjlUCCNO+mUizMSLwNLNrJeL9L7nAkBV6RHKmJZIIRln2hrPhPoRD2JLBUjMSORynM3PbV1NAnHFQ3AMPKFI2gzITNA1NSmIFOnOOmNAHTZizFuJoQ3KvO+nNixOljXIdJ7NbMEWVKy1XPNGNBhO9OAo2l7knFlKLOEMfKPI2jfBRRJLXG+y-LrI8kFUrSXmQu-L-z0jNNpUSN5UvLrJ+1VAQrIvQIVN7J9FfLYl3BTNFiXICRpJ51mOXmDJgp-OekhJGWwt+Jrxg0jKjIlNhP4qpOekFXrjZiYpbKfIxNVnkoBLtWUpQvFFYLOnEtYqguHMYrfGqmpLVK7K0qIpCJZOlihOgNTJUt9MnAXw0r-0IrrKj1vIgTXK9KMpkoCSQjQtcpIQYpktYKQislYq6Ogsco2gcyCvNOEMsrrL0tZLXKcKAtiu+kFXgnUvHDpVCqyvIL0t3Iguir8qKt6NnIPjMXctEtZh3MjL9HXPYsYp3JooSnyonWSqZNnPrndPstav8vqLyoTI4J6ufMTJZMvgfQnJEulJPP5nPImudJGmZPfIgvuJiu0uvFvVvN4TGpvEgggA4pb1vUjMwrSIqp2qqrOhcsjPAgvMyp2tYJskivVKku2qsu9DeoBOEsKpuu73DJYvVCniGsqsjRZJBosvBsBv7NsotINMot6o8iEuvCeukohuejYluI1Icpuu03utNFQwXL4qKu5yQmuIeo9PKpOratqhyqbIUwBqsv+KTzSvVLEWeqst-NvMhJYR3CYMxpercKht3NBs4OFu+tZj1NVBYTSzJpeptX0uaoou5pwp5M6rlvRrqufOmNGlXOTIXORtvlpKxIOoklJtzLCsx3usBMGvLg4sJoBJYUuiFq+rjOizfNxs+uuulpKvYgkkBkVqIu+18wjOTMMrpuGv7P5p1pZrrLOojOasnPVt3n9NvL5LcoTvqvgjNKzEDDJNhp5oaq1qFmYUUw9t6uqj1L3I0NWL9o8pltZNiJvFyKrufMUQLUjPZIPLTtvk8shMDN1tfn2joN3KNvxuls4giU7KYobujsqt5siuTOEylrrJD0ZvYhGV3Ebt6vKMszsrXo7oUT0jfB-0epWpymgNLtsswuPr3tNrmjrwkjV3dsfqVM-A7OJvFKnrjLEtPLFLBsXMYsUPDP6swq5vXt3j6PDP5mWWqOtvJpGzApuIgofsXrhs4neMUqNHfswdDpvJxogs1P7voQzrNMUrdowgIaboPrdPPEBWLo3oZu4tCgrpAZkurBoY4uZNvJJOIXfxDv-tLsvj3LfuYfTNnNsqjKRrIeFKn0PvVKjreAAF0gA" height="800" width="100%" style="border: 1px solid rgba(0,0,0,0.175); border-radius: .375rem;" allowfullscreen="" allow="autoplay" data-external="1"></iframe>
-</div>
-<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()"><template>Expand</template><button aria-expanded="false" aria-label="Expand card" class="bslib-full-screen-enter badge rounded-pill"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;fill:currentColor;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg></button>
-</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script>
-</div>
-</div>
-</div>
+<span id="cb1-15"><a href=""></a>Adelie,Torgersen,34.4,18.4,184,3325,FEMALE</span>
+<span id="cb1-16"><a href=""></a>Adelie,Torgersen,46,21.5,194,4200,MALE</span>
+<span id="cb1-17"><a href=""></a>Adelie,Biscoe,37.8,18.3,174,3400,FEMALE</span>
+<span id="cb1-18"><a href=""></a>Adelie,Biscoe,37.7,18.7,180,3600,MALE</span>
+<span id="cb1-19"><a href=""></a>Adelie,Biscoe,40.5,18.9,180,3950,MALE</span>
+<span id="cb1-20"><a href=""></a>Adelie,Dream,39.5,16.7,178,3250,FEMALE</span>
+<span id="cb1-21"><a href=""></a>Adelie,Dream,37.2,18.1,178,3900,MALE</span>
+<span id="cb1-22"><a href=""></a>Adelie,Dream,39.5,17.8,188,3300,FEMALE</span>
+<span id="cb1-23"><a href=""></a>Adelie,Dream,40.9,18.9,184,3900,MALE</span>
+<span id="cb1-24"><a href=""></a>Adelie,Biscoe,39.6,17.7,186,3500,FEMALE</span>
+<span id="cb1-25"><a href=""></a>Adelie,Biscoe,40.1,18.9,188,4300,MALE</span>
+<span id="cb1-26"><a href=""></a>Adelie,Biscoe,35,17.9,190,3450,FEMALE</span>
+<span id="cb1-27"><a href=""></a>Adelie,Torgersen,35.9,16.6,190,3050,FEMALE</span>
+<span id="cb1-28"><a href=""></a>Adelie,Torgersen,41.8,19.4,198,4450,MALE</span>
+<span id="cb1-29"><a href=""></a>Adelie,Torgersen,33.5,19,190,3600,FEMALE</span>
+<span id="cb1-30"><a href=""></a>Chinstrap,Dream,42.4,17.3,181,3600,FEMALE</span>
+<span id="cb1-31"><a href=""></a>Chinstrap,Dream,48.5,17.5,191,3400,MALE</span>
+<span id="cb1-32"><a href=""></a>Chinstrap,Dream,43.2,16.6,187,2900,FEMALE</span>
+<span id="cb1-33"><a href=""></a>Gentoo,Biscoe,46.1,13.2,211,4500,FEMALE</span>
+<span id="cb1-34"><a href=""></a>Gentoo,Biscoe,50,16.3,230,5700,MALE</span>
+<span id="cb1-35"><a href=""></a>Gentoo,Biscoe,48.7,14.1,210,4450,FEMALE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section><section><section id="the-registry-the-blocks-supermarket" class="title-slide slide level1 center" data-stack-name="Registry"><h1>The registry: the blocks supermarket</h1>
+
+</section><section id="registry-101" class="slide level2"><h2>Registry 101</h2>
+</section></section><section><section id="create-your-own-blocks-the-blocks-supermarket" class="title-slide slide level1 center" data-stack-name="Extend"><h1>Create your own blocks: the blocks supermarket</h1>
+
+</section><section id="create-new-blocks" class="slide level2"><h2>Create new blocks</h2>
+</section></section><section><section id="we-need-you" class="title-slide slide level1 center" data-stack-name="Conclusion"><h1>We need you!</h1>
+
+</section><section id="use-blocks-and-build-dashboard" class="slide level2"><h2>Use blocks and build dashboard</h2>
+<p>Share dashboard with your teams to speed up data analysis</p>
+</section><section id="create-new-blocks-to-help-your-data-scientists" class="slide level2"><h2>Create new blocks to help your data scientists</h2>
+<p>You’re an advanced R developer, you can extend blockr!</p>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
