@@ -3,6 +3,7 @@ title: "No-Code Data Analysis and Dashboards with {blockr}"
 author: "John Coene (Opifex) and David Granjon (cynkra GmbH)"
 format: 
   revealjs:
+    #code-annotations: select
     footer: "Footer text"
     css: [
       "assets/style/bootstrap.min.css",
@@ -353,44 +354,6 @@ stack <- new_stack(
 serve_stack(stack)
 ```
 
-# The registry: the blocks supermarket {data-stack-name="Registry"}
-
-## Registry 101
-
-::::{.columns}
-
-:::{.column width=70%}
-```{mermaid}
-%%| mermaid-format: svg
-flowchart LR
-  new_block1[New block]
-  new_block2[New block]
-  subgraph registry[Registry]
-    subgraph select_reg[Select block]
-      reg_name[Name: select block]
-      reg_descr[Description: select columns in a table]
-      reg_classes[Classes: select_block, tranform_block]
-      reg_input[Input: data.frame]
-      reg_output[Output: data.frame]
-      reg_package[Package: blockr]
-    end
-    subgraph filter_reg[Filter block]
-    end
-    filter_reg --x |unregister| trash["fa:fa-trash"]
-  end
-  new_block1 --> |register| registry
-  new_block2 --> |register| registry
-```
-:::
-
-:::{.column width=30%}
-- __Information__ about blocks. 
-- __Shared__ between block packages.
-:::
-
-::::
-
-
 # Create your own blocks: the blocks supermarket {data-stack-name="Extend"}
 
 ## blockrs internals
@@ -426,7 +389,7 @@ new_count_block <- function(column = character(), ...) {
 ```{r, eval=FALSE, echo=TRUE}
 new_count_block <- function(column = character(), ...) {
   fields <- list(
-    cols = new_string_field(column)
+    cols = new_string_field(column, type = "name") # <1>
   )
 
   new_block(
@@ -435,6 +398,7 @@ new_count_block <- function(column = character(), ...) {
   )
 }
 ```
+1. `type` allows to pass in cols as name instead of strings.
 :::
 
 :::{.column}
@@ -455,7 +419,7 @@ new_count_block <- function(column = character(), ...) {
 new_count_block <- function(column = character(), ...) {
 
   fields <- list(
-    cols = new_string_field(column)
+    cols = new_string_field(column, type = "name")
   )
 
   new_block(
@@ -486,7 +450,7 @@ new_count_block <- function(column = character(), ...) {
 new_count_block <- function(column = character(), ...) {
 
   fields <- list(
-    cols = new_string_field(column)
+    cols = new_string_field(column, type = "name")
   )
 
   new_block(
@@ -506,6 +470,43 @@ new_count_block <- function(column = character(), ...) {
 - Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
 :::
 - Give it a right class: `transform_block` + a custom class.
+:::
+
+::::
+
+## How do we make the blocks available to users?
+
+## The registry: the blocks supermarket {data-stack-name="Registry"}
+
+::::{.columns}
+
+:::{.column width=70%}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart LR
+  new_block1[New block]
+  new_block2[New block]
+  subgraph registry[Registry]
+    subgraph select_reg[Select block]
+      reg_name[Name: select block]
+      reg_descr[Description: select columns in a table]
+      reg_classes[Classes: select_block, tranform_block]
+      reg_input[Input: data.frame]
+      reg_output[Output: data.frame]
+      reg_package[Package: blockr]
+    end
+    subgraph filter_reg[Filter block]
+    end
+    filter_reg --x |unregister| trash["fa:fa-trash"]
+  end
+  new_block1 --> |register| registry
+  new_block2 --> |register| registry
+```
+:::
+
+:::{.column width=30%}
+- __Information__ about blocks. 
+- __Shared__ between block packages.
 :::
 
 ::::

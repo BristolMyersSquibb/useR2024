@@ -810,9 +810,127 @@ John Coene (Opifex) and David Granjon (cynkra GmbH)
 <span id="cb4-13"><a href=""></a>  block_3 = new_geompoint_block("red")</span>
 <span id="cb4-14"><a href=""></a>)</span>
 <span id="cb4-15"><a href=""></a>serve_stack(stack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section></section><section><section id="the-registry-the-blocks-supermarket" class="title-slide slide level1 center" data-stack-name="Registry"><h1>The registry: the blocks supermarket</h1>
+</section></section><section><section id="create-your-own-blocks-the-blocks-supermarket" class="title-slide slide level1 center" data-stack-name="Extend"><h1>Create your own blocks: the blocks supermarket</h1>
 
-</section><section id="registry-101" class="slide level2"><h2>Registry 101</h2>
+</section><section id="blockrs-internals" class="slide level2"><h2>blockrs internals</h2>
+<div class="{incremental}">
+<ul>
+<li>S3 programing: allows to customize behavior depending on object class.</li>
+</ul>
+</div>
+</section><section id="create-new-blocks-count-block-14" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 1/4</h2>
+<div class="columns">
+<div class="column">
+<p>We want <code>penguins %&gt;% count(species)</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb5-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
+<span id="cb5-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb5-3" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column">
+<ul>
+<li>Create the <code>constructor</code>.</li>
+</ul>
+</div>
+</div>
+</section><section id="create-new-blocks-count-block-24" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 2/4</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="annotated-cell-6-1" class="hljs-ln-code"><a href="#annotated-cell-6-1"></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
+<span id="annotated-cell-6-2" class="hljs-ln-code"><a href="#annotated-cell-6-2"></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-6-3"></a>    <span class="at">cols =</span> <span class="fu">new_string_field</span>(column, <span class="at">type =</span> <span class="st">"name"</span>)</span>
+<span id="annotated-cell-6-4" class="hljs-ln-code"><a href="#annotated-cell-6-4"></a>  )</span>
+<span id="annotated-cell-6-5" class="hljs-ln-code"><a href="#annotated-cell-6-5"></a></span>
+<span id="annotated-cell-6-6" class="hljs-ln-code"><a href="#annotated-cell-6-6"></a>  <span class="fu">new_block</span>(</span>
+<span id="annotated-cell-6-7" class="hljs-ln-code"><a href="#annotated-cell-6-7"></a>    <span class="at">fields =</span> fields,</span>
+<span id="annotated-cell-6-8" class="hljs-ln-code"><a href="#annotated-cell-6-8"></a></span>
+<span id="annotated-cell-6-9" class="hljs-ln-code"><a href="#annotated-cell-6-9"></a>  )</span>
+<span id="annotated-cell-6-10" class="hljs-ln-code"><a href="#annotated-cell-6-10"></a>}</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="1"><code>type</code> allows to pass in cols as name instead of strings.</span>
+</dd>
+</dl>
+</div>
+</div>
+</div><div class="column">
+<div style="color: gray;">
+<ul>
+<li>Create the <code>constructor</code>.</li>
+</ul>
+</div>
+<ul>
+<li>Add field(s): selected column.</li>
+</ul>
+</div>
+</div>
+</section><section id="create-new-blocks-count-block-34" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 3/4</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb6-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
+<span id="cb6-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb6-3" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb6-4" class="hljs-ln-code"><a href=""></a>    <span class="at">cols =</span> <span class="fu">new_string_field</span>(column, <span class="at">type =</span> <span class="st">"name"</span>)</span>
+<span id="cb6-5" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb6-6" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb6-7" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
+<span id="cb6-8" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
+<span id="cb6-9" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>(dplyr<span class="sc">::</span><span class="fu">count</span>(.(cols))),</span>
+<span id="cb6-10" class="hljs-ln-code"><a href=""></a>    ...</span>
+<span id="cb6-11" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb6-12" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column">
+<div style="color: gray;">
+<ul>
+<li>Create the <code>constructor</code>.</li>
+<li>Add field(s): selected column.</li>
+</ul>
+</div>
+<ul>
+<li>Provide expression: use <code>quote</code> and pass field name with <code>.(field_name)</code>. <sup>1</sup>
+</li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Needed by <code>bquote</code> for partial substitution.</p></li></ol></aside></section><section id="create-new-blocks-count-block-44" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 4/4</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
+<span id="cb7-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb7-3" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb7-4" class="hljs-ln-code"><a href=""></a>    <span class="at">cols =</span> <span class="fu">new_string_field</span>(column, <span class="at">type =</span> <span class="st">"name"</span>)</span>
+<span id="cb7-5" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb7-6" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb7-7" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
+<span id="cb7-8" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
+<span id="cb7-9" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>(dplyr<span class="sc">::</span><span class="fu">count</span>(.(cols))),</span>
+<span id="cb7-10" class="hljs-ln-code"><a href=""></a>    ...,</span>
+<span id="cb7-11" class="hljs-ln-code"><a href=""></a>    <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"count_block"</span>, <span class="st">"transform_block"</span>)</span>
+<span id="cb7-12" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb7-13" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column">
+<div style="color: gray;">
+<ul>
+<li>Create the <code>constructor</code>.</li>
+<li>Add field(s): selected column.</li>
+<li>Provide expression: use <code>quote</code> and pass field name with <code>.(field_name)</code>. <sup>1</sup>
+</li>
+</ul>
+</div>
+<ul>
+<li>Give it a right class: <code>transform_block</code> + a custom class.</li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Needed by <code>bquote</code> for partial substitution.</p></li></ol></aside></section><section id="how-do-we-make-the-blocks-available-to-users" class="slide level2"><h2>How do we make the blocks available to users?</h2>
+</section><section id="the-registry-the-blocks-supermarket" class="slide level2" data-stack-name="Registry"><h2>The registry: the blocks supermarket</h2>
 <div class="columns">
 <div class="column" style="width:70%;">
 <div class="cell" data-layout-align="default">
@@ -881,118 +999,7 @@ John Coene (Opifex) and David Granjon (cynkra GmbH)
 </ul>
 </div>
 </div>
-</section></section><section><section id="create-your-own-blocks-the-blocks-supermarket" class="title-slide slide level1 center" data-stack-name="Extend"><h1>Create your own blocks: the blocks supermarket</h1>
-
-</section><section id="blockrs-internals" class="slide level2"><h2>blockrs internals</h2>
-<div class="{incremental}">
-<ul>
-<li>S3 programing: allows to customize behavior depending on object class.</li>
-</ul>
-</div>
-</section><section id="create-new-blocks-count-block-14" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 1/4</h2>
-<div class="columns">
-<div class="column">
-<p>We want <code>penguins %&gt;% count(species)</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb5-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
-<span id="cb5-2" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb5-3" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-<ul>
-<li>Create the <code>constructor</code>.</li>
-</ul>
-</div>
-</div>
-</section><section id="create-new-blocks-count-block-24" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 2/4</h2>
-<div class="columns">
-<div class="column">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb6-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
-<span id="cb6-2" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb6-3" class="hljs-ln-code"><a href=""></a>    <span class="at">cols =</span> <span class="fu">new_string_field</span>(column)</span>
-<span id="cb6-4" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb6-5" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb6-6" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
-<span id="cb6-7" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
-<span id="cb6-8" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb6-9" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb6-10" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-<div style="color: gray;">
-<ul>
-<li>Create the <code>constructor</code>.</li>
-</ul>
-</div>
-<ul>
-<li>Add field(s): selected column.</li>
-</ul>
-</div>
-</div>
-</section><section id="create-new-blocks-count-block-34" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 3/4</h2>
-<div class="columns">
-<div class="column">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
-<span id="cb7-2" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb7-3" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb7-4" class="hljs-ln-code"><a href=""></a>    <span class="at">cols =</span> <span class="fu">new_string_field</span>(column)</span>
-<span id="cb7-5" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb7-6" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb7-7" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
-<span id="cb7-8" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
-<span id="cb7-9" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>(dplyr<span class="sc">::</span><span class="fu">count</span>(.(cols))),</span>
-<span id="cb7-10" class="hljs-ln-code"><a href=""></a>    ...</span>
-<span id="cb7-11" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb7-12" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-<div style="color: gray;">
-<ul>
-<li>Create the <code>constructor</code>.</li>
-<li>Add field(s): selected column.</li>
-</ul>
-</div>
-<ul>
-<li>Provide expression: use <code>quote</code> and pass field name with <code>.(field_name)</code>. <sup>1</sup>
-</li>
-</ul>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Needed by <code>bquote</code> for partial substitution.</p></li></ol></aside></section><section id="create-new-blocks-count-block-44" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 4/4</h2>
-<div class="columns">
-<div class="column">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb8-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
-<span id="cb8-2" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb8-3" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-4" class="hljs-ln-code"><a href=""></a>    <span class="at">cols =</span> <span class="fu">new_string_field</span>(column)</span>
-<span id="cb8-5" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb8-6" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb8-7" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
-<span id="cb8-8" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
-<span id="cb8-9" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>(dplyr<span class="sc">::</span><span class="fu">count</span>(.(cols))),</span>
-<span id="cb8-10" class="hljs-ln-code"><a href=""></a>    ...,</span>
-<span id="cb8-11" class="hljs-ln-code"><a href=""></a>    <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"count_block"</span>, <span class="st">"transform_block"</span>)</span>
-<span id="cb8-12" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb8-13" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column">
-<div style="color: gray;">
-<ul>
-<li>Create the <code>constructor</code>.</li>
-<li>Add field(s): selected column.</li>
-<li>Provide expression: use <code>quote</code> and pass field name with <code>.(field_name)</code>. <sup>1</sup>
-</li>
-</ul>
-</div>
-<ul>
-<li>Give it a right class: <code>transform_block</code> + a custom class.</li>
-</ul>
-</div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>Needed by <code>bquote</code> for partial substitution.</p></li></ol></aside></section></section><section><section id="we-need-you" class="title-slide slide level1 center" data-stack-name="Conclusion"><h1>We need you!</h1>
+</section></section><section><section id="we-need-you" class="title-slide slide level1 center" data-stack-name="Conclusion"><h1>We need you!</h1>
 
 </section><section id="use-blocks-and-build-dashboard" class="slide level2"><h2>Use blocks and build dashboard</h2>
 <p>Share dashboard with your teams to speed up data analysis</p>
