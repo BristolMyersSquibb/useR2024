@@ -55,12 +55,17 @@ library(dplyr)
 
 ## A cooking approach to data science 🍲
 
-### Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
+::::{.columns}
 
-:::{.incremental}
-- Follow a recipe.
-- Find the ingredients.
+:::{.column}
+![ ](assets/img/undraw_diet_ghvw.svg){width="50%"}
 :::
+
+:::{.column}
+### Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
+:::
+
+::::
 
 ## Develop enterprise-grade dashboards isn't easy
 
@@ -143,7 +148,7 @@ Prepare a "Puree"
 :::
 
 :::{.column}
-Plot me a histogram showing `flipper length` by `species` of `female` penguins in 2009.
+Plot me a histogram showing `flipper length` by `species` only for `female` penguins in 2009.
 
 
 ```{r, echo = TRUE}
@@ -157,74 +162,6 @@ penguins |>
 
 ::::
 
-## Fields: the base ingredients 🥦 🥚
-
-::::{.columns}
-
-:::{.column}
-```{mermaid}
-%%| mermaid-format: svg
-%%| fig-width: 6
-flowchart TD
-  subgraph field
-    value(Value)
-    title(Title)
-    descr(Description)
-    status(Status)
-  end
-  field --> shiny
-  subgraph shiny
-    ui(User interface)
-  end
-```
-
-:::
-
-:::{.column}
-A __field__:
-
-- TBD.
-- Used to build the block expression.
-- Attributes are used to build Shiny inputs (id, label, ...).
-
-:::
-
-::::
-
-## Blocks: a recipe step 🥦 🥚
-
-::::{.columns}
-
-:::{.column}
-```{mermaid}
-%%| mermaid-format: svg
-flowchart TD
-  blk_data_in(Data input)
-  blk_data_out[Output]
-  subgraph blk_block[Block]
-    blk_field1(Field 1)
-    blk_field2(Field 2)
-    blk_field1 --> blk_expr
-    blk_field2 --> blk_expr
-    blk_expr(Expression)
-    blk_res(result)
-    blk_expr --> blk_res
-  end
-  blk_data_in --> blk_block --> blk_data_out
-```
-:::
-
-:::{.column}
-A __block__ contains:
-
-- __fields__, that are translated into Shiny inputs.
-- An __expression__, evaluated with input data: `data |> select(<COLNAMES>)`.
-- (Optional) input data.
-- A __result__, of the evaluated expression.
-- A __class__ for customization (see advanced part).
-:::
-
-::::
 
 ## How to build a `dplyr::select` block?
 
@@ -300,63 +237,97 @@ data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
 
 ::::
 
-## The stack: data analysis recipe 📜
-
-Mixing blocks together leads to a data pipeline __recipe__
-
-<br>
+## Blocks and fields: ingredients and recipe step 🥦 🥚
 
 ::::{.columns}
 
 :::{.column}
-![](assets/img/undraw_diet_ghvw.svg)
-:::
-
-:::{.column}
-Collection of instructions (blocks) to go from __data import__ to __wrangling__ (and optionally visualisation)
-
 ```{mermaid}
 %%| mermaid-format: svg
 flowchart TD
-  subgraph stack1
+  blk_data_in(Data input)
+  blk_data_out[Output]
+  subgraph blk_block[Block]
+    subgraph blk_field1[Field 1]
+      value(Value)
+      title(Title)
+      descr(Description)
+      status(Status)
+    end
+    blk_field2(Field 2)
+    blk_field1 --> blk_expr
+    blk_field2 --> blk_expr
+    blk_expr(Expression)
+    blk_res(result)
+    blk_expr --> blk_res
+  end
+  blk_data_in --> blk_block --> blk_data_out
+```
+:::
+
+:::{.column}
+A __block__ contains:
+
+- __fields__, build the block expression and translated into Shiny inputs.
+- An __expression__, evaluated with input data: `data |> select(<COLNAMES>)`.
+- (Optional) input data.
+- A __result__, of the evaluated expression.
+- A __class__ for customization (see advanced part).
+:::
+
+::::
+
+## The stack: data analysis recipe 📜
+
+::::{.columns}
+
+:::{.column}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart TD
+  subgraph stack1[Stack]
     direction TB
-    input(Data);
-    transform(Transform);
-    output(Result);
+    input(Data block: dataset, browser, ...);
+    transform(Transform block: filter, select ...);
+    output(Result: plot block);
     input --> transform --> output;
   end
 ```
 :::
 
+:::{.column}
+Collection of instructions (blocks) to go from __data import__ to __wrangling__ (and optionally visualisation)
+:::
+
 ::::
 
-## The workspace: the dinner party
+## The workspace: the dinner party 🎉
 
 ::::{.columns}
 
-:::{.column}
+:::{.column width=70%}
 ```{mermaid}
 %%| mermaid-format: svg
-flowchart TD
-  subgraph stack2
-    direction TB
-    input_1(Data);
-    transform_1(Transform);
-    output_1(Result);
-    input_1 --> transform_1 --> output_1;
-  end
-  output_1 --> input_2
-  subgraph stack3
+flowchart LR
+  subgraph stack2[Stack 1]
     direction TB
     input_2(Data);
     transform_2(Transform);
-    output_2(Visualize);
+    output_2(Result);
     input_2 --> transform_2 --> output_2;
+  end
+  stack2 --> stack3
+  subgraph stack3[Stack 2]
+    direction TB
+    input_3(Data);
+    transform_3(Transform);
+    output_3(Visualize);
+    input_3 --> transform_3 --> output_3;
   end
 ```
 :::
 
-:::{.column}
+:::{.column width=30%}
 Collection of recipes (stacks) to build a dashboard
 :::
 
