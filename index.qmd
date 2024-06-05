@@ -3,6 +3,12 @@ title: "No-Code Data Analysis and Dashboards with {blockr}"
 author: "John Coene (Opifex) and David Granjon (cynkra GmbH)"
 format: 
   revealjs:
+    footer: "Footer text"
+    css: [
+      "assets/style/bootstrap.min.css",
+      "assets/style/extra.css"
+    ]
+    view-distance: 5
     mermaid:
       theme: default
     height: 900
@@ -37,18 +43,28 @@ library(shinylive)
 library(bslib)
 ```
 
-# ![shiny logo](assets/img/shiny.svg){fig-align="center" width=50%} {data-stack-name="Intro"}
+# ![shiny logo](assets/img/shiny.svg){.center width=25%} {data-stack-name="Intro"}
 
 > __Easy__ web apps for data science without the compromises
 
-## ~~Easy~~ Not so easy web apps for data science without the compromises {auto-animate=true style="margin-top: 200px; font-size: 3em; color: red;"}
+## ~~Easy~~ Not so easy web apps for data science without the compromises {.center style="font-size: 1.5em"}
 
-## Develop a enterprise grade dashboard isn't easy
+
+## A cooking approach to data science 🍲
+
+### Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
+
+:::{.incremental}
+- Follow a recipe.
+- Find the ingredients.
+:::
+
+## Develop enterprise-grade dashboards isn't easy
 
 ::::{.columns}
 
 :::{.column}
-![](assets/img/undraw_cooking_p7m1.svg)
+![](assets/img/undraw_cooking_p7m1.svg){width=50%}
 :::
 
 :::{.column}
@@ -64,13 +80,13 @@ library(bslib)
 ::::{.columns}
 
 :::{.column}
-![](assets/img/undraw_empty_cart_co35.svg)
+![](assets/img/undraw_empty_cart_co35.svg){width=50%}
 :::
 
 :::{.column}
-- __No-Code__ Dashboard builder for R
-- "Shiny's WordPress"
-- __Supermarket__ for data analysis with R
+- __No-Code__ Dashboard builder for R.
+- "Shiny's WordPress".
+- __Supermarket__ for data analysis with R.
 :::
 
 ::::
@@ -99,12 +115,12 @@ library(bslib)
 ::::{.columns}
 
 :::{.column}
-![](assets/img/undraw_super_woman_dv-0-y.svg)
+![](assets/img/undraw_super_woman_dv-0-y.svg){width=50%}
 :::
 
 :::{.column}
-- Reduce back and forth between Shiny developers and data scientist
-- Cut down development time from __weeks__ to __day__.
+- Reduce back and forth between Shiny developers and data scientist.
+- Cut down development time from __weeks__ to __days__.
 - Extendable.
 - Reproducible code.
 :::
@@ -113,15 +129,92 @@ library(bslib)
 
 # bockr 101 {data-stack-name="blockr 101"}
 
-## Blocks and fields: the ingredients 🥦 🥚
+## Fields: the base ingredients 🥦 🥚
 
 ::::{.columns}
 
 :::{.column}
-Select block
-
 ```{mermaid}
-%%| fig-width: 2
+%%| mermaid-format: svg
+%%| fig-width: 6
+flowchart TD
+  subgraph field
+    value(Value)
+    title(Title)
+    descr(Description)
+    status(Status)
+  end
+  field --> shiny
+  subgraph shiny
+    ui(User interface)
+  end
+```
+
+:::
+
+:::{.column}
+A __field__:
+
+- TBD.
+- Used to build the block expression.
+- Attributes are used to build Shiny inputs (id, label, ...).
+
+:::
+
+::::
+
+## Blocks: a recipe step 🥦 🥚
+
+::::{.columns}
+
+:::{.column}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart TD
+  data_in(Data input)
+  result(result)
+  subgraph block
+    field1(Field 1)
+    field2(Field 2)
+    field1 --> expr
+    field2 --> expr
+    expr(Expression)
+  end
+  expr --> result
+  data_in --> block
+```
+:::
+
+:::{.column}
+A __block__ contains:
+
+- __fields__, that are translated into Shiny inputs.
+- An __expression__, evaluated with input data: `data |> select(<COLNAMES>)`.
+- (Optional) input data.
+- A __result__, of the evaluated expression.
+- A __class__ for customization (see advanced part).
+:::
+
+::::
+
+## How to build a `dplyr::select` block?
+
+Data wrangling blocks
+
+::::{.columns}
+
+:::{.column}
+```{r, echo=TRUE, eval=FALSE}
+data |> select(<COLNAME>)
+```
+
+1 field `<COLNAME>`
+:::
+
+:::{.column}
+```{r, echo=TRUE, eval=FALSE}
+```{mermaid}
+%%| mermaid-format: svg
 flowchart TD
   data_in(Data input)
   data_out(Transformed data)
@@ -130,14 +223,28 @@ flowchart TD
   end
   data_in --> block --> data_out
 ```
+:::
 
+::::
+
+## How to build a `dplyr::filter` block?
+
+::::{.columns}
+
+:::{.column}
+```{r, echo=TRUE, eval=FALSE}
+data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
+
+# data |> filter(col1 == "test")
+```
+
+3 __fields__, `<FILTER_VALUE>` depends on `<COLNAME>`
 :::
 
 :::{.column}
-Filter block
-
+blockr translation
 ```{mermaid}
-%%| fig-width: 2
+%%| mermaid-format: svg
 flowchart TD
   data_in(Data input)
   data_out(Transformed data)
@@ -152,6 +259,10 @@ flowchart TD
 
 ## The stack: data analysis recipe 📜
 
+Mixing blocks together leads to a data pipeline __recipe__
+
+<br>
+
 ::::{.columns}
 
 :::{.column}
@@ -159,19 +270,39 @@ flowchart TD
 :::
 
 :::{.column}
-Collection of instructions to go from __data import__ to __wrangling__ (and optionally visualisation)
+Collection of instructions (blocks) to go from __data import__ to __wrangling__ (and optionally visualisation)
 
 ```{mermaid}
-%%| fig-width: 6
-flowchart LR
+%%| mermaid-format: svg
+flowchart TD
+  subgraph stack
+    direction TB
+    input(Data);
+    transform(Transform);
+    output(Result);
+    input --> transform --> output;
+  end
+```
+:::
+
+::::
+
+## The workspace: the dinner party
+
+::::{.columns}
+
+:::{.column}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart TD
   subgraph stack
     direction TB
     input_1(Data);
     transform_1(Transform);
-    output_1(Visualize);
+    output_1(Result);
     input_1 --> transform_1 --> output_1;
   end
-  stack --> stack2
+  output_1 --> input_2
   subgraph stack2
     direction TB
     input_2(Data);
@@ -182,11 +313,11 @@ flowchart LR
 ```
 :::
 
+:::{.column}
+Collection of recipes (stacks) to build a dashboard
+:::
+
 ::::
-
-## The workspace: the dinner party
-
-Binds multiple recipes together
 
 ## blockr demo
 
