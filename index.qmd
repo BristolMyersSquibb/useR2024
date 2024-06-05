@@ -41,6 +41,9 @@ editor:
 ```{r setup}
 library(shinylive)
 library(bslib)
+library(palmerpenguins)
+library(ggplot2)
+library(dplyr)
 ```
 
 # ![shiny logo](assets/img/shiny.svg){.center width=25%} {data-stack-name="Intro"}
@@ -129,6 +132,31 @@ library(bslib)
 
 # bockr 101 {data-stack-name="blockr 101"}
 
+## Cooking vs data science
+
+::::{.columns}
+
+:::{.column}
+Prepare a "Puree"
+
+1kg 🥔 + 20cl 🥛 + 30g 🧈 + 1 spoon 🧂 -> 🍲
+:::
+
+:::{.column}
+Plot me a histogram showing `flipper length` by `species` of `female` penguins in 2009.
+
+
+```{r, echo = TRUE}
+penguins |>
+  filter(sex == "female", year == 2009) |>
+  ggplot(aes(x = flipper_length_mm)) +
+  geom_histogram(aes(fill = species), alpha = 0.5, position = "identity") +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4"))
+```
+::::
+
+::::
+
 ## Fields: the base ingredients 🥦 🥚
 
 ::::{.columns}
@@ -171,17 +199,18 @@ A __field__:
 ```{mermaid}
 %%| mermaid-format: svg
 flowchart TD
-  data_in(Data input)
-  result(result)
-  subgraph block
-    field1(Field 1)
-    field2(Field 2)
-    field1 --> expr
-    field2 --> expr
-    expr(Expression)
+  blk_data_in(Data input)
+  blk_data_out[Output]
+  subgraph blk_block[Block]
+    blk_field1(Field 1)
+    blk_field2(Field 2)
+    blk_field1 --> blk_expr
+    blk_field2 --> blk_expr
+    blk_expr(Expression)
+    blk_res(result)
+    blk_expr --> blk_res
   end
-  expr --> result
-  data_in --> block
+  blk_data_in --> blk_block --> blk_data_out
 ```
 :::
 
@@ -199,30 +228,30 @@ A __block__ contains:
 
 ## How to build a `dplyr::select` block?
 
-Data wrangling blocks
-
 ::::{.columns}
 
-:::{.column}
+:::{.column width="70%"}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart TD
+  sel_data_in(Data input)
+  sel_data_out(Transformed data)
+  subgraph sel_block[Select block]
+    sel_select_col[Select column]
+    sel_expr[Expression]
+    sel_res[Result]
+    sel_select_col --> sel_expr --> sel_res
+  end
+  sel_data_in --> sel_block --> sel_data_out
+```
+:::
+
+:::{.column width="30%"}
 ```{r, echo=TRUE, eval=FALSE}
 data |> select(<COLNAME>)
 ```
 
 1 field `<COLNAME>`
-:::
-
-:::{.column}
-```{r, echo=TRUE, eval=FALSE}
-```{mermaid}
-%%| mermaid-format: svg
-flowchart TD
-  data_in(Data input)
-  data_out(Transformed data)
-  subgraph block
-    select_col[Select column]
-  end
-  data_in --> block --> data_out
-```
 :::
 
 ::::
@@ -231,28 +260,42 @@ flowchart TD
 
 ::::{.columns}
 
-:::{.column}
+:::{.column width="70%"}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart TD
+  filt_data_in[Data input]
+  filt_data_out[Transformed data]
+  subgraph filt_block[Filter block]
+    filt_select_col[Select columns]
+    filt_filter_func[Filter function ==, !=]
+    filt_filter_val[Filter values]
+    filt_expr[Expression]
+    filt_res[Result]
+
+    filt_select_col --> filt_expr
+    filt_select_col --> |depends| filt_filter_val
+    filt_filter_val --> filt_expr
+    filt_filter_func --> filt_expr
+
+    filt_expr --> filt_res
+  end
+  filt_data_in --> filt_block --> filt_data_out
+```
+:::
+
+:::{.column width="30%"}
 ```{r, echo=TRUE, eval=FALSE}
 data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
 
 # data |> filter(col1 == "test")
 ```
 
-3 __fields__, `<FILTER_VALUE>` depends on `<COLNAME>`
-:::
+3 __fields__:
 
-:::{.column}
-blockr translation
-```{mermaid}
-%%| mermaid-format: svg
-flowchart TD
-  data_in(Data input)
-  data_out(Transformed data)
-  subgraph block
-    select_col[Select columns] --> filter_func[Filter function ==, !=] --> filter_val[Filter values]
-  end
-  data_in --> block --> data_out
-```
+- `<COLNAME>`
+- `<FILTER_FUNC>`
+- `<FILTER_VALUE>`: depends on `<COLNAME>`
 :::
 
 ::::
@@ -275,7 +318,7 @@ Collection of instructions (blocks) to go from __data import__ to __wrangling__ 
 ```{mermaid}
 %%| mermaid-format: svg
 flowchart TD
-  subgraph stack
+  subgraph stack1
     direction TB
     input(Data);
     transform(Transform);
@@ -295,7 +338,7 @@ flowchart TD
 ```{mermaid}
 %%| mermaid-format: svg
 flowchart TD
-  subgraph stack
+  subgraph stack2
     direction TB
     input_1(Data);
     transform_1(Transform);
@@ -303,7 +346,7 @@ flowchart TD
     input_1 --> transform_1 --> output_1;
   end
   output_1 --> input_2
-  subgraph stack2
+  subgraph stack3
     direction TB
     input_2(Data);
     transform_2(Transform);
@@ -331,32 +374,12 @@ webr::install("blockr.data", repos = "https://blockr-org.github.io/webr-repos")
 
 library(blockr)
 
-stack <- new_stack(filesbrowser_block, csv_block, select_block)
+stack <- new_stack(
+  block_1 = new_dataset_block(selected = "penguins", package = "palmerpenguins"),
+  block_2 = new_ggplot_block("x1", "y1"),
+  block_3 = new_geompoint_block("red")
+)
 serve_stack(stack)
-
-## file: penguins.csv
-species,island,bill_length_mm,bill_depth_mm,flipper_length_mm,body_mass_g,sex
-Adelie,Torgersen,34.4,18.4,184,3325,FEMALE
-Adelie,Torgersen,46,21.5,194,4200,MALE
-Adelie,Biscoe,37.8,18.3,174,3400,FEMALE
-Adelie,Biscoe,37.7,18.7,180,3600,MALE
-Adelie,Biscoe,40.5,18.9,180,3950,MALE
-Adelie,Dream,39.5,16.7,178,3250,FEMALE
-Adelie,Dream,37.2,18.1,178,3900,MALE
-Adelie,Dream,39.5,17.8,188,3300,FEMALE
-Adelie,Dream,40.9,18.9,184,3900,MALE
-Adelie,Biscoe,39.6,17.7,186,3500,FEMALE
-Adelie,Biscoe,40.1,18.9,188,4300,MALE
-Adelie,Biscoe,35,17.9,190,3450,FEMALE
-Adelie,Torgersen,35.9,16.6,190,3050,FEMALE
-Adelie,Torgersen,41.8,19.4,198,4450,MALE
-Adelie,Torgersen,33.5,19,190,3600,FEMALE
-Chinstrap,Dream,42.4,17.3,181,3600,FEMALE
-Chinstrap,Dream,48.5,17.5,191,3400,MALE
-Chinstrap,Dream,43.2,16.6,187,2900,FEMALE
-Gentoo,Biscoe,46.1,13.2,211,4500,FEMALE
-Gentoo,Biscoe,50,16.3,230,5700,MALE
-Gentoo,Biscoe,48.7,14.1,210,4450,FEMALE
 ```
 
 # The registry: the blocks supermarket {data-stack-name="Registry"}
