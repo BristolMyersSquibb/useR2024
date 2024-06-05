@@ -357,10 +357,158 @@ serve_stack(stack)
 
 ## Registry 101
 
+::::{.columns}
+
+:::{.column width=70%}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart LR
+  new_block1[New block]
+  new_block2[New block]
+  subgraph registry[Registry]
+    subgraph select_reg[Select block]
+      reg_name[Name: select block]
+      reg_descr[Description: select columns in a table]
+      reg_classes[Classes: select_block, tranform_block]
+      reg_input[Input: data.frame]
+      reg_output[Output: data.frame]
+      reg_package[Package: blockr]
+    end
+    subgraph filter_reg[Filter block]
+    end
+    filter_reg --x |unregister| trash["fa:fa-trash"]
+  end
+  new_block1 --> |register| registry
+  new_block2 --> |register| registry
+```
+:::
+
+:::{.column width=30%}
+- __Information__ about blocks. 
+- __Shared__ between block packages.
+:::
+
+::::
+
+
 # Create your own blocks: the blocks supermarket {data-stack-name="Extend"}
 
-## Create new blocks
+## blockrs internals
 
+:::{incremental}
+- S3 programing: allows to customize behavior depending on object class.
+:::
+
+## Create new blocks: count block 1/4 {auto-animate=true}
+
+::::{.columns}
+
+:::{.column}
+We want `penguins %>% count(species)`
+```{r, eval=FALSE, echo=TRUE}
+new_count_block <- function(column = character(), ...) {
+
+}
+```
+:::
+
+:::{.column}
+- Create the `constructor`.
+:::
+
+::::
+
+## Create new blocks: count block 2/4 {auto-animate=true}
+
+::::{.columns}
+
+:::{.column}
+```{r, eval=FALSE, echo=TRUE}
+new_count_block <- function(column = character(), ...) {
+  fields <- list(
+    cols = new_string_field(column)
+  )
+
+  new_block(
+    fields = fields,
+
+  )
+}
+```
+:::
+
+:::{.column}
+::: {style="color: gray;"}
+- Create the `constructor`.
+:::
+- Add field(s): selected column.
+:::
+
+::::
+
+## Create new blocks: count block 3/4 {auto-animate=true}
+
+::::{.columns}
+
+:::{.column}
+```{r, eval=FALSE, echo=TRUE}
+new_count_block <- function(column = character(), ...) {
+
+  fields <- list(
+    cols = new_string_field(column)
+  )
+
+  new_block(
+    fields = fields,
+    expr = quote(dplyr::count(.(cols))),
+    ...
+  )
+}
+```
+:::
+
+:::{.column}
+::: {style="color: gray;"}
+- Create the `constructor`.
+- Add field(s): selected column.
+:::
+- Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
+:::
+
+::::
+
+## Create new blocks: count block 4/4 {auto-animate=true}
+
+::::{.columns}
+
+:::{.column}
+```{r, eval=FALSE, echo=TRUE}
+new_count_block <- function(column = character(), ...) {
+
+  fields <- list(
+    cols = new_string_field(column)
+  )
+
+  new_block(
+    fields = fields,
+    expr = quote(dplyr::count(.(cols))),
+    ...,
+    class = c("count_block", "transform_block")
+  )
+}
+```
+:::
+
+:::{.column}
+::: {style="color: gray;"}
+- Create the `constructor`.
+- Add field(s): selected column.
+- Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
+:::
+- Give it a right class: `transform_block` + a custom class.
+:::
+
+::::
 
 # We need you! {data-stack-name="Conclusion"}
 
