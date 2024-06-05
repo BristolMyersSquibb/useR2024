@@ -5,6 +5,9 @@ format:
   revealjs:
     #code-annotations: select
     footer: "Footer text"
+    include-in-header:
+      - text: |
+          <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
     css: [
       "assets/style/bootstrap.min.css",
       "assets/style/extra.css"
@@ -359,8 +362,25 @@ serve_stack(stack)
 ## blockrs internals
 
 :::{incremental}
-- S3 programing: allows to customize behavior depending on object class.
+- S3 programing: allows to customize behavior depending on object class
 :::
+
+```{mermaid}
+%%| mermaid-format: svg
+classDiagram
+  class block
+  block : +name
+  block : +expr
+  block : +result
+  block : +layout
+  block : +class
+  block : +initialize_block(block)
+  block : +is_initialized(block)
+  block : +generate_code(block)
+  block : +evaluate_block(block, ...)
+  block : +generate_server(block, ...)
+  block : +update_fields(block, ...)
+```
 
 ## Create new blocks: count block 1/4 {auto-animate=true}
 
