@@ -1,6 +1,6 @@
 ---
 title: "No-Code Data Analysis and Dashboards with {blockr}"
-author: "John Coene (Opifex) and David Granjon (cynkra GmbH)"
+author: "John Coene (The Y Company) and David Granjon (cynkra GmbH)"
 format: 
   revealjs:
     #code-annotations: select
@@ -650,7 +650,6 @@ tags$div(
         ),
         tags$img(
           src = "assets/img/bms.svg",
-          class = "card-img-top m-auto",
           alt = "..."
         )
       ),
@@ -680,10 +679,8 @@ tags$div(
           "John Coene"
         ),
         tags$img(
-        src = "assets/img/ylogo.png",
-        class = "card-img-top m-auto",
-        alt = "...",
-        width = "25%"
+        src = "assets/img/ylogo-full.png",
+        alt = "..."
       )
       ),
       tags$div(
@@ -712,7 +709,6 @@ tags$div(
         ),
         tags$img(
           src = "assets/img/logo-cynkra.svg",
-          class = "card-img-top m-auto",
           alt = "..."
         )
       ),
