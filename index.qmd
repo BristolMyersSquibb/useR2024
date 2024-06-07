@@ -4,7 +4,7 @@ author: "John Coene (Opifex) and David Granjon (cynkra GmbH)"
 format: 
   revealjs:
     #code-annotations: select
-    footer: "Footer text"
+    footer: "Funded by <img class=\"mb-4\" src=\"assets/img/bms.svg\"/>"
     include-in-header:
       - text: |
           <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
@@ -166,6 +166,60 @@ penguins |>
 
 ::::
 
+
+## blockr demo
+
+```{shinylive-r}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 800
+## file: app.R
+webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))
+library(blockr)
+library(palmerpenguins)
+library(ggplot2)
+
+new_ggplot_block <- function(col_x = character(), col_y = character(), ...) {
+
+  data_cols <- function(data) colnames(data)
+
+  new_block(
+    fields = list(
+      x = new_select_field(col_x, data_cols, type = "name"),
+      y = new_select_field(col_y, data_cols, type = "name")
+    ),
+    expr = quote(
+      ggplot(mapping = aes(x = .(x), y = .(y)))
+    ),
+    class = c("ggplot_block", "plot_block"),
+    ...
+  )
+}
+
+new_geompoint_block <- function(color = character(), shape = character(), ...) {
+
+  data_cols <- function(data) colnames(data$data)
+
+  new_block(
+    fields = list(
+      color = new_select_field(color, data_cols, type = "name"),
+      shape = new_select_field(shape, data_cols, type = "name")
+    ),
+    expr = quote(
+      geom_point(aes(color = .(color), shape = .(shape)), size = 2)
+    ),
+    class = c("plot_layer_block", "plot_block"),
+    ...
+  )
+}
+
+stack <- new_stack(
+  data_block = new_dataset_block("penguins", "palmerpenguins"), 
+  plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
+  layer_block = new_geompoint_block("species", "species")
+)
+serve_stack(stack)
+```
 
 ## How to build a `dplyr::select` block?
 
@@ -337,29 +391,10 @@ Collection of recipes (stacks) to build a dashboard
 
 ::::
 
-## blockr demo
 
-```{shinylive-r}
-#| standalone: true
-#| components: [viewer]
-#| viewerHeight: 800
-## file: app.R
-webr::install("blockr", repos = "https://blockr-org.github.io/webr-repos")
-webr::install("blockr.data", repos = "https://blockr-org.github.io/webr-repos")
+# Create your own block supermarket {data-stack-name="Extend"}
 
-library(blockr)
-
-stack <- new_stack(
-  block_1 = new_dataset_block(selected = "penguins", package = "palmerpenguins"),
-  block_2 = new_ggplot_block("x1", "y1"),
-  block_3 = new_geompoint_block("red")
-)
-serve_stack(stack)
-```
-
-# Create your own blocks: the blocks supermarket {data-stack-name="Extend"}
-
-## blockrs internals
+## blockr internals
 
 :::{incremental}
 - S3 programing: allows to customize behavior depending on object class
@@ -388,6 +423,7 @@ classDiagram
 
 :::{.column}
 We want `penguins %>% count(species)`
+
 ```{r, eval=FALSE, echo=TRUE}
 new_count_block <- function(column = character(), ...) {
 
@@ -408,8 +444,11 @@ new_count_block <- function(column = character(), ...) {
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
 new_count_block <- function(column = character(), ...) {
+
+  all_cols <- function(data) colnames(data)
+
   fields <- list(
-    cols = new_string_field(column, type = "name") # <1>
+    cols = new_select_field(column, all_cols, type = "name") # <1>
   )
 
   new_block(
@@ -438,8 +477,10 @@ new_count_block <- function(column = character(), ...) {
 ```{r, eval=FALSE, echo=TRUE}
 new_count_block <- function(column = character(), ...) {
 
+  all_cols <- function(data) colnames(data)
+
   fields <- list(
-    cols = new_string_field(column, type = "name")
+    cols = new_select_field(column, all_cols, type = "name")
   )
 
   new_block(
@@ -469,8 +510,10 @@ new_count_block <- function(column = character(), ...) {
 ```{r, eval=FALSE, echo=TRUE}
 new_count_block <- function(column = character(), ...) {
 
+  all_cols <- function(data) colnames(data)
+
   fields <- list(
-    cols = new_string_field(column, type = "name")
+    cols = new_select_field(column, all_cols, type = "name")
   )
 
   new_block(
@@ -494,6 +537,40 @@ new_count_block <- function(column = character(), ...) {
 
 ::::
 
+## Demo
+
+```{shinylive-r}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 800
+## file: app.R
+webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))
+library(blockr)
+library(palmerpenguins)
+
+new_count_block <- function(column = character(), ...) {
+
+  all_cols <- function(data) colnames(data)
+
+  fields <- list(
+    cols = new_select_field(column, all_cols, type = "name")
+  )
+
+  new_block(
+    fields = fields,
+    expr = quote(dplyr::count(.(cols))),
+    ...,
+    class = c("count_block", "transform_block")
+  )
+}
+
+stack <- new_stack(
+  data_block = new_dataset_block("penguins", "palmerpenguins"), 
+  count_block = new_count_block("species")
+)
+serve_stack(stack)
+```
+
 ## How do we make the blocks available to users?
 
 ## The registry: the blocks supermarket {data-stack-name="Registry"}
@@ -504,8 +581,16 @@ new_count_block <- function(column = character(), ...) {
 ```{mermaid}
 %%| mermaid-format: svg
 flowchart LR
-  new_block1[New block]
-  new_block2[New block]
+  subgraph blockr_ggplot2[blockr.ggplot2]
+    new_block1[New block]
+    new_block2[New block]
+  end
+  subgraph blockr_echarts4r[blockr.echarts4r]
+    new_block3[New block]
+    new_block4[New block]
+  end
+  blockr_ggplot2 --> |register| registry
+  blockr_echarts4r --> |register| registry
   subgraph registry[Registry]
     subgraph select_reg[Select block]
       reg_name[Name: select block]
@@ -519,8 +604,6 @@ flowchart LR
     end
     filter_reg --x |unregister| trash["fa:fa-trash"]
   end
-  new_block1 --> |register| registry
-  new_block2 --> |register| registry
 ```
 :::
 
@@ -540,3 +623,136 @@ Share dashboard with your teams to speed up data analysis
 ## Create new blocks to help your data scientists
 
 You're an advanced R developer, you can extend blockr!
+
+
+## Our team
+
+```{r}
+library(shiny)
+library(bslib)
+
+tags$div(
+  class = "row row-cols-1 row-cols-md-3 g-4",
+  tags$div(
+    class = "col",
+    tags$div(
+      class = "card h-100",
+      #tags$img(
+      #  src = "assets/img/bms.svg",
+      #  class = "card-img-top m-auto",
+      #  alt = "..."
+      #),
+      tags$div(
+        class = "card-body",
+        tags$h5(
+          class = "card-title",
+          "Karma Tarap"
+        ),
+        tags$img(
+          src = "assets/img/bms.svg",
+          class = "card-img-top m-auto",
+          alt = "..."
+        )
+      ),
+      tags$div(
+        class = "card-footer",
+        tags$small(
+          class = "text-body-secondary",
+          a(href = "https://www.bms.com/", "https://www.bms.com/")
+        )
+      )
+    )
+  ),
+  tags$div(
+    class = "col",
+    tags$div(
+      class = "card h-100",
+      #tags$img(
+      #  src = "assets/img/ylogo.png",
+      #  class = "card-img-top m-auto",
+      #  alt = "...",
+      #  width = "25%"
+      #),
+      tags$div(
+        class = "card-body",
+        tags$h5(
+          class = "card-title",
+          "John Coene"
+        ),
+        tags$img(
+        src = "assets/img/ylogo.png",
+        class = "card-img-top m-auto",
+        alt = "...",
+        width = "25%"
+      )
+      ),
+      tags$div(
+        class = "card-footer",
+        tags$small(
+          class = "text-body-secondary",
+          a(href = "https://the-y-company.com/", "https://the-y-company.com/")
+        )
+      )
+    )
+  ),
+  tags$div(
+    class = "col",
+    tags$div(
+      class = "card h-100",
+      #tags$img(
+      #  src = "assets/img/logo-cynkra.svg",
+      #  class = "card-img-top m-auto",
+      #  alt = "..."
+      #),
+      tags$div(
+        class = "card-body",
+        tags$h5(
+          class = "card-title",
+          "Nicolas Bennett, Christoph Sax, David Granjon"
+        ),
+        tags$img(
+          src = "assets/img/logo-cynkra.svg",
+          class = "card-img-top m-auto",
+          alt = "..."
+        )
+      ),
+      tags$div(
+        class = "card-footer",
+        tags$small(
+          class = "text-body-secondary",
+          a(href = "https://cynkra.com/", "https://cynkra.com/")
+        )
+      )
+    )
+  )
+)
+
+
+#div(
+#  class = "row row-cols-1 row-cols-md-3 g-4",
+#  div(
+#    class = "col",
+#    card(
+#      class = "h-100",
+#      card_image("assets/img/bms.svg", class = "m-auto"),
+#      card_title("Karma Tarap")
+#    )
+#  ),
+#  div(
+#    class = "col",
+#    card(
+#      class = "h-100",
+#      card_image("assets/img/ylogo.png", width = "25%", class = "m-auto"),
+#      card_title("John Coene")
+#    )
+#  ),
+#  div(
+#    class = "col",
+#    card(
+#      class = "h-100",
+#      card_image("assets/img/logo-cynkra.svg", class = "m-auto"),
+#      card_title("Nicolas Bennett, Christoph Sax, David Granjon")
+#    )
+#  )
+#)
+```
