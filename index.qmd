@@ -50,29 +50,26 @@ library(ggplot2)
 library(dplyr)
 ```
 
-# ![shiny logo](assets/img/shiny.svg){.center width=25%} {data-stack-name="Intro"}
+# A cooking approach to data science {background-image="assets/img/undraw_diet_ghvw.svg" background-size="contain" data-stack-name="Intro" style="margin-top: 450px;"}
+
+<!--
+Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
+--->
+
+
+## ![shiny logo](assets/img/shiny.svg){.center width=25%}
 
 > __Easy__ web apps for data science without the compromises
 
 ## ~~Easy~~ Not so easy web apps for data science without the compromises {.center style="font-size: 1.5em"}
 
-
-## Develop enterprise-grade dashboards isn't easy {background-image="assets/img/undraw_lost_re_xqjt.svg" background-size="contain" style="font-size: 1.5em"}
+## Developing enterprise-grade dashboards isn't easy {background-image="assets/img/undraw_lost_re_xqjt.svg" background-size="contain" style="font-size: 1.5em"}
 
 <!-- 
 - Do you know how to prepare a meal without the right recipe?
 - Do you have the right ingredients?
 -->
 
-
-## {background-image="assets/img/undraw_diet_ghvw.svg" background-size="contain"}
-
-
-### A cooking approach to data science {style="margin-top: 800px; font-size: 2em"}
-
-<!--
-Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
---->
 
 
 ## 💡 Introducing {blockr}
@@ -99,7 +96,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 ::::
 
 
-# bockr 101 {data-stack-name="blockr 101" background-image="assets/img/undraw_cooking_p7m1.svg" background-size="contain" style="margin-top: -150px; margin-left: 50px;"}
+# blockr 101 {data-stack-name="blockr 101" background-image="assets/img/undraw_cooking_p7m1.svg" background-size="contain" style="margin-top: -150px; margin-left: 50px;"}
 
 ## Palmer penguins plot
 
@@ -393,6 +390,9 @@ Collection of __recipes__ (stacks) to build a __dashboard__.
 :::
 
 ::::
+
+## How far can I go with blockr? {background-image="assets/img/undraw_add_post_re_174w.svg" background-size="cover" style="margin-left: 400px; margin-top: 700px"}
+
 
 
 # Create your own block supermarket {data-stack-name="Extend" background-image="assets/img/undraw_empty_cart_co35.svg" background-size="cover" style="margin-top: -300px"}
