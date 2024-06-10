@@ -24,8 +24,8 @@ format:
     controls-layout: bottom-right
     controls-tutorial: true
     chalkboard: true
-    transition: slide
-    background-transition: fade
+    transition: none
+    background-transition: none
     title-slide-attributes:
         data-state: "hide-menubar"
     simplemenu:
@@ -57,34 +57,22 @@ library(dplyr)
 ## ~~Easy~~ Not so easy web apps for data science without the compromises {.center style="font-size: 1.5em"}
 
 
-## A cooking approach to data science 🍲
+## Develop enterprise-grade dashboards isn't easy {background-image="assets/img/undraw_lost_re_xqjt.svg" background-size="contain" style="font-size: 1.5em"}
 
-::::{.columns}
-
-:::{.column}
-![ ](assets/img/undraw_diet_ghvw.svg){width="50%"}
-:::
-
-:::{.column}
-### Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
-:::
-
-::::
-
-## Develop enterprise-grade dashboards isn't easy
-
-::::{.columns}
-
-:::{.column}
-![](assets/img/undraw_cooking_p7m1.svg){width=50%}
-:::
-
-:::{.column}
+<!-- 
 - Do you know how to prepare a meal without the right recipe?
 - Do you have the right ingredients?
-:::
+-->
 
-::::
+
+## {background-image="assets/img/undraw_diet_ghvw.svg" background-size="contain"}
+
+
+### A cooking approach to data science {style="margin-top: 800px; font-size: 2em"}
+
+<!--
+Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
+--->
 
 
 ## 💡 Introducing {blockr}
@@ -96,84 +84,45 @@ library(dplyr)
 :::
 
 :::{.column}
+
+:::{.incremental}
+- __Supermarket__ for data analysis with R.
 - __No-Code__ Dashboard builder for R.
 - "Shiny's WordPress".
-- __Supermarket__ for data analysis with R.
-:::
-
-::::
-
-## blockr vs Shiny
-
-::::{.columns}
-
-:::{.column}
-```{r}
-# shiny code
-```
-:::
-
-:::{.column}
-```{r}
-# blockr code
-```
-:::
-
-::::
-
-
-## {blockr}'s mission statement
-
-::::{.columns}
-
-:::{.column}
-![](assets/img/undraw_super_woman_dv-0-y.svg){width=50%}
-:::
-
-:::{.column}
-- Reduce back and forth between Shiny developers and data scientist.
 - Cut down development time from __weeks__ to __days__.
 - Extendable.
 - Reproducible code.
 :::
 
-::::
-
-# bockr 101 {data-stack-name="blockr 101"}
-
-## Cooking vs data science
-
-::::{.columns}
-
-:::{.column}
-Prepare a "Puree"
-
-1kg 🥔 + 20cl 🥛 + 30g 🧈 + 1 spoon 🧂 -> 🍲
 :::
 
-:::{.column}
+::::
+
+
+# bockr 101 {data-stack-name="blockr 101" background-image="assets/img/undraw_cooking_p7m1.svg" background-size="contain" style="margin-top: -150px; margin-left: 50px;"}
+
+## Palmer penguins plot
+
 Plot me a histogram showing `flipper length` by `species` only for `female` penguins in 2009.
 
+. . .
 
-```{r, echo = TRUE}
+```{r}
+#| echo: true
+#| code-line-numbers: "1|2|3|4"
+#| output-location: fragment
 penguins |>
   filter(sex == "female", year == 2009) |>
-  ggplot(aes(x = flipper_length_mm)) +
-  geom_histogram(aes(fill = species), alpha = 0.5, position = "identity") +
-  scale_fill_manual(values = c("darkorange","darkorchid","cyan4"))
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species, shape = species), size = 2)
 ```
-::::
 
-::::
-
-
-## blockr demo
+## With blockr
 
 ```{shinylive-r}
 #| standalone: true
 #| components: [viewer]
 #| viewerHeight: 800
-## file: app.R
 webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))
 library(blockr)
 library(palmerpenguins)
@@ -221,35 +170,126 @@ stack <- new_stack(
 serve_stack(stack)
 ```
 
-## How to build a `dplyr::select` block?
+## blockr vs Shiny
 
 ::::{.columns}
+:::{.column}
 
-:::{.column width="70%"}
-```{mermaid}
-%%| mermaid-format: svg
-flowchart TD
-  sel_data_in(Data input)
-  sel_data_out(Transformed data)
-  subgraph sel_block[Select block]
-    sel_select_col[Select column]
-    sel_expr[Expression]
-    sel_res[Result]
-    sel_select_col --> sel_expr --> sel_res
-  end
-  sel_data_in --> sel_block --> sel_data_out
+Shiny
+```{r, echo=TRUE, eval=FALSE}
+library(shiny)
+library(bslib)
+library(ggplot2)
+library(palmerpenguins)
+
+shinyApp(
+  ui = page_fluid(
+    layout_sidebar(
+      sidebar = sidebar(
+        radioButtons("sex", "Sex", unique(penguins$sex), "female"),
+        numericInput(
+          "year", 
+          "Year", 
+          2009, 
+          min(unique(penguins$year)),
+         max(unique(penguins$year))
+        ),
+        selectInput(
+          "xvar", 
+          "X var", 
+          colnames(dplyr::select(penguins, where(is.numeric))),
+          "flipper_length_mm"
+        ),
+        selectInput(
+          "yvar",
+          "Y var",
+          colnames(dplyr::select(penguins, where(is.numeric))),
+          "body_mass_g"
+        ),
+        selectInput(
+          "color",
+          "Color and shape",
+          colnames(dplyr::select(penguins, where(is.factor))),
+          "species"
+        )
+      ),
+      plotOutput("plot")
+    )
+  ),
+  server = function(input, output, session) {
+    output$plot <- renderPlot({
+      penguins |>
+        filter(sex == !!input$sex, year == !!input$year) |>
+        ggplot(aes(x = !!input$xvar, y = !!input$yvar)) +
+        geom_point(aes(color = !!input$color, shape = !!input$color), size = 2)
+    })
+  }
+)
 ```
 :::
 
-:::{.column width="30%"}
+:::{.column}
+blockr
 ```{r, echo=TRUE, eval=FALSE}
-data |> select(<COLNAME>)
+library(blockr)
+new_stack(
+  data_block = new_dataset_block("penguins", "palmerpenguins"), 
+  plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
+  layer_block = new_geompoint_block("species", "species")
+)
+serve_stack(stack)
 ```
-
-1 field `<COLNAME>`
 :::
 
 ::::
+
+## Blocks and fields 🥦 🥚
+
+::::{.columns}
+
+:::{.column}
+```{mermaid}
+%%| mermaid-format: svg
+%%| fig-width: 10
+flowchart TD
+  blk_data_in(Data input)
+  blk_data_out[Output]
+  subgraph blk_block[Block]
+    subgraph blk_field1[Field 1]
+      value(Value)
+      title(Title)
+      descr(Description)
+      status(Status)
+    end
+    blk_field2(Field 2)
+    blk_field1 --> blk_expr
+    blk_field2 --> blk_expr
+    blk_expr(Expression)
+    blk_res(result)
+    blk_expr --> blk_res
+  end
+  blk_data_in --> blk_block --> blk_data_out
+```
+:::
+
+:::{.column}
+- __Fields__ are __ingredients__.
+- A __block__ is a recipe __step__.
+:::
+
+:::
+
+::: {.content-visible when-profile="speaker"}
+:::: {.notes}
+A __block__ contains:
+
+- __fields__, build the block expression and translated into Shiny inputs.
+- An __expression__, evaluated with input data: `data |> select(<COLNAMES>)`.
+- (Optional) input data.
+- A __result__, of the evaluated expression.
+- A __class__ for customization (see advanced part).
+::::
+:::
 
 ## How to build a `dplyr::filter` block?
 
@@ -293,49 +333,9 @@ data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
 - `<FILTER_VALUE>`: depends on `<COLNAME>`
 :::
 
-::::
-
-## Blocks and fields: ingredients and recipe step 🥦 🥚
-
-::::{.columns}
-
-:::{.column}
-```{mermaid}
-%%| mermaid-format: svg
-flowchart TD
-  blk_data_in(Data input)
-  blk_data_out[Output]
-  subgraph blk_block[Block]
-    subgraph blk_field1[Field 1]
-      value(Value)
-      title(Title)
-      descr(Description)
-      status(Status)
-    end
-    blk_field2(Field 2)
-    blk_field1 --> blk_expr
-    blk_field2 --> blk_expr
-    blk_expr(Expression)
-    blk_res(result)
-    blk_expr --> blk_res
-  end
-  blk_data_in --> blk_block --> blk_data_out
-```
 :::
 
-:::{.column}
-A __block__ contains:
-
-- __fields__, build the block expression and translated into Shiny inputs.
-- An __expression__, evaluated with input data: `data |> select(<COLNAMES>)`.
-- (Optional) input data.
-- A __result__, of the evaluated expression.
-- A __class__ for customization (see advanced part).
-:::
-
-::::
-
-## The stack: data analysis recipe 📜
+## The stack: data analysis recipe
 
 ::::{.columns}
 
@@ -354,12 +354,15 @@ flowchart TD
 :::
 
 :::{.column}
-Collection of instructions (blocks) to go from __data import__ to __wrangling__ (and optionally visualisation)
+Collection of instructions (blocks) from __data import__ to __wrangling/visualization__.
 :::
 
 ::::
 
-## The workspace: the dinner party 🎉
+## The workspace: the dinner party {background-image="assets/img/undraw_special_event.svg" background-size="contain" style="margin-top: -50px"}
+
+
+## The workspace
 
 ::::{.columns}
 
@@ -386,44 +389,23 @@ flowchart LR
 :::
 
 :::{.column width=30%}
-Collection of recipes (stacks) to build a dashboard
+Collection of __recipes__ (stacks) to build a __dashboard__.
 :::
 
 ::::
 
 
-# Create your own block supermarket {data-stack-name="Extend"}
+# Create your own block supermarket {data-stack-name="Extend" background-image="assets/img/undraw_empty_cart_co35.svg" background-size="cover" style="margin-top: -300px"}
 
-## blockr internals
+## Today's mission
 
-:::{incremental}
-- S3 programing: allows to customize behavior depending on object class
-:::
-
-```{mermaid}
-%%| mermaid-format: svg
-classDiagram
-  class block
-  block : +name
-  block : +expr
-  block : +result
-  block : +layout
-  block : +class
-  block : +initialize_block(block)
-  block : +is_initialized(block)
-  block : +generate_code(block)
-  block : +evaluate_block(block, ...)
-  block : +generate_server(block, ...)
-  block : +update_fields(block, ...)
-```
+Create a new __count()__ block: `penguins %>% count(species)`
 
 ## Create new blocks: count block 1/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
-We want `penguins %>% count(species)`
-
 ```{r, eval=FALSE, echo=TRUE}
 new_count_block <- function(column = character(), ...) {
 
@@ -614,7 +596,40 @@ flowchart LR
 
 ::::
 
+
+## Customize blockr
+
+:::{incremental}
+- S3 programing: allows to customize behavior depending on object class
+:::
+
+```{mermaid}
+%%| mermaid-format: svg
+classDiagram
+  class block
+  block : +name
+  block : +expr
+  block : +result
+  block : +layout
+  block : +class
+  block : +initialize_block(block)
+  block : +is_initialized(block)
+  block : +generate_code(block)
+  block : +evaluate_block(block, ...)
+  block : +generate_server(block, ...)
+  block : +update_fields(block, ...)
+```
+
 # We need you! {data-stack-name="Conclusion"}
+
+## Get started
+
+```{r, eval=FALSE, echo=TRUE}
+pak::pkg_install("blockr-org/blockr")
+
+library(blockr)
+serve_stack(new_stack())
+```
 
 ## Use blocks and build dashboard
 
