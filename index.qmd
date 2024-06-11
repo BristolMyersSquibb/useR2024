@@ -57,11 +57,9 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 --->
 
 
-## ![shiny logo](assets/img/shiny.svg){.center width=25%}
+## ![shiny homepage](assets/img/easy-browser.png){.center width=100%}
 
-> __Easy__ web apps for data science without the compromises
-
-## ~~Easy~~ Not so easy web apps for data science without the compromises {.center style="font-size: 1.5em"}
+## ![shiny homepage corrected](assets/img/notsoeasy-browser.png){.center width=100%}
 
 ## Developing enterprise-grade dashboards isn't easy {background-image="assets/img/undraw_lost_re_xqjt.svg" background-size="contain" style="font-size: 1.5em"}
 
