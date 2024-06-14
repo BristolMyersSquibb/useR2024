@@ -112,7 +112,31 @@ penguins |>
   geom_point(aes(color = species, shape = species), size = 2)
 ```
 
-## With blockr
+## The stack: a data analysis recipe
+
+::::{.columns}
+
+:::{.column}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart TD
+  subgraph stack1[Stack]
+    direction TB
+    input(Data block: dataset, browser, ...);
+    transform(Transform block: filter, select ...);
+    output(Result: plot block);
+    input --> transform --> output;
+  end
+```
+:::
+
+:::{.column}
+Collection of instructions (blocks) from __data import__ to __wrangling/visualization__.
+:::
+
+::::
+
+## blockr demo
 
 ```{shinylive-r}
 #| standalone: true
@@ -165,12 +189,10 @@ stack <- new_stack(
 serve_stack(stack)
 ```
 
-## blockr vs Shiny
+## How much code would it take with Shiny
 
-::::{.columns}
-:::{.column}
+. . .
 
-Shiny
 ```{r, echo=TRUE, eval=FALSE}
 library(shiny)
 library(bslib)
@@ -221,10 +243,11 @@ shinyApp(
   }
 )
 ```
-:::
 
-:::{.column}
-blockr
+## It's much easier with blockr
+
+. . .
+
 ```{r, echo=TRUE, eval=FALSE}
 library(blockr)
 new_stack(
@@ -234,125 +257,6 @@ new_stack(
 )
 serve_stack(stack)
 ```
-:::
-
-::::
-
-## Blocks and fields 🥦 🥚
-
-::::{.columns}
-
-:::{.column}
-```{mermaid}
-%%| mermaid-format: svg
-%%| fig-width: 10
-flowchart TD
-  blk_data_in(Data input)
-  blk_data_out[Output]
-  subgraph blk_block[Block]
-    subgraph blk_field1[Field 1]
-      value(Value)
-      title(Title)
-      descr(Description)
-      status(Status)
-    end
-    blk_field2(Field 2)
-    blk_field1 --> blk_expr
-    blk_field2 --> blk_expr
-    blk_expr(Expression)
-    blk_res(result)
-    blk_expr --> blk_res
-  end
-  blk_data_in --> blk_block --> blk_data_out
-```
-:::
-
-:::{.column}
-- __Fields__ are __ingredients__.
-- A __block__ is a recipe __step__.
-:::
-
-:::
-
-::: {.content-visible when-profile="speaker"}
-:::: {.notes}
-A __block__ contains:
-
-- __fields__, build the block expression and translated into Shiny inputs.
-- An __expression__, evaluated with input data: `data |> select(<COLNAMES>)`.
-- (Optional) input data.
-- A __result__, of the evaluated expression.
-- A __class__ for customization (see advanced part).
-::::
-:::
-
-## How to build a `dplyr::filter` block?
-
-::::{.columns}
-
-:::{.column width="70%"}
-```{mermaid}
-%%| mermaid-format: svg
-flowchart TD
-  filt_data_in[Data input]
-  filt_data_out[Transformed data]
-  subgraph filt_block[Filter block]
-    filt_select_col[Select columns]
-    filt_filter_func[Filter function ==, !=]
-    filt_filter_val[Filter values]
-    filt_expr[Expression]
-    filt_res[Result]
-
-    filt_select_col --> filt_expr
-    filt_select_col --> |depends| filt_filter_val
-    filt_filter_val --> filt_expr
-    filt_filter_func --> filt_expr
-
-    filt_expr --> filt_res
-  end
-  filt_data_in --> filt_block --> filt_data_out
-```
-:::
-
-:::{.column width="30%"}
-```{r, echo=TRUE, eval=FALSE}
-data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
-
-# data |> filter(col1 == "test")
-```
-
-3 __fields__:
-
-- `<COLNAME>`
-- `<FILTER_FUNC>`
-- `<FILTER_VALUE>`: depends on `<COLNAME>`
-:::
-
-:::
-
-## The stack: data analysis recipe
-
-::::{.columns}
-
-:::{.column}
-```{mermaid}
-%%| mermaid-format: svg
-flowchart TD
-  subgraph stack1[Stack]
-    direction TB
-    input(Data block: dataset, browser, ...);
-    transform(Transform block: filter, select ...);
-    output(Result: plot block);
-    input --> transform --> output;
-  end
-```
-:::
-
-:::{.column}
-Collection of instructions (blocks) from __data import__ to __wrangling/visualization__.
-:::
-
-::::
 
 ## The workspace: the dinner party {background-image="assets/img/undraw_special_event.svg" background-size="contain" style="margin-top: -50px"}
 
@@ -388,6 +292,19 @@ Collection of __recipes__ (stacks) to build a __dashboard__.
 :::
 
 ::::
+
+
+## TBD: workspace demo
+
+```{shinylive-r}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 800
+library(blockr)
+do.call(set_workspace, args = list(title = "My workspace"))
+serve_workspace(clear = FALSE)
+```
+
 
 ## How far can I go with blockr? {background-image="assets/img/undraw_add_post_re_174w.svg" background-size="cover" style="margin-left: 400px; margin-top: 700px"}
 
@@ -618,6 +535,10 @@ classDiagram
   block : +update_fields(block, ...)
 ```
 
+## TBD
+
+Maybe show the blockr.app video
+
 # We need you! {data-stack-name="Conclusion"}
 
 ## Get started
@@ -765,3 +686,97 @@ tags$div(
 #  )
 #)
 ```
+
+# Appendix {data-stack-name="Appendix"}
+
+## Zoom on blocks and fields 🥦 🥚
+
+::::{.columns}
+
+:::{.column}
+```{mermaid}
+%%| mermaid-format: svg
+%%| fig-width: 10
+flowchart TD
+  blk_data_in(Data input)
+  blk_data_out[Output]
+  subgraph blk_block[Block]
+    subgraph blk_field1[Field 1]
+      value(Value)
+      title(Title)
+      descr(Description)
+      status(Status)
+    end
+    blk_field2(Field 2)
+    blk_field1 --> blk_expr
+    blk_field2 --> blk_expr
+    blk_expr(Expression)
+    blk_res(result)
+    blk_expr --> blk_res
+  end
+  blk_data_in --> blk_block --> blk_data_out
+```
+:::
+
+:::{.column}
+- __Fields__ are __ingredients__.
+- A __block__ is a recipe __step__.
+:::
+
+:::
+
+::: {.content-visible when-profile="speaker"}
+:::: {.notes}
+A __block__ contains:
+
+- __fields__, build the block expression and translated into Shiny inputs.
+- An __expression__, evaluated with input data: `data |> select(<COLNAMES>)`.
+- (Optional) input data.
+- A __result__, of the evaluated expression.
+- A __class__ for customization (see advanced part).
+::::
+:::
+
+## How to build a `dplyr::filter` block?
+
+::::{.columns}
+
+:::{.column width="70%"}
+```{mermaid}
+%%| mermaid-format: svg
+flowchart TD
+  filt_data_in[Data input]
+  filt_data_out[Transformed data]
+  subgraph filt_block[Filter block]
+    filt_select_col[Select columns]
+    filt_filter_func[Filter function ==, !=]
+    filt_filter_val[Filter values]
+    filt_expr[Expression]
+    filt_res[Result]
+
+    filt_select_col --> filt_expr
+    filt_select_col --> |depends| filt_filter_val
+    filt_filter_val --> filt_expr
+    filt_filter_func --> filt_expr
+
+    filt_expr --> filt_res
+  end
+  filt_data_in --> filt_block --> filt_data_out
+```
+:::
+
+:::{.column width="30%"}
+```{r, echo=TRUE, eval=FALSE}
+data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
+
+# data |> filter(col1 == "test")
+```
+
+3 __fields__:
+
+- `<COLNAME>`
+- `<FILTER_FUNC>`
+- `<FILTER_VALUE>`: depends on `<COLNAME>`
+:::
+
+:::
