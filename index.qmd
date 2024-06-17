@@ -153,8 +153,8 @@ new_ggplot_block <- function(col_x = character(), col_y = character(), ...) {
 
   new_block(
     fields = list(
-      x = new_select_field(col_x, data_cols, title = "name"),
-      y = new_select_field(col_y, data_cols, title = "name")
+      x = new_select_field(col_x, data_cols, type = "name"),
+      y = new_select_field(col_y, data_cols, type = "name")
     ),
     expr = quote(
       ggplot(mapping = aes(x = .(x), y = .(y)))
@@ -170,8 +170,8 @@ new_geompoint_block <- function(color = character(), shape = character(), ...) {
 
   new_block(
     fields = list(
-      color = new_select_field(color, data_cols, title = "name"),
-      shape = new_select_field(shape, data_cols, title = "name")
+      color = new_select_field(color, data_cols, type = "name"),
+      shape = new_select_field(shape, data_cols, type = "name")
     ),
     expr = quote(
       geom_point(aes(color = .(color), shape = .(shape)), size = 2)
