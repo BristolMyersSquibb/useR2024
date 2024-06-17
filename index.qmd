@@ -153,8 +153,8 @@ new_ggplot_block <- function(col_x = character(), col_y = character(), ...) {
 
   new_block(
     fields = list(
-      x = new_select_field(col_x, data_cols, type = "name"),
-      y = new_select_field(col_y, data_cols, type = "name")
+      x = new_select_field(col_x, data_cols, title = "name"),
+      y = new_select_field(col_y, data_cols, title = "name")
     ),
     expr = quote(
       ggplot(mapping = aes(x = .(x), y = .(y)))
@@ -170,8 +170,8 @@ new_geompoint_block <- function(color = character(), shape = character(), ...) {
 
   new_block(
     fields = list(
-      color = new_select_field(color, data_cols, type = "name"),
-      shape = new_select_field(shape, data_cols, type = "name")
+      color = new_select_field(color, data_cols, title = "name"),
+      shape = new_select_field(shape, data_cols, title = "name")
     ),
     expr = quote(
       geom_point(aes(color = .(color), shape = .(shape)), size = 2)
@@ -314,15 +314,15 @@ serve_workspace(clear = FALSE)
 
 ## Today's mission
 
-Create a new __count()__ block: `penguins %>% count(species)`
+Create a new __lm()__ block: `lm(bill_length_mm ~ flipper_length_mm, data = penguins)`
 
-## Create new blocks: count block 1/4 {auto-animate=true}
+## Create new blocks: lm block 1/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
 }
 ```
@@ -334,18 +334,20 @@ new_count_block <- function(column = character(), ...) {
 
 ::::
 
-## Create new blocks: count block 2/4 {auto-animate=true}
+## Create new blocks: lm block 2/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
+  sel_col <- function(col) \(data) data[[col]]
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name") # <1>
+    y = new_select_field(sel_col(1), all_cols, title = "Y"),
+    predictor = new_select_field(sel_col(2), all_cols, title = "Predictor")
   )
 
   new_block(
@@ -361,29 +363,34 @@ new_count_block <- function(column = character(), ...) {
 ::: {style="color: gray;"}
 - Create the `constructor`.
 :::
-- Add field(s): selected column.
+- Add field(s): Y and predictor columns.
 :::
 
 ::::
 
-## Create new blocks: count block 3/4 {auto-animate=true}
+## Create new blocks: lm block 3/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
+  sel_col <- function(col) \(data) data[, col]
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name")
+    y = new_select_field(sel_col(1), all_cols, title = "Y"),
+    predictor = new_select_field(sel_col(2), all_cols, title = "Predictor")
   )
 
   new_block(
     fields = fields,
-    expr = quote(dplyr::count(.(cols))),
-    ...
+    expr = quote({
+      f <- as.formula(sprintf("%s ~ %s", .(y), .(predictor)))
+      lm(f, data = data)
+    }),
+
   )
 }
 ```
@@ -399,25 +406,31 @@ new_count_block <- function(column = character(), ...) {
 
 ::::
 
-## Create new blocks: count block 4/4 {auto-animate=true}
+## Create new blocks: lm block 4/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
+  sel_col <- function(col) \(data) data[, col]
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name")
+    y = new_select_field(sel_col(1), all_cols, title = "Y"),
+    predictor = new_select_field(sel_col(2), all_cols, title = "Predictor")
   )
 
   new_block(
     fields = fields,
-    expr = quote(dplyr::count(.(cols))),
+    expr = quote({
+      f <- as.formula(sprintf("%s ~ %s", .(y), .(predictor)))
+      model <- lm(f, data = data)
+      broom::tidy(model)
+    }),
     ...,
-    class = c("count_block", "transform_block")
+    class = c("lm_block", "transform_block")
   )
 }
 ```
@@ -426,10 +439,10 @@ new_count_block <- function(column = character(), ...) {
 :::{.column}
 ::: {style="color: gray;"}
 - Create the `constructor`.
-- Add field(s): selected column.
+- Add field(s): Y and predictor columns.
 - Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
 :::
-- Give it a right class: `transform_block` + a custom class.
+- Give it the correct classes: `transform_block` + a custom class.
 :::
 
 ::::
@@ -445,25 +458,30 @@ webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "ht
 library(blockr)
 library(palmerpenguins)
 
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
+  sel_col <- function(col) \(data) data[, col]
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name")
+    y = new_select_field(sel_col(1), all_cols, title = "Y"),
+    predictor = new_select_field(sel_col(2), all_cols, title = "Predictor")
   )
 
   new_block(
     fields = fields,
-    expr = quote(dplyr::count(.(cols))),
+    expr = quote({
+      f <- as.formula(sprintf("%s ~ %s", .(y), .(predictor)))
+      lm(f, data = data)
+    }),
     ...,
-    class = c("count_block", "transform_block")
+    class = c("lm_block", "transform_block")
   )
 }
 
 stack <- new_stack(
   data_block = new_dataset_block("penguins", "palmerpenguins"), 
-  count_block = new_count_block("species")
+  lm_block = new_lm_block("bill_length_mm", "body_mass_g")
 )
 serve_stack(stack)
 ```
