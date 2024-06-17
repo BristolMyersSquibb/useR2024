@@ -345,8 +345,8 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    y = new_select_field(y, all_cols, title = "Y"),
-    predictor = new_select_field(predictor, all_cols, title = "Predictor")
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
@@ -378,14 +378,14 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    y = new_select_field(y, all_cols, title = "Y"),
-    predictor = new_select_field(predictor, all_cols, title = "Predictor")
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
     fields = fields,
     expr = quote({
-      f <- as.formula(sprintf("%s ~ %s", .(y), .(predictor)))
+      model <- lm(data = data, formula = .(y) ~ .(predictor))
       lm(f, data = data)
     }),
 
@@ -412,19 +412,17 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
 ```{r, eval=FALSE, echo=TRUE}
 new_lm_block <- function(y = character(), predictor = character(), ...) {
 
-  sel_col <- function(col) \(data) data[, col]
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    y = new_select_field(sel_col(1), all_cols, title = "Y"),
-    predictor = new_select_field(sel_col(2), all_cols, title = "Predictor")
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
     fields = fields,
     expr = quote({
-      f <- as.formula(sprintf("%s ~ %s", .(y), .(predictor)))
-      model <- lm(f, data = data)
+      model <- lm(data = data, formula = .(y) ~ .(predictor))
       broom::tidy(model)
     }),
     ...,
@@ -461,15 +459,15 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    y = new_select_field(y, all_cols, title = "Y"),
-    predictor = new_select_field(predictor, all_cols, title = "Predictor")
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
     fields = fields,
     expr = quote({
-      f <- as.formula(sprintf("%s ~ %s", .(y), .(predictor)))
-      lm(f, data = data)
+      model <- lm(data = data, formula = .(y) ~ .(predictor))
+      broom::tidy(model)
     }),
     ...,
     class = c("lm_block", "transform_block")
