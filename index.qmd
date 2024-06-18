@@ -50,7 +50,7 @@ library(ggplot2)
 library(dplyr)
 ```
 
-# A cooking approach to data science {background-image="assets/img/undraw_diet_ghvw.svg" background-size="contain" data-stack-name="Intro" style="margin-top: 450px;"}
+# A cooking approach to data science {background-image="assets/img/undraw_diet_ghvw.svg" background-size="contain" data-stack-name="Intro" style="margin-top: 450px; font-size: 1.5em"}
 
 <!--
 Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
