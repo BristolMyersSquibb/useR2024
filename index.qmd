@@ -631,7 +631,7 @@ serve_stack(new_stack())
 
 3. Enjoy!
 
-## Use blocks and build dashboard {style="font-size: 1.5em"}
+## Use blocks and build dashboards {style="font-size: 1.5em"}
 
 ::::{.columns}
 
