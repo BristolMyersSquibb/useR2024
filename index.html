@@ -924,7 +924,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </section><section id="filling-the-supermarket-with-block" class="slide level2"><h2>Filling the supermarket with block</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>register_my_block <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>register_lm_block <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
 <span id="cb11-2"><a href=""></a>  <span class="fu">register_block</span>(</span>
 <span id="cb11-3"><a href=""></a>    <span class="at">constructor =</span> new_lm_block,</span>
 <span id="cb11-4"><a href=""></a>    <span class="at">name =</span> <span class="st">"lm block"</span>,</span>
@@ -938,7 +938,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <span id="cb11-12"><a href=""></a></span>
 <span id="cb11-13"><a href=""></a><span class="co"># Put in zzz.R</span></span>
 <span id="cb11-14"><a href=""></a>.onLoad <span class="ot">&lt;-</span> <span class="cf">function</span>(libname, pkgname) {</span>
-<span id="cb11-15"><a href=""></a>  <span class="fu">register_ggplot_blocks</span>(<span class="st">"blockr.&lt;MY_PKG_NAME&gt;"</span>)</span>
+<span id="cb11-15"><a href=""></a>  <span class="fu">register_lm_block</span>(pkgname)</span>
 <span id="cb11-16"><a href=""></a>  <span class="fu">invisible</span>(<span class="cn">NULL</span>)</span>
 <span id="cb11-17"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

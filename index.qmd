@@ -528,7 +528,7 @@ flowchart LR
 ## Filling the supermarket with block
 
 ```{r echo=TRUE, eval=FALSE}
-register_my_block <- function(pkg) {
+register_lm_block <- function(pkg) {
   register_block(
     constructor = new_lm_block,
     name = "lm block",
@@ -542,7 +542,7 @@ register_my_block <- function(pkg) {
 
 # Put in zzz.R
 .onLoad <- function(libname, pkgname) {
-  register_ggplot_blocks("blockr.<MY_PKG_NAME>")
+  register_lm_block(pkgname)
   invisible(NULL)
 }
 ```
