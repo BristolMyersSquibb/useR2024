@@ -683,12 +683,12 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </section></section><section><section id="create-your-own-block-supermarket" class="title-slide slide level1 center" data-stack-name="Extend" data-background-image="assets/img/undraw_empty_cart_co35.svg" data-background-size="cover" style="margin-top: -300px"><h1>Create your own block supermarket</h1>
 
 </section><section id="todays-mission" class="slide level2"><h2>Today’s mission</h2>
-<p>Create a new <strong>count()</strong> block: <code>penguins %&gt;% count(species)</code></p>
-</section><section id="create-new-blocks-count-block-14" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 1/4</h2>
+<p>Create a new <strong>lm()</strong> block: <code>lm(bill_length_mm ~ flipper_length_mm, data = penguins)</code></p>
+</section><section id="create-new-blocks-lm-block-14" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: lm block 1/4</h2>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb6-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb6-1" class="hljs-ln-code"><a href=""></a>new_lm_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">y =</span> <span class="fu">character</span>(), <span class="at">predictor =</span> <span class="fu">character</span>(), ...) {</span>
 <span id="cb6-2" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb6-3" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -698,140 +698,149 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </ul>
 </div>
 </div>
-</section><section id="create-new-blocks-count-block-24" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 2/4</h2>
+</section><section id="create-new-blocks-lm-block-24" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: lm block 2/4</h2>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="annotated-cell-9-1" class="hljs-ln-code"><a href="#annotated-cell-9-1"></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
-<span id="annotated-cell-9-2" class="hljs-ln-code"><a href="#annotated-cell-9-2"></a></span>
-<span id="annotated-cell-9-3" class="hljs-ln-code"><a href="#annotated-cell-9-3"></a>  all_cols <span class="ot">&lt;-</span> <span class="cf">function</span>(data) <span class="fu">colnames</span>(data)</span>
-<span id="annotated-cell-9-4" class="hljs-ln-code"><a href="#annotated-cell-9-4"></a></span>
-<span id="annotated-cell-9-5" class="hljs-ln-code"><a href="#annotated-cell-9-5"></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-9-6" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-9-6"></a>    <span class="at">cols =</span> <span class="fu">new_select_field</span>(column, all_cols, <span class="at">type =</span> <span class="st">"name"</span>)</span>
-<span id="annotated-cell-9-7" class="hljs-ln-code"><a href="#annotated-cell-9-7"></a>  )</span>
-<span id="annotated-cell-9-8" class="hljs-ln-code"><a href="#annotated-cell-9-8"></a></span>
-<span id="annotated-cell-9-9" class="hljs-ln-code"><a href="#annotated-cell-9-9"></a>  <span class="fu">new_block</span>(</span>
-<span id="annotated-cell-9-10" class="hljs-ln-code"><a href="#annotated-cell-9-10"></a>    <span class="at">fields =</span> fields,</span>
-<span id="annotated-cell-9-11" class="hljs-ln-code"><a href="#annotated-cell-9-11"></a></span>
-<span id="annotated-cell-9-12" class="hljs-ln-code"><a href="#annotated-cell-9-12"></a>  )</span>
-<span id="annotated-cell-9-13" class="hljs-ln-code"><a href="#annotated-cell-9-13"></a>}</span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="6" data-code-annotation="1"><code>type</code> allows to pass in cols as name instead of strings.</span>
-</dd>
-</dl>
-</div>
-</div>
-</div><div class="column">
-<div style="color: gray;">
-<ul>
-<li>Create the <code>constructor</code>.</li>
-</ul>
-</div>
-<ul>
-<li>Add field(s): selected column.</li>
-</ul>
-</div>
-</div>
-</section><section id="create-new-blocks-count-block-34" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 3/4</h2>
-<div class="columns">
-<div class="column">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a href=""></a>new_lm_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">y =</span> <span class="fu">character</span>(), <span class="at">predictor =</span> <span class="fu">character</span>(), ...) {</span>
 <span id="cb7-2" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb7-3" class="hljs-ln-code"><a href=""></a>  all_cols <span class="ot">&lt;-</span> <span class="cf">function</span>(data) <span class="fu">colnames</span>(data)</span>
 <span id="cb7-4" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb7-5" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb7-6" class="hljs-ln-code"><a href=""></a>    <span class="at">cols =</span> <span class="fu">new_select_field</span>(column, all_cols, <span class="at">type =</span> <span class="st">"name"</span>)</span>
-<span id="cb7-7" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb7-8" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb7-9" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
-<span id="cb7-10" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
-<span id="cb7-11" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>(dplyr<span class="sc">::</span><span class="fu">count</span>(.(cols))),</span>
-<span id="cb7-12" class="hljs-ln-code"><a href=""></a>    ...</span>
+<span id="cb7-6" class="hljs-ln-code"><a href=""></a>    <span class="at">y =</span> <span class="fu">new_select_field</span>(y, all_cols, <span class="at">type =</span> <span class="st">"name"</span>),</span>
+<span id="cb7-7" class="hljs-ln-code"><a href=""></a>    <span class="at">predictor =</span> <span class="fu">new_select_field</span>(predictor, all_cols, <span class="at">type =</span> <span class="st">"name"</span>)</span>
+<span id="cb7-8" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb7-9" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb7-10" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
+<span id="cb7-11" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
+<span id="cb7-12" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb7-13" class="hljs-ln-code"><a href=""></a>  )</span>
 <span id="cb7-14" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<ol type="1">
+<li>
+<code>type</code> allows to pass in cols as name instead of strings.</li>
+</ol>
 </div><div class="column">
 <div style="color: gray;">
 <ul>
 <li>Create the <code>constructor</code>.</li>
-<li>Add field(s): selected column.</li>
 </ul>
 </div>
 <ul>
-<li>Provide expression: use <code>quote</code> and pass field name with <code>.(field_name)</code>. <sup>1</sup>
-</li>
+<li>Add field(s): Y and predictor columns.</li>
 </ul>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Needed by <code>bquote</code> for partial substitution.</p></li></ol></aside></section><section id="create-new-blocks-count-block-44" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: count block 4/4</h2>
+</section><section id="create-new-blocks-lm-block-34" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: lm block 3/4</h2>
 <div class="columns">
 <div class="column">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb8-1" class="hljs-ln-code"><a href=""></a>new_count_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">column =</span> <span class="fu">character</span>(), ...) {</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb8-1" class="hljs-ln-code"><a href=""></a>new_lm_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">y =</span> <span class="fu">character</span>(), <span class="at">predictor =</span> <span class="fu">character</span>(), ...) {</span>
 <span id="cb8-2" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb8-3" class="hljs-ln-code"><a href=""></a>  all_cols <span class="ot">&lt;-</span> <span class="cf">function</span>(data) <span class="fu">colnames</span>(data)</span>
 <span id="cb8-4" class="hljs-ln-code"><a href=""></a></span>
 <span id="cb8-5" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-6" class="hljs-ln-code"><a href=""></a>    <span class="at">cols =</span> <span class="fu">new_select_field</span>(column, all_cols, <span class="at">type =</span> <span class="st">"name"</span>)</span>
-<span id="cb8-7" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb8-8" class="hljs-ln-code"><a href=""></a></span>
-<span id="cb8-9" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
-<span id="cb8-10" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
-<span id="cb8-11" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>(dplyr<span class="sc">::</span><span class="fu">count</span>(.(cols))),</span>
-<span id="cb8-12" class="hljs-ln-code"><a href=""></a>    ...,</span>
-<span id="cb8-13" class="hljs-ln-code"><a href=""></a>    <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"count_block"</span>, <span class="st">"transform_block"</span>)</span>
-<span id="cb8-14" class="hljs-ln-code"><a href=""></a>  )</span>
-<span id="cb8-15" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6" class="hljs-ln-code"><a href=""></a>    <span class="at">y =</span> <span class="fu">new_select_field</span>(y, all_cols, <span class="at">type =</span> <span class="st">"name"</span>),</span>
+<span id="cb8-7" class="hljs-ln-code"><a href=""></a>    <span class="at">predictor =</span> <span class="fu">new_select_field</span>(predictor, all_cols, <span class="at">type =</span> <span class="st">"name"</span>)</span>
+<span id="cb8-8" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb8-9" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb8-10" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
+<span id="cb8-11" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
+<span id="cb8-12" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>({</span>
+<span id="cb8-13" class="hljs-ln-code"><a href=""></a>      model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> data, <span class="at">formula =</span> .(y) <span class="sc">~</span> .(predictor))</span>
+<span id="cb8-14" class="hljs-ln-code"><a href=""></a>      <span class="fu">lm</span>(f, <span class="at">data =</span> data)</span>
+<span id="cb8-15" class="hljs-ln-code"><a href=""></a>    }),</span>
+<span id="cb8-16" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb8-17" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb8-18" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
 <div style="color: gray;">
 <ul>
 <li>Create the <code>constructor</code>.</li>
 <li>Add field(s): selected column.</li>
+</ul>
+</div>
+<ul>
+<li>Provide expression: use <code>quote</code> and pass field name with <code>.(field_name)</code>. <sup>1</sup>
+</li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Needed by <code>bquote</code> for partial substitution.</p></li></ol></aside></section><section id="create-new-blocks-lm-block-44" class="slide level2" data-auto-animate="true"><h2 data-id="quarto-animate-title">Create new blocks: lm block 4/4</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb9-1" class="hljs-ln-code"><a href=""></a>new_lm_block <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">y =</span> <span class="fu">character</span>(), <span class="at">predictor =</span> <span class="fu">character</span>(), ...) {</span>
+<span id="cb9-2" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb9-3" class="hljs-ln-code"><a href=""></a>  all_cols <span class="ot">&lt;-</span> <span class="cf">function</span>(data) <span class="fu">colnames</span>(data)</span>
+<span id="cb9-4" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb9-5" class="hljs-ln-code"><a href=""></a>  fields <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb9-6" class="hljs-ln-code"><a href=""></a>    <span class="at">y =</span> <span class="fu">new_select_field</span>(y, all_cols, <span class="at">type =</span> <span class="st">"name"</span>),</span>
+<span id="cb9-7" class="hljs-ln-code"><a href=""></a>    <span class="at">predictor =</span> <span class="fu">new_select_field</span>(predictor, all_cols, <span class="at">type =</span> <span class="st">"name"</span>)</span>
+<span id="cb9-8" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb9-9" class="hljs-ln-code"><a href=""></a></span>
+<span id="cb9-10" class="hljs-ln-code"><a href=""></a>  <span class="fu">new_block</span>(</span>
+<span id="cb9-11" class="hljs-ln-code"><a href=""></a>    <span class="at">fields =</span> fields,</span>
+<span id="cb9-12" class="hljs-ln-code"><a href=""></a>    <span class="at">expr =</span> <span class="fu">quote</span>({</span>
+<span id="cb9-13" class="hljs-ln-code"><a href=""></a>      model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> data, <span class="at">formula =</span> .(y) <span class="sc">~</span> .(predictor))</span>
+<span id="cb9-14" class="hljs-ln-code"><a href=""></a>      broom<span class="sc">::</span><span class="fu">tidy</span>(model)</span>
+<span id="cb9-15" class="hljs-ln-code"><a href=""></a>    }),</span>
+<span id="cb9-16" class="hljs-ln-code"><a href=""></a>    ...,</span>
+<span id="cb9-17" class="hljs-ln-code"><a href=""></a>    <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"lm_block"</span>, <span class="st">"transform_block"</span>)</span>
+<span id="cb9-18" class="hljs-ln-code"><a href=""></a>  )</span>
+<span id="cb9-19" class="hljs-ln-code"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column">
+<div style="color: gray;">
+<ul>
+<li>Create the <code>constructor</code>.</li>
+<li>Add field(s): Y and predictor columns.</li>
 <li>Provide expression: use <code>quote</code> and pass field name with <code>.(field_name)</code>. <sup>1</sup>
 </li>
 </ul>
 </div>
 <ul>
-<li>Give it a right class: <code>transform_block</code> + a custom class.</li>
+<li>Give it the correct classes: <code>transform_block</code> + a custom class.</li>
 </ul>
 </div>
 </div>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>Needed by <code>bquote</code> for partial substitution.</p></li></ol></aside></section><section id="demo" class="slide level2"><h2>Demo</h2>
-<div class="sourceCode" id="cb9" data-engine="r"><pre class="sourceCode numberSource shinylive-r number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href=""></a>#| standalone: true</span>
-<span id="cb9-2"><a href=""></a>#| components: [viewer]</span>
-<span id="cb9-3"><a href=""></a>#| viewerHeight: 800</span>
-<span id="cb9-4"><a href=""></a>## file: app.R</span>
-<span id="cb9-5"><a href=""></a>webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))</span>
-<span id="cb9-6"><a href=""></a>library(blockr)</span>
-<span id="cb9-7"><a href=""></a>library(palmerpenguins)</span>
-<span id="cb9-8"><a href=""></a></span>
-<span id="cb9-9"><a href=""></a>new_count_block &lt;- function(column = character(), ...) {</span>
-<span id="cb9-10"><a href=""></a></span>
-<span id="cb9-11"><a href=""></a>  all_cols &lt;- function(data) colnames(data)</span>
-<span id="cb9-12"><a href=""></a></span>
-<span id="cb9-13"><a href=""></a>  fields &lt;- list(</span>
-<span id="cb9-14"><a href=""></a>    cols = new_select_field(column, all_cols, type = "name")</span>
-<span id="cb9-15"><a href=""></a>  )</span>
-<span id="cb9-16"><a href=""></a></span>
-<span id="cb9-17"><a href=""></a>  new_block(</span>
-<span id="cb9-18"><a href=""></a>    fields = fields,</span>
-<span id="cb9-19"><a href=""></a>    expr = quote(dplyr::count(.(cols))),</span>
-<span id="cb9-20"><a href=""></a>    ...,</span>
-<span id="cb9-21"><a href=""></a>    class = c("count_block", "transform_block")</span>
-<span id="cb9-22"><a href=""></a>  )</span>
-<span id="cb9-23"><a href=""></a>}</span>
-<span id="cb9-24"><a href=""></a></span>
-<span id="cb9-25"><a href=""></a>stack &lt;- new_stack(</span>
-<span id="cb9-26"><a href=""></a>  data_block = new_dataset_block("penguins", "palmerpenguins"), </span>
-<span id="cb9-27"><a href=""></a>  count_block = new_count_block("species")</span>
-<span id="cb9-28"><a href=""></a>)</span>
-<span id="cb9-29"><a href=""></a>serve_stack(stack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="how-do-we-make-the-blocks-available-to-users" class="slide level2"><h2>How do we make the blocks available to users?</h2>
+<div class="sourceCode" id="cb10" data-engine="r"><pre class="sourceCode numberSource shinylive-r number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href=""></a>#| standalone: true</span>
+<span id="cb10-2"><a href=""></a>#| components: [viewer]</span>
+<span id="cb10-3"><a href=""></a>#| viewerHeight: 800</span>
+<span id="cb10-4"><a href=""></a>## file: app.R</span>
+<span id="cb10-5"><a href=""></a>webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))</span>
+<span id="cb10-6"><a href=""></a>library(blockr)</span>
+<span id="cb10-7"><a href=""></a>library(palmerpenguins)</span>
+<span id="cb10-8"><a href=""></a></span>
+<span id="cb10-9"><a href=""></a>new_lm_block &lt;- function(y = character(), predictor = character(), ...) {</span>
+<span id="cb10-10"><a href=""></a></span>
+<span id="cb10-11"><a href=""></a>  all_cols &lt;- function(data) colnames(data)</span>
+<span id="cb10-12"><a href=""></a></span>
+<span id="cb10-13"><a href=""></a>  fields &lt;- list(</span>
+<span id="cb10-14"><a href=""></a>    y = new_select_field(y, all_cols, type = "name"),</span>
+<span id="cb10-15"><a href=""></a>    predictor = new_select_field(predictor, all_cols, type = "name")</span>
+<span id="cb10-16"><a href=""></a>  )</span>
+<span id="cb10-17"><a href=""></a></span>
+<span id="cb10-18"><a href=""></a>  new_block(</span>
+<span id="cb10-19"><a href=""></a>    fields = fields,</span>
+<span id="cb10-20"><a href=""></a>    expr = quote({</span>
+<span id="cb10-21"><a href=""></a>      model &lt;- lm(data = data, formula = .(y) ~ .(predictor))</span>
+<span id="cb10-22"><a href=""></a>      broom::tidy(model)</span>
+<span id="cb10-23"><a href=""></a>    }),</span>
+<span id="cb10-24"><a href=""></a>    ...,</span>
+<span id="cb10-25"><a href=""></a>    class = c("lm_block", "transform_block")</span>
+<span id="cb10-26"><a href=""></a>  )</span>
+<span id="cb10-27"><a href=""></a>}</span>
+<span id="cb10-28"><a href=""></a></span>
+<span id="cb10-29"><a href=""></a>stack &lt;- new_stack(</span>
+<span id="cb10-30"><a href=""></a>  data_block = new_dataset_block("penguins", "palmerpenguins"), </span>
+<span id="cb10-31"><a href=""></a>  lm_block = new_lm_block("bill_length_mm", "body_mass_g")</span>
+<span id="cb10-32"><a href=""></a>)</span>
+<span id="cb10-33"><a href=""></a>serve_stack(stack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="how-do-we-make-custom-blocks-available-to-users" class="slide level2"><h2>How do we make custom blocks available to users?</h2>
 </section><section id="the-registry-the-blocks-supermarket" class="slide level2" data-stack-name="Registry"><h2>The registry: the blocks supermarket</h2>
 <div class="columns">
 <div class="column" style="width:70%;">
@@ -913,6 +922,26 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </ul>
 </div>
 </div>
+</section><section id="filling-the-supermarket-with-block" class="slide level2"><h2>Filling the supermarket with block</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>register_lm_block <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
+<span id="cb11-2"><a href=""></a>  <span class="fu">register_block</span>(</span>
+<span id="cb11-3"><a href=""></a>    <span class="at">constructor =</span> new_lm_block,</span>
+<span id="cb11-4"><a href=""></a>    <span class="at">name =</span> <span class="st">"lm block"</span>,</span>
+<span id="cb11-5"><a href=""></a>    <span class="at">description =</span> <span class="st">"Create a linear model block"</span>,</span>
+<span id="cb11-6"><a href=""></a>    <span class="at">classes =</span> <span class="fu">c</span>(<span class="st">"lm_block"</span>, <span class="st">"transform_block"</span>),</span>
+<span id="cb11-7"><a href=""></a>    <span class="at">input =</span> <span class="st">"data.frame"</span>,</span>
+<span id="cb11-8"><a href=""></a>    <span class="at">output =</span> <span class="st">"data.frame"</span>,</span>
+<span id="cb11-9"><a href=""></a>    <span class="at">package =</span> pkg</span>
+<span id="cb11-10"><a href=""></a>  )</span>
+<span id="cb11-11"><a href=""></a>}</span>
+<span id="cb11-12"><a href=""></a></span>
+<span id="cb11-13"><a href=""></a><span class="co"># Put in zzz.R</span></span>
+<span id="cb11-14"><a href=""></a>.onLoad <span class="ot">&lt;-</span> <span class="cf">function</span>(libname, pkgname) {</span>
+<span id="cb11-15"><a href=""></a>  <span class="fu">register_lm_block</span>(pkgname)</span>
+<span id="cb11-16"><a href=""></a>  <span class="fu">invisible</span>(<span class="cn">NULL</span>)</span>
+<span id="cb11-17"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section><section id="customize-blockr" class="slide level2"><h2>Customize blockr</h2>
 <div class="{incremental}">
 <ul>
@@ -976,10 +1005,10 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 
 </section><section id="get-started" class="slide level2"><h2>Get started</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"blockr-org/blockr"</span>)</span>
-<span id="cb10-2"><a href=""></a></span>
-<span id="cb10-3"><a href=""></a><span class="fu">library</span>(blockr)</span>
-<span id="cb10-4"><a href=""></a><span class="fu">serve_stack</span>(<span class="fu">new_stack</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"blockr-org/blockr"</span>)</span>
+<span id="cb12-2"><a href=""></a></span>
+<span id="cb12-3"><a href=""></a><span class="fu">library</span>(blockr)</span>
+<span id="cb12-4"><a href=""></a><span class="fu">serve_stack</span>(<span class="fu">new_stack</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="use-blocks-and-build-dashboard" class="slide level2"><h2>Use blocks and build dashboard</h2>
 <p>Share dashboard with your teams to speed up data analysis</p>
@@ -1166,9 +1195,9 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </div><div class="column" style="width:30%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">&lt;</span>COLNAME<span class="sc">&gt;</span> <span class="er">&lt;</span>FILTER_FUNC<span class="sc">&gt;</span> <span class="er">&lt;</span>FILTER_VALUE<span class="sc">&gt;</span>, ...)</span>
-<span id="cb11-2"><a href=""></a></span>
-<span id="cb11-3"><a href=""></a><span class="co"># data |&gt; filter(col1 == "test")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>data <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">&lt;</span>COLNAME<span class="sc">&gt;</span> <span class="er">&lt;</span>FILTER_FUNC<span class="sc">&gt;</span> <span class="er">&lt;</span>FILTER_VALUE<span class="sc">&gt;</span>, ...)</span>
+<span id="cb13-2"><a href=""></a></span>
+<span id="cb13-3"><a href=""></a><span class="co"># data |&gt; filter(col1 == "test")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>3 <strong>fields</strong>:</p>
 <ul>

@@ -314,15 +314,15 @@ serve_workspace(clear = FALSE)
 
 ## Today's mission
 
-Create a new __count()__ block: `penguins %>% count(species)`
+Create a new __lm()__ block: `lm(bill_length_mm ~ flipper_length_mm, data = penguins)`
 
-## Create new blocks: count block 1/4 {auto-animate=true}
+## Create new blocks: lm block 1/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
 }
 ```
@@ -334,18 +334,19 @@ new_count_block <- function(column = character(), ...) {
 
 ::::
 
-## Create new blocks: count block 2/4 {auto-animate=true}
+## Create new blocks: lm block 2/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name") # <1>
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
@@ -361,29 +362,33 @@ new_count_block <- function(column = character(), ...) {
 ::: {style="color: gray;"}
 - Create the `constructor`.
 :::
-- Add field(s): selected column.
+- Add field(s): Y and predictor columns.
 :::
 
 ::::
 
-## Create new blocks: count block 3/4 {auto-animate=true}
+## Create new blocks: lm block 3/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name")
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
     fields = fields,
-    expr = quote(dplyr::count(.(cols))),
-    ...
+    expr = quote({
+      model <- lm(data = data, formula = .(y) ~ .(predictor))
+      lm(f, data = data)
+    }),
+
   )
 }
 ```
@@ -399,25 +404,29 @@ new_count_block <- function(column = character(), ...) {
 
 ::::
 
-## Create new blocks: count block 4/4 {auto-animate=true}
+## Create new blocks: lm block 4/4 {auto-animate=true}
 
 ::::{.columns}
 
 :::{.column}
 ```{r, eval=FALSE, echo=TRUE}
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name")
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
     fields = fields,
-    expr = quote(dplyr::count(.(cols))),
+    expr = quote({
+      model <- lm(data = data, formula = .(y) ~ .(predictor))
+      broom::tidy(model)
+    }),
     ...,
-    class = c("count_block", "transform_block")
+    class = c("lm_block", "transform_block")
   )
 }
 ```
@@ -426,10 +435,10 @@ new_count_block <- function(column = character(), ...) {
 :::{.column}
 ::: {style="color: gray;"}
 - Create the `constructor`.
-- Add field(s): selected column.
+- Add field(s): Y and predictor columns.
 - Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
 :::
-- Give it a right class: `transform_block` + a custom class.
+- Give it the correct classes: `transform_block` + a custom class.
 :::
 
 ::::
@@ -445,30 +454,34 @@ webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "ht
 library(blockr)
 library(palmerpenguins)
 
-new_count_block <- function(column = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) {
 
   all_cols <- function(data) colnames(data)
 
   fields <- list(
-    cols = new_select_field(column, all_cols, type = "name")
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
   )
 
   new_block(
     fields = fields,
-    expr = quote(dplyr::count(.(cols))),
+    expr = quote({
+      model <- lm(data = data, formula = .(y) ~ .(predictor))
+      broom::tidy(model)
+    }),
     ...,
-    class = c("count_block", "transform_block")
+    class = c("lm_block", "transform_block")
   )
 }
 
 stack <- new_stack(
   data_block = new_dataset_block("penguins", "palmerpenguins"), 
-  count_block = new_count_block("species")
+  lm_block = new_lm_block("bill_length_mm", "body_mass_g")
 )
 serve_stack(stack)
 ```
 
-## How do we make the blocks available to users?
+## How do we make custom blocks available to users?
 
 ## The registry: the blocks supermarket {data-stack-name="Registry"}
 
@@ -510,6 +523,29 @@ flowchart LR
 :::
 
 ::::
+
+
+## Filling the supermarket with block
+
+```{r echo=TRUE, eval=FALSE}
+register_lm_block <- function(pkg) {
+  register_block(
+    constructor = new_lm_block,
+    name = "lm block",
+    description = "Create a linear model block",
+    classes = c("lm_block", "transform_block"),
+    input = "data.frame",
+    output = "data.frame",
+    package = pkg
+  )
+}
+
+# Put in zzz.R
+.onLoad <- function(libname, pkgname) {
+  register_lm_block(pkgname)
+  invisible(NULL)
+}
+```
 
 
 ## Customize blockr
