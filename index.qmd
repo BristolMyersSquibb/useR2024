@@ -481,7 +481,7 @@ stack <- new_stack(
 serve_stack(stack)
 ```
 
-## How do we make the blocks available to users?
+## How do we make custom blocks available to users?
 
 ## The registry: the blocks supermarket {data-stack-name="Registry"}
 
@@ -523,6 +523,29 @@ flowchart LR
 :::
 
 ::::
+
+
+## Filling the supermarket with block
+
+```{r echo=TRUE, eval=FALSE}
+register_my_block <- function(pkg) {
+  register_block(
+    constructor = new_lm_block,
+    name = "lm block",
+    description = "Create a linear model block",
+    classes = c("lm_block", "transform_block"),
+    input = "data.frame",
+    output = "data.frame",
+    package = pkg
+  )
+}
+
+# Put in zzz.R
+.onLoad <- function(libname, pkgname) {
+  register_ggplot_blocks("blockr.<MY_PKG_NAME>")
+  invisible(NULL)
+}
+```
 
 
 ## Customize blockr
