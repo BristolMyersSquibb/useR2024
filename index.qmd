@@ -70,22 +70,20 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 
 
 
-## 💡 Introducing {blockr}
+## 💡 Introducing {blockr} {style="font-size: 1.5em"}
 
 ::::{.columns}
 
 :::{.column}
-![](assets/img/undraw_empty_cart_co35.svg){width=50%}
+![](assets/img/undraw_empty_cart_co35.svg){width=75%}
 :::
 
 :::{.column}
 
 :::{.incremental}
 - __Supermarket__ for data analysis with R.
-- __No-Code__ Dashboard builder for R.
-- "Shiny's WordPress".
-- Cut down development time from __weeks__ to __days__.
-- Extendable.
+- __No-Code__ Dashboard builder, "Shiny's WordPress" ...
+- ... __Extendable__ by developers.
 - Reproducible code.
 :::
 
@@ -96,7 +94,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 
 # blockr 101 {data-stack-name="blockr 101" background-image="assets/img/undraw_cooking_p7m1.svg" background-size="contain" style="margin-top: -150px; margin-left: 50px;"}
 
-## Palmer penguins plot
+## Palmer penguins plot {style="font-size: 1.5em"}
 
 Plot me a histogram showing `flipper length` by `species` only for `female` penguins in 2009.
 
@@ -112,7 +110,7 @@ penguins |>
   geom_point(aes(color = species, shape = species), size = 2)
 ```
 
-## The stack: a data analysis recipe
+## The stack: a data analysis recipe {style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -122,21 +120,27 @@ penguins |>
 flowchart TD
   subgraph stack1[Stack]
     direction TB
-    input(Data block: dataset, browser, ...);
-    transform(Transform block: filter, select ...);
-    output(Result: plot block);
-    input --> transform --> output;
+    subgraph input_block[Block 1]
+      input(Data: dataset, browser, ...)
+    end
+    subgraph transform_block[Block 2]
+      transform(Transform block: filter, select ...)
+    end
+    subgraph output_block[Block 3]
+      output(Result/transform: plot, filter, ...)
+    end
+    input_block --> |data| transform_block --> |data| output_block
   end
 ```
 :::
 
 :::{.column}
-Collection of instructions (blocks) from __data import__ to __wrangling/visualization__.
+Collection of instructions, __blocks__, from __data import__ to __wrangling/visualization__.
 :::
 
 ::::
 
-## blockr demo
+## blockr demo {style="font-size: 1.5em"}
 
 ```{shinylive-r}
 #| standalone: true
@@ -182,14 +186,15 @@ new_geompoint_block <- function(color = character(), shape = character(), ...) {
 }
 
 stack <- new_stack(
-  data_block = new_dataset_block("penguins", "palmerpenguins"), 
+  data_block = new_dataset_block("penguins", "palmerpenguins"),
+  #filter_block = new_filter_block("sex", "female"), 
   plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
   layer_block = new_geompoint_block("species", "species")
 )
 serve_stack(stack)
 ```
 
-## How much code would it take with Shiny
+## How much code would it take with Shiny? {style="font-size: 1.5em"}
 
 . . .
 
@@ -244,57 +249,64 @@ shinyApp(
 )
 ```
 
-## It's much easier with blockr
+## It's much easier with blockr {style="font-size: 1.5em"}
 
 . . .
 
 ```{r, echo=TRUE, eval=FALSE}
 library(blockr)
-new_stack(
-  data_block = new_dataset_block("penguins", "palmerpenguins"), 
-  plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
-  layer_block = new_geompoint_block("species", "species")
+new_stack( # <1>
+  data_block = new_dataset_block("penguins", "palmerpenguins"), # <2>
+  #filter_block = new_filter_block("sex", "female"), 
+  plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"), # <3>
+  layer_block = new_geompoint_block("species", "species") # <4>
 )
-serve_stack(stack)
+serve_stack(stack) # <5>
 ```
 
-## The workspace: the dinner party {background-image="assets/img/undraw_special_event.svg" background-size="contain" style="margin-top: -50px"}
+1. Create the stack.
+2. Import data.
+3. Create the plot.
+4. Add it a layer.
+5. Serve a Shiny app.
+
+## Connecting stacks: towards a dinner party {background-image="assets/img/undraw_special_event.svg" background-size="contain" style="margin-top: -50px; font-size: 1.5em"}
 
 
-## The workspace
+## The workspace {style="font-size: 1.5em"}
 
 ::::{.columns}
 
-:::{.column width=70%}
+:::{.column width=60%}
 ```{mermaid}
 %%| mermaid-format: svg
-flowchart LR
-  subgraph stack2[Stack 1]
+flowchart TD
+  subgraph s1[Stack 1]
     direction TB
-    input_2(Data);
-    transform_2(Transform);
-    output_2(Result);
-    input_2 --> transform_2 --> output_2;
+    input_s1(Data)
+    transform_s1(Transform)
+    input_s1 --> |data| transform_s1
   end
-  stack2 --> stack3
-  subgraph stack3[Stack 2]
+  transform_s1 --> |data| input_s2
+  subgraph s2[Stack 2]
     direction TB
-    input_3(Data);
-    transform_3(Transform);
-    output_3(Visualize);
-    input_3 --> transform_3 --> output_3;
+    input_s2(Data)
+    transform_s2(Transform)
+    output_s2(Visualize)
+    input_s2 --> |data| transform_s2 --> |data| output_s2
   end
 ```
 :::
 
-:::{.column width=30%}
+:::{.column width=40%}
 Collection of __recipes__ (stacks) to build a __dashboard__.
+
 :::
 
 ::::
 
 
-## TBD: workspace demo
+## TBD: workspace demo {style="font-size: 1.5em"}
 
 ```{shinylive-r}
 #| standalone: true
@@ -305,18 +317,39 @@ do.call(set_workspace, args = list(title = "My workspace"))
 serve_workspace(clear = FALSE)
 ```
 
+## How do I create a workspace? {style="font-size: 1.5em"}
 
-## How far can I go with blockr? {background-image="assets/img/undraw_add_post_re_174w.svg" background-size="cover" style="margin-left: 400px; margin-top: 700px"}
+```r
+library(blockr)
+# Creates an empty workspace
+set_workspace( # <1>
+  stack_1 = new_stack( # <2>
+    data_block = new_dataset_block("penguins", "palmerpenguins"), 
+    #filter_block = new_filter_block("sex", "female"), 
+    plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
+    layer_block = new_geompoint_block("species", "species")
+)
+serve_workspace() # <3>
+```
+
+1. Initialise.
+2. Optional: add stacks.
+3. Serve Shiny app.
+
+
+## How far can I go with blockr? {background-image="assets/img/undraw_add_post_re_174w.svg" background-size="cover" style="margin-left: 400px; margin-top: 700px; font-size: 1.5em"}
 
 
 
-# Create your own block supermarket {data-stack-name="Extend" background-image="assets/img/undraw_empty_cart_co35.svg" background-size="cover" style="margin-top: -300px"}
+# Create your own block supermarket {data-stack-name="Extend" background-image="assets/img/undraw_empty_cart_co35.svg" background-size="cover" style="margin-top: -300px; font-size: 1.5em"}
 
-## Today's mission
+## Today's mission {style="font-size: 1.5em"}
 
-Create a new __lm()__ block: `lm(bill_length_mm ~ flipper_length_mm, data = penguins)`
+Create a new __lm()__ block: 
 
-## Create new blocks: lm block 1/4 {auto-animate=true}
+`lm(bill_length_mm ~ flipper_length_mm, data = penguins)`
+
+## Create new blocks: lm block 1/4 {auto-animate=true style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -334,7 +367,7 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
 
 ::::
 
-## Create new blocks: lm block 2/4 {auto-animate=true}
+## Create new blocks: lm block 2/4 {auto-animate=true style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -367,7 +400,7 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
 
 ::::
 
-## Create new blocks: lm block 3/4 {auto-animate=true}
+## Create new blocks: lm block 3/4 {auto-animate=true style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -404,7 +437,7 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
 
 ::::
 
-## Create new blocks: lm block 4/4 {auto-animate=true}
+## Create new blocks: lm block 4/4 {auto-animate=true style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -443,7 +476,7 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
 
 ::::
 
-## Demo
+## Testing our new block {style="font-size: 1.5em"}
 
 ```{shinylive-r}
 #| standalone: true
@@ -481,9 +514,9 @@ stack <- new_stack(
 serve_stack(stack)
 ```
 
-## How do we make custom blocks available to users?
+## How do we make custom blocks available to users? {style="font-size: 1.5em"}
 
-## The registry: the blocks supermarket {data-stack-name="Registry"}
+## The registry: the blocks supermarket {data-stack-name="Registry" style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -525,7 +558,7 @@ flowchart LR
 ::::
 
 
-## Filling the supermarket with block
+## Filling the supermarket with block {style="font-size: 1.5em"}
 
 ```{r echo=TRUE, eval=FALSE}
 register_lm_block <- function(pkg) {
@@ -548,7 +581,7 @@ register_lm_block <- function(pkg) {
 ```
 
 
-## Customize blockr
+## Customize blockr {style="font-size: 1.5em"}
 
 :::{incremental}
 - S3 programing: allows to customize behavior depending on object class
@@ -575,27 +608,60 @@ classDiagram
 
 Maybe show the blockr.app video
 
-# We need you! {data-stack-name="Conclusion"}
+# We need you! {data-stack-name="Conclusion" background-image="assets/img/undraw_co_workers_re_1i6i.svg" style="font-size: 1.5em"}
 
-## Get started
+## Getting started {style="font-size: 1.5em"}
+
+. . .
+
+1. Install
 
 ```{r, eval=FALSE, echo=TRUE}
-pak::pkg_install("blockr-org/blockr")
+pak::pak("blockr-org/blockr")
 
 library(blockr)
 serve_stack(new_stack())
 ```
 
-## Use blocks and build dashboard
+. . .
 
+2. Read the doc at [https://blockr-org.github.io/blockr/index.html](https://blockr-org.github.io/blockr/index.html).
+
+. . . 
+
+3. Enjoy!
+
+## Use blocks and build dashboard {style="font-size: 1.5em"}
+
+::::{.columns}
+
+:::{.column}
+![](assets/img/undraw_data_trends_re_2cdy.svg){fig-width="50%"}
+:::
+
+:::{.column}
 Share dashboard with your teams to speed up data analysis
+:::
 
-## Create new blocks to help your data scientists
+::::
 
+
+## Create blocks to help your data scientists {style="font-size: 1.5em"}
+
+::::{.columns}
+
+:::{.column}
+![](assets/img/undraw_building_blocks_re_5ahy.svg){fig-width="50%"}
+:::
+
+:::{.column}
 You're an advanced R developer, you can extend blockr!
+:::
+
+::::
 
 
-## Our team
+## Our team {style="font-size: 1.5em"}
 
 ```{r}
 library(shiny)
