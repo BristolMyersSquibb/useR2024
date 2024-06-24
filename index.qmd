@@ -96,7 +96,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 
 ## Palmer penguins plot {style="font-size: 1.5em"}
 
-Plot me a histogram showing `flipper length` by `species` only for `female` penguins in 2009.
+Plot me a histogram showing `flipper length` as function of `body mass` by `species` only for `female` penguins.
 
 . . .
 
@@ -105,8 +105,8 @@ Plot me a histogram showing `flipper length` by `species` only for `female` peng
 #| code-line-numbers: "1|2|3|4"
 #| output-location: fragment
 penguins |>
-  filter(sex == "female", year == 2009) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  filter(sex == "female") |>
+  ggplot(aes(x = body_mass_g, y = flipper_length_mm)) +
   geom_point(aes(color = species, shape = species), size = 2)
 ```
 
@@ -142,6 +142,7 @@ Collection of instructions, __blocks__, from __data import__ to __wrangling/visu
 
 ## blockr demo {style="font-size: 1.5em"}
 
+<!--
 ```{shinylive-r}
 #| standalone: true
 #| components: [viewer]
@@ -188,11 +189,15 @@ new_geompoint_block <- function(color = character(), shape = character(), ...) {
 stack <- new_stack(
   data_block = new_dataset_block("penguins", "palmerpenguins"),
   #filter_block = new_filter_block("sex", "female"), 
-  plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
+  plot_block = new_ggplot_block("body_mass_g", "flipper_length_mm"),
   layer_block = new_geompoint_block("species", "species")
 )
 serve_stack(stack)
 ```
+
+-->
+
+![](assets/movies/palmer-penguins-blockr-demo.mov)
 
 ## How much code would it take with Shiny? {style="font-size: 1.5em"}
 
@@ -209,24 +214,17 @@ shinyApp(
     layout_sidebar(
       sidebar = sidebar(
         radioButtons("sex", "Sex", unique(penguins$sex), "female"),
-        numericInput(
-          "year", 
-          "Year", 
-          2009, 
-          min(unique(penguins$year)),
-         max(unique(penguins$year))
-        ),
         selectInput(
           "xvar", 
           "X var", 
           colnames(dplyr::select(penguins, where(is.numeric))),
-          "flipper_length_mm"
+          "body_mass_g"
         ),
         selectInput(
           "yvar",
           "Y var",
           colnames(dplyr::select(penguins, where(is.numeric))),
-          "body_mass_g"
+          "flipper_length_mm"
         ),
         selectInput(
           "color",
@@ -241,7 +239,7 @@ shinyApp(
   server = function(input, output, session) {
     output$plot <- renderPlot({
       penguins |>
-        filter(sex == !!input$sex, year == !!input$year) |>
+        filter(sex == !!input$sex) |>
         ggplot(aes(x = !!input$xvar, y = !!input$yvar)) +
         geom_point(aes(color = !!input$color, shape = !!input$color), size = 2)
     })
@@ -257,8 +255,8 @@ shinyApp(
 library(blockr)
 new_stack( # <1>
   data_block = new_dataset_block("penguins", "palmerpenguins"), # <2>
-  #filter_block = new_filter_block("sex", "female"), 
-  plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"), # <3>
+  filter_block = new_filter_block("sex", "female"), #<2>
+  plot_block = new_ggplot_block("body_mass_g", "flipper_length_mm"), # <3>
   layer_block = new_geompoint_block("species", "species") # <4>
 )
 serve_stack(stack) # <5>
