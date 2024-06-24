@@ -142,61 +142,6 @@ Collection of instructions, __blocks__, from __data import__ to __wrangling/visu
 
 ## blockr demo {style="font-size: 1.5em"}
 
-<!--
-```{shinylive-r}
-#| standalone: true
-#| components: [viewer]
-#| viewerHeight: 800
-webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))
-library(blockr)
-library(palmerpenguins)
-library(ggplot2)
-
-new_ggplot_block <- function(col_x = character(), col_y = character(), ...) {
-
-  data_cols <- function(data) colnames(data)
-
-  new_block(
-    fields = list(
-      x = new_select_field(col_x, data_cols, type = "name"),
-      y = new_select_field(col_y, data_cols, type = "name")
-    ),
-    expr = quote(
-      ggplot(mapping = aes(x = .(x), y = .(y)))
-    ),
-    class = c("ggplot_block", "plot_block"),
-    ...
-  )
-}
-
-new_geompoint_block <- function(color = character(), shape = character(), ...) {
-
-  data_cols <- function(data) colnames(data$data)
-
-  new_block(
-    fields = list(
-      color = new_select_field(color, data_cols, type = "name"),
-      shape = new_select_field(shape, data_cols, type = "name")
-    ),
-    expr = quote(
-      geom_point(aes(color = .(color), shape = .(shape)), size = 2)
-    ),
-    class = c("plot_layer_block", "plot_block"),
-    ...
-  )
-}
-
-stack <- new_stack(
-  data_block = new_dataset_block("penguins", "palmerpenguins"),
-  #filter_block = new_filter_block("sex", "female"), 
-  plot_block = new_ggplot_block("body_mass_g", "flipper_length_mm"),
-  layer_block = new_geompoint_block("species", "species")
-)
-serve_stack(stack)
-```
-
--->
-
 ![](assets/movies/palmer-penguins-blockr-demo.mov)
 
 ## How much code would it take with Shiny? {style="font-size: 1.5em"}
@@ -304,16 +249,9 @@ Collection of __recipes__ (stacks) to build a __dashboard__.
 ::::
 
 
-## TBD: workspace demo {style="font-size: 1.5em"}
+## Workspace demo {style="font-size: 1.5em"}
 
-```{shinylive-r}
-#| standalone: true
-#| components: [viewer]
-#| viewerHeight: 800
-library(blockr)
-do.call(set_workspace, args = list(title = "My workspace"))
-serve_workspace(clear = FALSE)
-```
+![](assets/movies/palmer-penguins-workspace-demo.mov)
 
 ## How do I create a workspace? {style="font-size: 1.5em"}
 
@@ -321,11 +259,8 @@ serve_workspace(clear = FALSE)
 library(blockr)
 # Creates an empty workspace
 set_workspace( # <1>
-  stack_1 = new_stack( # <2>
-    data_block = new_dataset_block("penguins", "palmerpenguins"), 
-    #filter_block = new_filter_block("sex", "female"), 
-    plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
-    layer_block = new_geompoint_block("species", "species")
+  stack_1 = new_stack() # <2>
+  stack_2 = new_stack()
 )
 serve_workspace() # <3>
 ```
@@ -880,3 +815,197 @@ data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
 :::
 
 :::
+
+## blockr: add block demo
+
+```{shinylive-r}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 800
+webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))
+library(blockr)
+library(palmerpenguins)
+library(ggplot2)
+
+new_ggplot_block <- function(col_x = character(), col_y = character(), ...) {
+
+  data_cols <- function(data) colnames(data)
+
+  new_block(
+    fields = list(
+      x = new_select_field(col_x, data_cols, type = "name"),
+      y = new_select_field(col_y, data_cols, type = "name")
+    ),
+    expr = quote(
+      ggplot(mapping = aes(x = .(x), y = .(y)))
+    ),
+    class = c("ggplot_block", "plot_block"),
+    ...
+  )
+}
+
+new_geompoint_block <- function(color = character(), shape = character(), ...) {
+
+  data_cols <- function(data) colnames(data$data)
+
+  new_block(
+    fields = list(
+      color = new_select_field(color, data_cols, type = "name"),
+      shape = new_select_field(shape, data_cols, type = "name")
+    ),
+    expr = quote(
+      geom_point(aes(color = .(color), shape = .(shape)), size = 2)
+    ),
+    class = c("plot_layer_block", "plot_block"),
+    ...
+  )
+}
+
+new_penguins_block <- function() {
+  new_dataset_block("penguins", "palmerpenguins")
+}
+
+register_block(
+  constructor = new_ggplot_block,
+  name = "ggplot2 block",
+  description = "Create a ggplot object",
+  classes = c("ggplot_block", "plot_block"),
+  input = "data.frame",
+  output = "ggplot2",
+  package = "blockr.ggplot2"
+)
+
+register_block(
+  constructor = new_geompoint_block,
+  name = "geompoint block",
+  description = "Create a geom point plot layer",
+  classes = c("plot_layer_block", "plot_block"),
+  input = "ggplot2",
+  output = "ggplot2",
+  package = "blockr.ggplot2"
+)
+
+stack <- new_stack(
+  data_block = new_dataset_block("penguins", "palmerpenguins")
+  #filter_block = new_filter_block("sex", "female"), 
+  #plot_block = new_ggplot_block("flipper_length_mm", "body_mass_g"),
+  #layer_block = new_geompoint_block("species", "species")
+)
+serve_stack(stack)
+```
+
+## blockr: workspace demo
+
+```{shinylive-r}
+#| standalone: true
+#| components: [viewer]
+#| viewerHeight: 800
+webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))
+library(blockr)
+library(palmerpenguins)
+library(ggplot2)
+
+new_ggplot_block <- function(col_x = character(), col_y = character(), ...) {
+
+  data_cols <- function(data) colnames(data)
+
+  new_block(
+    fields = list(
+      x = new_select_field(col_x, data_cols, type = "name"),
+      y = new_select_field(col_y, data_cols, type = "name")
+    ),
+    expr = quote(
+      ggplot(mapping = aes(x = .(x), y = .(y)))
+    ),
+    class = c("ggplot_block", "plot_block"),
+    ...
+  )
+}
+
+new_geompoint_block <- function(color = character(), shape = character(), ...) {
+
+  data_cols <- function(data) colnames(data$data)
+
+  new_block(
+    fields = list(
+      color = new_select_field(color, data_cols, type = "name"),
+      shape = new_select_field(shape, data_cols, type = "name")
+    ),
+    expr = quote(
+      geom_point(aes(color = .(color), shape = .(shape)), size = 2)
+    ),
+    class = c("plot_layer_block", "plot_block"),
+    ...
+  )
+}
+
+new_penguins_block <- function() {
+  new_dataset_block("penguins", "palmerpenguins")
+}
+
+new_lm_block <- function(y = character(), predictor = character(), ...) {
+
+  all_cols <- function(data) colnames(data)
+
+  fields <- list(
+    y = new_select_field(y, all_cols, type = "name"),
+    predictor = new_select_field(predictor, all_cols, type = "name")
+  )
+
+  new_block(
+    fields = fields,
+    expr = quote({
+      model <- lm(data = data, formula = .(y) ~ .(predictor))
+      broom::tidy(model)
+    }),
+    ...,
+    class = c("lm_block", "transform_block")
+  )
+}
+
+register_block(
+  constructor = new_lm_block,
+  name = "Linear model block",
+  description = "Create a linear model",
+  classes = c("lm_block", "transform_block"),
+  input = "data.frame",
+  output = "data.frame",
+  package = "blockr.lm"
+)
+
+register_block(
+  constructor = new_ggplot_block,
+  name = "ggplot2 block",
+  description = "Create a ggplot object",
+  classes = c("ggplot_block", "plot_block"),
+  input = "data.frame",
+  output = "ggplot2",
+  package = "blockr.ggplot2"
+)
+
+register_block(
+  constructor = new_geompoint_block,
+  name = "geompoint block",
+  description = "Create a geom point plot layer",
+  classes = c("plot_layer_block", "plot_block"),
+  input = "ggplot2",
+  output = "ggplot2",
+  package = "blockr.ggplot2"
+)
+
+register_block(
+  constructor = new_penguins_block,
+  name = "penguins data block",
+  description = "Create a palmer penguins dataset block",
+  classes = c("dataset_block", "data_block"),
+  input = NA_character_,
+  output = "data.frame",
+  package = "blockr.custom"
+)
+
+set_workspace(
+  stack_1 = new_stack(),
+  stack2 = new_stack()
+)
+serve_workspace(clear = FALSE)
+```
