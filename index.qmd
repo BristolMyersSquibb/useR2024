@@ -463,7 +463,7 @@ stack <- new_stack(
 serve_stack(stack)
 ```
 
-## How do we make custom blocks available to users? {style="font-size: 1.5em"}
+## How do we make custom blocks available to users? {style="font-size: 1.5em" background-image="assets/img/undraw_shopping_app_flsj.svg" background-size="40%"}
 
 ## The registry: the blocks supermarket {data-stack-name="Registry" style="font-size: 1.5em"}
 
@@ -552,10 +552,6 @@ classDiagram
   block : +generate_server(block, ...)
   block : +update_fields(block, ...)
 ```
-
-## TBD
-
-Maybe show the blockr.app video
 
 # We need you! {data-stack-name="Conclusion" background-image="assets/img/undraw_co_workers_re_1i6i.svg" background-size="50%" style="font-size: 1.5em; margin-top: -350px"}
 
