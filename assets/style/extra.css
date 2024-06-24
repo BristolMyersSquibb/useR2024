@@ -5,3 +5,7 @@
 #code-with-shiny pre.sourceCode code {
     max-height: 1000px;
 }
+
+.reveal .slide-background video {
+    top: 100px;
+}

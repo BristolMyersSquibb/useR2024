@@ -106,8 +106,6 @@
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/simplemenu/simplemenu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-attribution/attribution.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
@@ -416,7 +414,7 @@ John Coene (The Y Company) and David Granjon (cynkra GmbH)
 
 </section>
 <section>
-<section id="a-cooking-approach-to-data-science" class="title-slide slide level1 center" data-background-image="assets/img/undraw_diet_ghvw.svg" data-background-size="40%" data-stack-name="Intro" style="margin-top: -350px; font-size: 1.5em;">
+<section id="a-cooking-approach-to-data-science" class="title-slide slide level1 center" data-background-image="assets/img/gratin.jpeg" data-background-size="40%" data-stack-name="Intro" style="margin-top: -350px; font-size: 1.5em;">
 <h1>A cooking approach to data science</h1>
 <!--
 Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
@@ -460,15 +458,29 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <section id="palmer-penguins-plot" class="slide level2" style="font-size: 1.5em">
 <h2>Palmer penguins plot</h2>
 <div class="fragment">
-<p>Histogram showing <code>flipper length</code> as function of <code>body mass</code> by <code>species</code> only for <code>female</code> penguins.</p>
+<p>What penguin specie has the largest flipper?</p>
+<!-- Histogram showing `flipper length` as function of `body mass` by `species` only for `female` penguins.
+
+-->
 </div>
 <div class="fragment">
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|2|3|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|2|3-8|9-15|"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
 <span id="cb1-2"><a href=""></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
-<span id="cb1-4"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, <span class="at">shape =</span> species), <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href=""></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb1-4"><a href=""></a>    <span class="fu">aes</span>(</span>
+<span id="cb1-5"><a href=""></a>      <span class="at">x =</span> body_mass_g, </span>
+<span id="cb1-6"><a href=""></a>      <span class="at">y =</span> flipper_length_mm</span>
+<span id="cb1-7"><a href=""></a>    )</span>
+<span id="cb1-8"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb1-9"><a href=""></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb1-10"><a href=""></a>    <span class="fu">aes</span>(</span>
+<span id="cb1-11"><a href=""></a>      <span class="at">color =</span> species, </span>
+<span id="cb1-12"><a href=""></a>      <span class="at">shape =</span> species</span>
+<span id="cb1-13"><a href=""></a>    ), </span>
+<span id="cb1-14"><a href=""></a>    <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb1-15"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment">
 <div class="cell-output-display">
 <div>
@@ -540,9 +552,8 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </div>
 </section>
-<section id="blockr-demo" class="slide level2" style="font-size: 1.5em">
-<h2>blockr demo</h2>
-<p><video data-src="assets/movies/palmer-penguins-blockr-demo.mov" controls=""><a href="assets/movies/palmer-penguins-blockr-demo.mov">Video</a></video></p>
+<section id="section" class="slide level2" data-background-video="assets/movies/palmer-penguins-blockr-demo.mov">
+<h2></h2>
 </section>
 <section id="how-much-code-would-it-take-with-shiny" class="slide level2" style="font-size: 1.5em">
 <h2>How much code would it take with Shiny?</h2>
@@ -703,9 +714,8 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </div>
 </section>
-<section id="workspace-demo" class="slide level2" style="font-size: 1.5em">
-<h2>Workspace demo</h2>
-<p><video data-src="assets/movies/palmer-penguins-workspace-demo.mov" controls=""><a href="assets/movies/palmer-penguins-workspace-demo.mov">Video</a></video></p>
+<section id="section-1" class="slide level2" data-background-video="assets/movies/palmer-penguins-workspace-demo.mov">
+<h2></h2>
 </section>
 <section id="how-do-i-create-a-workspace" class="slide level2" style="font-size: 1.5em">
 <h2>How do I create a workspace?</h2>
@@ -1603,7 +1613,6 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
   <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="index_files/libs/revealjs/plugin/simplemenu/simplemenu.js"></script>
   <script src="index_files/libs/revealjs/plugin/reveal-attribution/attribution.js"></script>
   <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
@@ -1626,8 +1635,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'simplemenu': {"menubarclass":"menubar","menuclass":"menu","activeclass":"active","activeelement":"li","flat":false,"barhtml":{"header":"<div class='menubar'><ul class='menu'></ul><div>","footer":""},"scale":0.67},
 'smaller': false,
  
@@ -1799,7 +1807,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, Simplemenu, RevealAttribution, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, Simplemenu, RevealAttribution, QuartoSupport,
 
           RevealMath,
           RevealNotes,

@@ -23,7 +23,7 @@ format:
     navigation-mode: vertical
     controls-layout: bottom-right
     controls-tutorial: true
-    chalkboard: true
+    chalkboard: false
     transition: none
     background-transition: none
     title-slide-attributes:
@@ -50,7 +50,7 @@ library(ggplot2)
 library(dplyr)
 ```
 
-# A cooking approach to data science {background-image="assets/img/undraw_diet_ghvw.svg" background-size="40%" data-stack-name="Intro" style="margin-top: -350px; font-size: 1.5em;"}
+# A cooking approach to data science {background-image="assets/img/gratin.jpeg" background-size="40%" data-stack-name="Intro" style="margin-top: -350px; font-size: 1.5em;"}
 
 <!--
 Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
@@ -98,18 +98,33 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 
 . . . 
 
-Histogram showing `flipper length` as function of `body mass` by `species` only for `female` penguins.
+What penguin specie has the largest flipper?
+
+<!-- Histogram showing `flipper length` as function of `body mass` by `species` only for `female` penguins.
+
+-->
 
 . . .
 
 ```{r}
 #| echo: true
-#| code-line-numbers: "1|2|3|4"
+#| code-line-numbers: "1|2|3-8|9-15|"
 #| output-location: column-fragment
 penguins |>
   filter(sex == "female") |>
-  ggplot(aes(x = body_mass_g, y = flipper_length_mm)) +
-  geom_point(aes(color = species, shape = species), size = 2)
+  ggplot(
+    aes(
+      x = body_mass_g, 
+      y = flipper_length_mm
+    )
+  ) +
+  geom_point(
+    aes(
+      color = species, 
+      shape = species
+    ), 
+    size = 2
+  )
 ```
 
 ## The stack: a data analysis recipe {style="font-size: 1.5em"}
@@ -142,9 +157,8 @@ Collection of instructions, __blocks__, from __data import__ to __wrangling/visu
 
 ::::
 
-## blockr demo {style="font-size: 1.5em"}
+## {background-video="assets/movies/palmer-penguins-blockr-demo.mov"}
 
-![](assets/movies/palmer-penguins-blockr-demo.mov)
 
 ## How much code would it take with Shiny? {style="font-size: 1.5em"}
 
@@ -253,9 +267,7 @@ Collection of __recipes__ (stacks) to build a __dashboard__.
 ::::
 
 
-## Workspace demo {style="font-size: 1.5em"}
-
-![](assets/movies/palmer-penguins-workspace-demo.mov)
+## {background-video="assets/movies/palmer-penguins-workspace-demo.mov"}
 
 ## How do I create a workspace? {style="font-size: 1.5em"}
 
