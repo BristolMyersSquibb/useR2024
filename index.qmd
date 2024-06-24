@@ -150,6 +150,7 @@ Collection of instructions, __blocks__, from __data import__ to __wrangling/visu
 
 . . .
 
+::: {style="font-size: 40%;" id="code-with-shiny"}
 ```{r, echo=TRUE, eval=FALSE}
 library(shiny)
 library(bslib)
@@ -193,6 +194,7 @@ shinyApp(
   }
 )
 ```
+:::
 
 ## It's much easier with blockr {style="font-size: 1.5em"}
 

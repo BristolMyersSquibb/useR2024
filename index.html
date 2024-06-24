@@ -547,6 +547,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <section id="how-much-code-would-it-take-with-shiny" class="slide level2" style="font-size: 1.5em">
 <h2>How much code would it take with Shiny?</h2>
 <div class="fragment">
+<div id="code-with-shiny" style="font-size: 40%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(shiny)</span>
 <span id="cb2-2"><a href=""></a><span class="fu">library</span>(bslib)</span>
@@ -591,40 +592,41 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <span id="cb2-41"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+</div>
 </section>
 <section id="its-much-easier-with-blockr" class="slide level2" style="font-size: 1.5em">
 <h2>It’s much easier with blockr</h2>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1"></a><span class="fu">library</span>(blockr)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2"></a><span class="fu">new_stack</span>(</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-3" class="code-annotation-target"><a href="#annotated-cell-3-3"></a>  <span class="at">data_block =</span> <span class="fu">new_dataset_block</span>(<span class="st">"penguins"</span>, <span class="st">"palmerpenguins"</span>),</span>
-<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4"></a>  <span class="at">filter_block =</span> <span class="fu">new_filter_block</span>(<span class="st">"sex"</span>, <span class="st">"female"</span>),</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-3-5" class="code-annotation-target"><a href="#annotated-cell-3-5"></a>  <span class="at">plot_block =</span> <span class="fu">new_ggplot_block</span>(<span class="st">"body_mass_g"</span>, <span class="st">"flipper_length_mm"</span>),</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-3-6" class="code-annotation-target"><a href="#annotated-cell-3-6"></a>  <span class="at">layer_block =</span> <span class="fu">new_geompoint_block</span>(<span class="st">"species"</span>, <span class="st">"species"</span>)</span>
-<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7"></a>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-3-8" class="code-annotation-target"><a href="#annotated-cell-3-8"></a><span class="fu">serve_stack</span>(stack)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1"></a><span class="fu">library</span>(blockr)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2"></a><span class="fu">new_stack</span>(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3"></a>  <span class="at">data_block =</span> <span class="fu">new_dataset_block</span>(<span class="st">"penguins"</span>, <span class="st">"palmerpenguins"</span>),</span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4"></a>  <span class="at">filter_block =</span> <span class="fu">new_filter_block</span>(<span class="st">"sex"</span>, <span class="st">"female"</span>),</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-2-5" class="code-annotation-target"><a href="#annotated-cell-2-5"></a>  <span class="at">plot_block =</span> <span class="fu">new_ggplot_block</span>(<span class="st">"body_mass_g"</span>, <span class="st">"flipper_length_mm"</span>),</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-2-6" class="code-annotation-target"><a href="#annotated-cell-2-6"></a>  <span class="at">layer_block =</span> <span class="fu">new_geompoint_block</span>(<span class="st">"species"</span>, <span class="st">"species"</span>)</span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7"></a>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-2-8" class="code-annotation-target"><a href="#annotated-cell-2-8"></a><span class="fu">serve_stack</span>(stack)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="1">Create the stack.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">Create the stack.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="3,4" data-code-annotation="2">Import data.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="3,4" data-code-annotation="2">Import data.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="5" data-code-annotation="3">Create the plot.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="5" data-code-annotation="3">Create the plot.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="6" data-code-annotation="4">Add it a layer.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="6" data-code-annotation="4">Add it a layer.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="8" data-code-annotation="5">Serve a Shiny app.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="8" data-code-annotation="5">Serve a Shiny app.</span>
 </dd>
 </dl>
 </div>
@@ -707,25 +709,25 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </section>
 <section id="how-do-i-create-a-workspace" class="slide level2" style="font-size: 1.5em">
 <h2>How do I create a workspace?</h2>
-<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1"></a><span class="fu">library</span>(blockr)</span>
-<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2"></a><span class="co"># Creates an empty workspace</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-3" class="code-annotation-target"><a href="#annotated-cell-4-3"></a><span class="fu">set_workspace</span>(</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4"></a>  <span class="at">stack_1 =</span> <span class="fu">new_stack</span>()</span>
-<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5"></a>  <span class="at">stack_2 =</span> <span class="fu">new_stack</span>()</span>
-<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6"></a>)</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-4-7" class="code-annotation-target"><a href="#annotated-cell-4-7"></a><span class="fu">serve_workspace</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1"></a><span class="fu">library</span>(blockr)</span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2"></a><span class="co"># Creates an empty workspace</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-3" class="code-annotation-target"><a href="#annotated-cell-3-3"></a><span class="fu">set_workspace</span>(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4"></a>  <span class="at">stack_1 =</span> <span class="fu">new_stack</span>()</span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5"></a>  <span class="at">stack_2 =</span> <span class="fu">new_stack</span>()</span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6"></a>)</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7"></a><span class="fu">serve_workspace</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="1">Initialise.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1">Initialise.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="2">Optional: add stacks.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="2">Optional: add stacks.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="7" data-code-annotation="3">Serve Shiny app.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="3">Serve Shiny app.</span>
 </dd>
 </dl>
 </section>
