@@ -416,19 +416,19 @@ John Coene (The Y Company) and David Granjon (cynkra GmbH)
 
 </section>
 <section>
-<section id="a-cooking-approach-to-data-science" class="title-slide slide level1 center" data-background-image="assets/img/undraw_diet_ghvw.svg" data-background-size="contain" data-stack-name="Intro" style="margin-top: 450px; font-size: 1.5em">
+<section id="a-cooking-approach-to-data-science" class="title-slide slide level1 center" data-background-image="assets/img/undraw_diet_ghvw.svg" data-background-size="40%" data-stack-name="Intro" style="margin-top: -350px; font-size: 1.5em;">
 <h1>A cooking approach to data science</h1>
 <!--
 Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
 --->
 </section>
 <section id="shiny-homepage" class="slide level2">
-<h2><img data-src="assets/img/easy-browser.png" class="center" style="width:100.0%" alt="shiny homepage"></h2>
+<h2><img data-src="assets/img/easy-browser.png" class="center" style="margin-left: 350px;;width:50.0%" alt="shiny homepage"></h2>
 </section>
 <section id="shiny-homepage-corrected" class="slide level2">
-<h2><img data-src="assets/img/notsoeasy-browser.png" class="center" style="width:100.0%" alt="shiny homepage corrected"></h2>
+<h2><img data-src="assets/img/notsoeasy-browser.png" class="center" style="margin-left: 350px;;width:50.0%" alt="shiny homepage corrected"></h2>
 </section>
-<section id="developing-enterprise-grade-dashboards-isnt-easy" class="slide level2" data-background-image="assets/img/undraw_lost_re_xqjt.svg" data-background-size="contain" style="font-size: 1.5em">
+<section id="developing-enterprise-grade-dashboards-isnt-easy" class="slide level2" data-background-image="assets/img/undraw_lost_re_xqjt.svg" data-background-size="40%" style="font-size: 1.5em">
 <h2>Developing enterprise-grade dashboards isn’t easy</h2>
 <!-- 
 - Do you know how to prepare a meal without the right recipe?
@@ -453,26 +453,29 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </section></section>
 <section>
-<section id="blockr-101" class="title-slide slide level1 center" data-stack-name="blockr 101" data-background-image="assets/img/undraw_cooking_p7m1.svg" data-background-size="contain" style="margin-top: -150px; margin-left: 50px;">
+<section id="blockr-101" class="title-slide slide level1 center" data-stack-name="blockr 101" data-background-image="assets/img/undraw_cooking_p7m1.svg" data-background-size="40%" style="margin-top: -350px; font-size: 1.5em">
 <h1>blockr 101</h1>
 
 </section>
 <section id="palmer-penguins-plot" class="slide level2" style="font-size: 1.5em">
 <h2>Palmer penguins plot</h2>
-<p>Plot me a histogram showing <code>flipper length</code> as function of <code>body mass</code> by <code>species</code> only for <code>female</code> penguins.</p>
 <div class="fragment">
-<div class="cell">
+<p>Histogram showing <code>flipper length</code> as function of <code>body mass</code> by <code>species</code> only for <code>female</code> penguins.</p>
+</div>
+<div class="fragment">
+<div class="cell columns column-output-location">
+<div class="column">
 <div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|2|3|4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
 <span id="cb1-2"><a href=""></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
 <span id="cb1-4"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, <span class="at">shape =</span> species), <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment">
+</div><div class="column fragment">
 <div class="cell-output-display">
 <div>
 <figure>
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -628,7 +631,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </div>
 </section>
-<section id="connecting-stacks-towards-a-dinner-party" class="slide level2" data-background-image="assets/img/undraw_special_event.svg" data-background-size="contain" style="margin-top: -50px; font-size: 1.5em">
+<section id="connecting-stacks-towards-a-dinner-party" class="slide level2" data-background-image="assets/img/undraw_special_event.svg" data-background-size="40%" style="font-size: 1.5em">
 <h2>Connecting stacks: towards a dinner party</h2>
 </section>
 <section id="the-workspace" class="slide level2" style="font-size: 1.5em">
@@ -726,12 +729,12 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </dd>
 </dl>
 </section>
-<section id="how-far-can-i-go-with-blockr" class="slide level2" data-background-image="assets/img/undraw_add_post_re_174w.svg" data-background-size="cover" style="margin-left: 400px; margin-top: 700px; font-size: 1.5em">
+<section id="how-far-can-i-go-with-blockr" class="slide level2" data-background-image="assets/img/undraw_add_post_re_174w.svg" data-background-size="90%" style="margin-left: 450px; margin-top: 700px; font-size: 1.5em">
 <h2>How far can I go with blockr?</h2>
 </section></section>
 <section>
-<section id="create-your-own-block-supermarket" class="title-slide slide level1 center" data-stack-name="Extend" data-background-image="assets/img/undraw_empty_cart_co35.svg" data-background-size="cover" style="margin-top: -300px; font-size: 1.5em">
-<h1>Create your own block supermarket</h1>
+<section id="create-your-own-blocks-supermarket" class="title-slide slide level1 center" data-stack-name="Extend" data-background-image="assets/img/undraw_empty_cart_co35.svg" data-background-size="60%" style="margin-top: -300px; font-size: 1.5em">
+<h1>Create your own blocks <br> supermarket</h1>
 
 </section>
 <section id="todays-mission" class="slide level2" style="font-size: 1.5em">
@@ -1108,7 +1111,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <p>Maybe show the blockr.app video</p>
 </section></section>
 <section>
-<section id="we-need-you" class="title-slide slide level1 center" data-stack-name="Conclusion" data-background-image="assets/img/undraw_co_workers_re_1i6i.svg" style="font-size: 1.5em">
+<section id="we-need-you" class="title-slide slide level1 center" data-stack-name="Conclusion" data-background-image="assets/img/undraw_co_workers_re_1i6i.svg" data-background-size="50%" style="font-size: 1.5em; margin-top: -350px">
 <h1>We need you!</h1>
 
 </section>
@@ -1140,9 +1143,9 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <h2>Use blocks and build dashboards</h2>
 <div class="columns">
 <div class="column">
-<p><img data-src="assets/img/undraw_data_trends_re_2cdy.svg" data-fig-width="50%"></p>
+<p><img data-src="assets/img/undraw_data_trends_re_2cdy.svg" style="width:100.0%"></p>
 </div><div class="column">
-<p>Share dashboard with your teams to speed up data analysis</p>
+<p><strong>Share</strong> dashboards with your teams to <strong>speed up</strong> data analysis</p>
 </div>
 </div>
 </section>
@@ -1150,9 +1153,9 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <h2>Create blocks to help your data scientists</h2>
 <div class="columns">
 <div class="column">
-<p><img data-src="assets/img/undraw_building_blocks_re_5ahy.svg" data-fig-width="50%"></p>
+<p><img data-src="assets/img/undraw_building_blocks_re_5ahy.svg" style="width:80.0%"></p>
 </div><div class="column">
-<p>You’re an advanced R developer, you can extend blockr!</p>
+<p>You’re an <strong>advanced</strong> R developer, you can <strong>extend</strong> blockr!</p>
 </div>
 </div>
 </section>
@@ -1205,11 +1208,11 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </section></section>
 <section>
-<section id="appendix" class="title-slide slide level1 center" data-stack-name="Appendix">
+<section id="appendix" class="title-slide slide level1 center" data-stack-name="Appendix" style="font-size: 1.5em">
 <h1>Appendix</h1>
 
 </section>
-<section id="zoom-on-blocks-and-fields" class="slide level2">
+<section id="zoom-on-blocks-and-fields" class="slide level2" style="font-size: 1.5em">
 <h2>Zoom on blocks and fields 🥦 🥚</h2>
 <div class="columns">
 <div class="column">
@@ -1299,7 +1302,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </div>
 </section>
-<section id="how-to-build-a-dplyrfilter-block" class="slide level2">
+<section id="how-to-build-a-dplyrfilter-block" class="slide level2" style="font-size: 1.5em">
 <h2>How to build a <code>dplyr::filter</code> block?</h2>
 <div class="columns">
 <div class="column" style="width:70%;">
@@ -1392,7 +1395,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </div>
 </section>
-<section id="blockr-add-block-demo" class="slide level2">
+<section id="blockr-add-block-demo" class="slide level2" style="font-size: 1.5em">
 <h2>blockr: add block demo</h2>
 <div class="sourceCode" id="cb11" data-engine="r"><pre class="sourceCode numberSource shinylive-r number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href=""></a>#| standalone: true</span>
 <span id="cb11-2"><a href=""></a>#| components: [viewer]</span>
@@ -1468,7 +1471,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <span id="cb11-72"><a href=""></a>)</span>
 <span id="cb11-73"><a href=""></a>serve_stack(stack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="blockr-workspace-demo" class="slide level2">
+<section id="blockr-workspace-demo" class="slide level2" style="font-size: 1.5em">
 <h2>blockr: workspace demo</h2>
 <div class="sourceCode" id="cb12" data-engine="r"><pre class="sourceCode numberSource shinylive-r number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href=""></a>#| standalone: true</span>
 <span id="cb12-2"><a href=""></a>#| components: [viewer]</span>

@@ -50,18 +50,18 @@ library(ggplot2)
 library(dplyr)
 ```
 
-# A cooking approach to data science {background-image="assets/img/undraw_diet_ghvw.svg" background-size="contain" data-stack-name="Intro" style="margin-top: 450px; font-size: 1.5em"}
+# A cooking approach to data science {background-image="assets/img/undraw_diet_ghvw.svg" background-size="40%" data-stack-name="Intro" style="margin-top: -350px; font-size: 1.5em;"}
 
 <!--
 Imagine if we could build an interactive datapipeline like we would prepare a meal 😳
 --->
 
 
-## ![shiny homepage](assets/img/easy-browser.png){.center width=100%}
+## ![shiny homepage](assets/img/easy-browser.png){.center width=50% style="margin-left: 350px;"}
 
-## ![shiny homepage corrected](assets/img/notsoeasy-browser.png){.center width=100%}
+## ![shiny homepage corrected](assets/img/notsoeasy-browser.png){.center width=50% style="margin-left: 350px;"}
 
-## Developing enterprise-grade dashboards isn't easy {background-image="assets/img/undraw_lost_re_xqjt.svg" background-size="contain" style="font-size: 1.5em"}
+## Developing enterprise-grade dashboards isn't easy {background-image="assets/img/undraw_lost_re_xqjt.svg" background-size="40%" style="font-size: 1.5em"}
 
 <!-- 
 - Do you know how to prepare a meal without the right recipe?
@@ -92,18 +92,20 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 ::::
 
 
-# blockr 101 {data-stack-name="blockr 101" background-image="assets/img/undraw_cooking_p7m1.svg" background-size="contain" style="margin-top: -150px; margin-left: 50px;"}
+# blockr 101 {data-stack-name="blockr 101" background-image="assets/img/undraw_cooking_p7m1.svg" background-size="40%" style="margin-top: -350px; font-size: 1.5em"}
 
 ## Palmer penguins plot {style="font-size: 1.5em"}
 
-Plot me a histogram showing `flipper length` as function of `body mass` by `species` only for `female` penguins.
+. . . 
+
+Histogram showing `flipper length` as function of `body mass` by `species` only for `female` penguins.
 
 . . .
 
 ```{r}
 #| echo: true
 #| code-line-numbers: "1|2|3|4"
-#| output-location: fragment
+#| output-location: column-fragment
 penguins |>
   filter(sex == "female") |>
   ggplot(aes(x = body_mass_g, y = flipper_length_mm)) +
@@ -213,7 +215,7 @@ serve_stack(stack) # <5>
 4. Add it a layer.
 5. Serve a Shiny app.
 
-## Connecting stacks: towards a dinner party {background-image="assets/img/undraw_special_event.svg" background-size="contain" style="margin-top: -50px; font-size: 1.5em"}
+## Connecting stacks: towards a dinner party {background-image="assets/img/undraw_special_event.svg" background-size="40%" style="font-size: 1.5em"}
 
 
 ## The workspace {style="font-size: 1.5em"}
@@ -270,11 +272,11 @@ serve_workspace() # <3>
 3. Serve Shiny app.
 
 
-## How far can I go with blockr? {background-image="assets/img/undraw_add_post_re_174w.svg" background-size="cover" style="margin-left: 400px; margin-top: 700px; font-size: 1.5em"}
+## How far can I go with blockr? {background-image="assets/img/undraw_add_post_re_174w.svg" background-size="90%" style="margin-left: 450px; margin-top: 700px; font-size: 1.5em"}
 
 
 
-# Create your own block supermarket {data-stack-name="Extend" background-image="assets/img/undraw_empty_cart_co35.svg" background-size="cover" style="margin-top: -300px; font-size: 1.5em"}
+# Create your own blocks </br> supermarket {data-stack-name="Extend" background-image="assets/img/undraw_empty_cart_co35.svg" background-size="60%" style="margin-top: -300px; font-size: 1.5em"}
 
 ## Today's mission {style="font-size: 1.5em"}
 
@@ -541,7 +543,7 @@ classDiagram
 
 Maybe show the blockr.app video
 
-# We need you! {data-stack-name="Conclusion" background-image="assets/img/undraw_co_workers_re_1i6i.svg" style="font-size: 1.5em"}
+# We need you! {data-stack-name="Conclusion" background-image="assets/img/undraw_co_workers_re_1i6i.svg" background-size="50%" style="font-size: 1.5em; margin-top: -350px"}
 
 ## Getting started {style="font-size: 1.5em"}
 
@@ -569,11 +571,11 @@ serve_stack(new_stack())
 ::::{.columns}
 
 :::{.column}
-![](assets/img/undraw_data_trends_re_2cdy.svg){fig-width="50%"}
+![](assets/img/undraw_data_trends_re_2cdy.svg){width="100%"}
 :::
 
 :::{.column}
-Share dashboard with your teams to speed up data analysis
+__Share__ dashboards with your teams to __speed up__ data analysis
 :::
 
 ::::
@@ -584,11 +586,11 @@ Share dashboard with your teams to speed up data analysis
 ::::{.columns}
 
 :::{.column}
-![](assets/img/undraw_building_blocks_re_5ahy.svg){fig-width="50%"}
+![](assets/img/undraw_building_blocks_re_5ahy.svg){width="80%"}
 :::
 
 :::{.column}
-You're an advanced R developer, you can extend blockr!
+You're an __advanced__ R developer, you can __extend__ blockr!
 :::
 
 ::::
@@ -722,9 +724,9 @@ tags$div(
 #)
 ```
 
-# Appendix {data-stack-name="Appendix"}
+# Appendix {data-stack-name="Appendix" style="font-size: 1.5em"}
 
-## Zoom on blocks and fields 🥦 🥚
+## Zoom on blocks and fields 🥦 🥚 {style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -772,7 +774,7 @@ A __block__ contains:
 ::::
 :::
 
-## How to build a `dplyr::filter` block?
+## How to build a `dplyr::filter` block? {style="font-size: 1.5em"}
 
 ::::{.columns}
 
@@ -816,7 +818,7 @@ data |> filter(<COLNAME> <FILTER_FUNC> <FILTER_VALUE>, ...)
 
 :::
 
-## blockr: add block demo
+## blockr: add block demo {style="font-size: 1.5em"}
 
 ```{shinylive-r}
 #| standalone: true
@@ -894,7 +896,7 @@ stack <- new_stack(
 serve_stack(stack)
 ```
 
-## blockr: workspace demo
+## blockr: workspace demo {style="font-size: 1.5em"}
 
 ```{shinylive-r}
 #| standalone: true
