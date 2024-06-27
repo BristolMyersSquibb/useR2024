@@ -300,61 +300,49 @@ Create a new __lm()__ block:
 
 ## Create new blocks: lm block 1/4 {auto-animate=true style="font-size: 1.5em"}
 
-::::{.columns}
-
-:::{.column}
+::: {style="font-size: 1em"}
 ```{r, eval=FALSE, echo=TRUE}
-new_lm_block <- function(y = character(), predictor = character(), ...) {
+new_lm_block <- function(y = character(), predictor = character(), ...) { # <1>
 
 }
 ```
-:::
 
-:::{.column}
-- Create the `constructor`.
-:::
+1. Create the `constructor`.
 
-::::
+:::
 
 ## Create new blocks: lm block 2/4 {auto-animate=true style="font-size: 1.5em"}
 
-::::{.columns}
-
-:::{.column}
+::: {style="font-size: 1em"}
 ```{r, eval=FALSE, echo=TRUE}
-new_lm_block <- function(y = character(), predictor = character(), ...) {
+#| code-line-numbers: "3|5-8|11"
+new_lm_block <- function(y = character(), predictor = character(), ...) { # <1>
 
-  all_cols <- function(data) colnames(data)
+  all_cols <- function(data) colnames(data) # <2>
 
-  fields <- list(
-    y = new_select_field(y, all_cols, type = "name"),
-    predictor = new_select_field(predictor, all_cols, type = "name")
-  )
+  fields <- list(# <3>
+    y = new_select_field(y, all_cols, type = "name"), # <3>
+    predictor = new_select_field(predictor, all_cols, type = "name") # <3>
+  ) # <3>
 
   new_block(
-    fields = fields,
+    fields = fields, # <3>
 
   )
 }
 ```
-1. `type` allows to pass in cols as name instead of strings.
+2. Construct columns dynamically.
+3. Add field(s): __y__ and __predictor__ columns (`type` allows to pass in cols as name instead of strings.)
+
 :::
 
-:::{.column}
-::: {style="color: gray;"}
-- Create the `constructor`.
-:::
-- Add field(s): Y and predictor columns.
-:::
-
-::::
 
 ## Create new blocks: lm block 3/4 {auto-animate=true style="font-size: 1.5em"}
 
-::::{.columns}
 
-:::{.column}
+::: {style="font-size: 1em"}
 ```{r, eval=FALSE, echo=TRUE}
+#| code-line-numbers: "12-15"
 new_lm_block <- function(y = character(), predictor = character(), ...) {
 
   all_cols <- function(data) colnames(data)
@@ -366,32 +354,23 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
 
   new_block(
     fields = fields,
-    expr = quote({
-      model <- lm(data = data, formula = .(y) ~ .(predictor))
-      lm(f, data = data)
-    }),
+    expr = quote({ # <4>
+      model <- lm(data = data, formula = .(y) ~ .(predictor)) # <4>
+      lm(f, data = data) # <4>
+    }), # <4>
 
   )
 }
 ```
+4. Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
+
 :::
 
-:::{.column}
-::: {style="color: gray;"}
-- Create the `constructor`.
-- Add field(s): selected column.
-:::
-- Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
-:::
-
-::::
 
 ## Create new blocks: lm block 4/4 {auto-animate=true style="font-size: 1.5em"}
-
-::::{.columns}
-
-:::{.column}
+:::{style="font-size: 1em"}
 ```{r, eval=FALSE, echo=TRUE}
+#| code-line-numbers: "17"
 new_lm_block <- function(y = character(), predictor = character(), ...) {
 
   all_cols <- function(data) colnames(data)
@@ -412,25 +391,16 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
   )
 }
 ```
-:::
+5. Give it the correct classes: `transform_block` + a custom class.
 
-:::{.column}
-::: {style="color: gray;"}
-- Create the `constructor`.
-- Add field(s): Y and predictor columns.
-- Provide expression: use `quote` and pass field name with `.(field_name)`. ^[Needed by `bquote` for partial substitution.]
 :::
-- Give it the correct classes: `transform_block` + a custom class.
-:::
-
-::::
 
 ## Testing our new block {style="font-size: 1.5em"}
 
 ```{shinylive-r}
 #| standalone: true
 #| components: [viewer]
-#| viewerHeight: 800
+#| viewerHeight: 550
 ## file: app.R
 webr::install("blockr", repos = c("https://blockr-org.github.io/webr-repos", "https://repo.r-wasm.org"))
 library(blockr)
