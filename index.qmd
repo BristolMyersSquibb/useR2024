@@ -157,7 +157,7 @@ Collection of instructions, __blocks__, from __data import__ to __wrangling/visu
 
 ::::
 
-## {background-video="assets/movies/palmer-penguins-blockr-demo.mov"}
+## {background-video="assets/movies/palmer-penguins-blockr-demo.mov" background-size="contain"}
 
 
 ## How much code would it take with Shiny? {style="font-size: 1.5em"}
@@ -267,7 +267,7 @@ Collection of __recipes__ (stacks) to build a __dashboard__.
 ::::
 
 
-## {background-video="assets/movies/palmer-penguins-workspace-demo.mov"}
+## {background-video="assets/movies/palmer-penguins-workspace-demo.mov" background-size="contain"}
 
 ## How do I create a workspace? {style="font-size: 1.5em"}
 
