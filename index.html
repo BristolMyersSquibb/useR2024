@@ -822,7 +822,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 <span id="annotated-cell-12-11" class="hljs-ln-code"><a href="#annotated-cell-12-11"></a>    <span class="at">fields =</span> fields,</span>
 <a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-12" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-12-12" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-12-12"></a>    <span class="at">expr =</span> <span class="fu">quote</span>({</span>
 <span id="annotated-cell-12-13" class="hljs-ln-code"><a href="#annotated-cell-12-13"></a>      model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> data, <span class="at">formula =</span> .(y) <span class="sc">~</span> .(predictor))</span>
-<span id="annotated-cell-12-14" class="hljs-ln-code"><a href="#annotated-cell-12-14"></a>      <span class="fu">lm</span>(f, <span class="at">data =</span> data)</span>
+<span id="annotated-cell-12-14" class="hljs-ln-code"><a href="#annotated-cell-12-14"></a>      broom<span class="sc">::</span><span class="fu">tidy</span>(model)</span>
 <span id="annotated-cell-12-15" class="hljs-ln-code"><a href="#annotated-cell-12-15"></a>    }),</span>
 <span id="annotated-cell-12-16" class="hljs-ln-code"><a href="#annotated-cell-12-16"></a></span>
 <span id="annotated-cell-12-17" class="hljs-ln-code"><a href="#annotated-cell-12-17"></a>  )</span>

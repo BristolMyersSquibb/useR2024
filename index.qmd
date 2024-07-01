@@ -356,7 +356,7 @@ new_lm_block <- function(y = character(), predictor = character(), ...) {
     fields = fields,
     expr = quote({ # <4>
       model <- lm(data = data, formula = .(y) ~ .(predictor)) # <4>
-      lm(f, data = data) # <4>
+      broom::tidy(model) # <4>
     }), # <4>
 
   )
