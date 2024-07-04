@@ -98,7 +98,7 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 
 . . . 
 
-What penguin specie has the largest flipper?
+What penguin species has the largest flippers?
 
 <!-- Histogram showing `flipper length` as function of `body mass` by `species` only for `female` penguins.
 
