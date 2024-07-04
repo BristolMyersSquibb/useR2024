@@ -1032,69 +1032,42 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </section>
 <section id="customize-blockr" class="slide level2" style="font-size: 1.5em">
 <h2>Customize blockr</h2>
-<div class="{incremental}">
-<ul>
-<li>S3 programing: allows to customize behavior depending on object class</li>
-</ul>
-</div>
+<div class="columns">
+<div class="column" style="width:60%;">
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg aria-roledescription="classDiagram" role="graphics-document document" viewbox="0 0 234.1875 321" style="; display: block; margin: auto auto auto auto" xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="960" id="mermaid-figure-4" height="480">
-<style>#mermaid-figure-4{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-figure-4 .error-icon{fill:#552222;}#mermaid-figure-4 .error-text{fill:#552222;stroke:#552222;}#mermaid-figure-4 .edge-thickness-normal{stroke-width:2px;}#mermaid-figure-4 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-figure-4 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-figure-4 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-figure-4 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-figure-4 .marker{fill:#333333;stroke:#333333;}#mermaid-figure-4 .marker.cross{stroke:#333333;}#mermaid-figure-4 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-figure-4 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-figure-4 g.classGroup text .title{font-weight:bolder;}#mermaid-figure-4 .nodeLabel,#mermaid-figure-4 .edgeLabel{color:#131300;}#mermaid-figure-4 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-figure-4 .label text{fill:#131300;}#mermaid-figure-4 .edgeLabel .label span{background:#ECECFF;}#mermaid-figure-4 .classTitle{font-weight:bolder;}#mermaid-figure-4 .node rect,#mermaid-figure-4 .node circle,#mermaid-figure-4 .node ellipse,#mermaid-figure-4 .node polygon,#mermaid-figure-4 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-figure-4 .divider{stroke:#9370DB;stroke-width:1;}#mermaid-figure-4 g.clickable{cursor:pointer;}#mermaid-figure-4 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-figure-4 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-figure-4 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-figure-4 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-figure-4 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-figure-4 .dashed-line{stroke-dasharray:3;}#mermaid-figure-4 .dotted-line{stroke-dasharray:1 2;}#mermaid-figure-4 #compositionStart,#mermaid-figure-4 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #compositionEnd,#mermaid-figure-4 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #dependencyStart,#mermaid-figure-4 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #dependencyStart,#mermaid-figure-4 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #extensionStart,#mermaid-figure-4 .extension{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #extensionEnd,#mermaid-figure-4 .extension{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #aggregationStart,#mermaid-figure-4 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #aggregationEnd,#mermaid-figure-4 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #lollipopStart,#mermaid-figure-4 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 #lollipopEnd,#mermaid-figure-4 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-figure-4 .edgeTerminals{font-size:11px;}#mermaid-figure-4 .classTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-figure-4 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
-<g><defs><marker orient="auto" markerheight="240" markerwidth="190" refy="7" refx="0" class="marker aggregation classDiagram" id="mermaid-figure-4-classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerheight="28" markerwidth="20" refy="7" refx="19" class="marker aggregation classDiagram" id="mermaid-figure-4-classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerheight="240" markerwidth="190" refy="7" refx="0" class="marker extension classDiagram" id="mermaid-figure-4-classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerheight="28" markerwidth="20" refy="7" refx="19" class="marker extension classDiagram" id="mermaid-figure-4-classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerheight="240" markerwidth="190" refy="7" refx="0" class="marker composition classDiagram" id="mermaid-figure-4-classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerheight="28" markerwidth="20" refy="7" refx="19" class="marker composition classDiagram" id="mermaid-figure-4-classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerheight="240" markerwidth="190" refy="7" refx="0" class="marker dependency classDiagram" id="mermaid-figure-4-classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerheight="28" markerwidth="20" refy="7" refx="19" class="marker dependency classDiagram" id="mermaid-figure-4-classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerheight="240" markerwidth="190" refy="7" refx="0" class="marker lollipop classDiagram" id="mermaid-figure-4-classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(117.09375, 160.5)" id="classId-block-0" class="node default"><rect height="305" width="218.1875" y="-152.5" x="-109.09375" class="outer title-state"></rect><line y2="-122" y1="-122" x2="109.09375" x1="-109.09375" class="divider"></line><line y2="6.5" y1="6.5" x2="109.09375" x1="-109.09375" class="divider"></line><g class="label"><foreignobject height="0" width="0">
+<svg aria-roledescription="flowchart-v2" role="graphics-document document" viewbox="-8 -8 365.921875 216.5" style="; display: block; margin: auto auto auto auto" xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="960" id="mermaid-figure-4" height="480">
+<style>#mermaid-figure-4{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-figure-4 .error-icon{fill:#552222;}#mermaid-figure-4 .error-text{fill:#552222;stroke:#552222;}#mermaid-figure-4 .edge-thickness-normal{stroke-width:2px;}#mermaid-figure-4 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-figure-4 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-figure-4 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-figure-4 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-figure-4 .marker{fill:#333333;stroke:#333333;}#mermaid-figure-4 .marker.cross{stroke:#333333;}#mermaid-figure-4 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-figure-4 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#mermaid-figure-4 .cluster-label text{fill:#333;}#mermaid-figure-4 .cluster-label span,#mermaid-figure-4 p{color:#333;}#mermaid-figure-4 .label text,#mermaid-figure-4 span,#mermaid-figure-4 p{fill:#333;color:#333;}#mermaid-figure-4 .node rect,#mermaid-figure-4 .node circle,#mermaid-figure-4 .node ellipse,#mermaid-figure-4 .node polygon,#mermaid-figure-4 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-figure-4 .flowchart-label text{text-anchor:middle;}#mermaid-figure-4 .node .label{text-align:center;}#mermaid-figure-4 .node.clickable{cursor:pointer;}#mermaid-figure-4 .arrowheadPath{fill:#333333;}#mermaid-figure-4 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaid-figure-4 .flowchart-link{stroke:#333333;fill:none;}#mermaid-figure-4 .edgeLabel{background-color:#e8e8e8;text-align:center;}#mermaid-figure-4 .edgeLabel rect{opacity:0.5;background-color:#e8e8e8;fill:#e8e8e8;}#mermaid-figure-4 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaid-figure-4 .cluster text{fill:#333;}#mermaid-figure-4 .cluster span,#mermaid-figure-4 p{color:#333;}#mermaid-figure-4 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-figure-4 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-figure-4 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style>
+<g><marker orient="auto" markerheight="12" markerwidth="12" markerunits="userSpaceOnUse" refy="5" refx="10" viewbox="0 0 10 10" class="marker flowchart" id="flowchart-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerheight="12" markerwidth="12" markerunits="userSpaceOnUse" refy="5" refx="0" viewbox="0 0 10 10" class="marker flowchart" id="flowchart-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5" refx="11" viewbox="0 0 10 10" class="marker flowchart" id="flowchart-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5" refx="-1" viewbox="0 0 10 10" class="marker flowchart" id="flowchart-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5.2" refx="12" viewbox="0 0 11 11" class="marker cross flowchart" id="flowchart-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerheight="11" markerwidth="11" markerunits="userSpaceOnUse" refy="5.2" refx="-1" viewbox="0 0 11 11" class="marker cross flowchart" id="flowchart-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-block_generic LE-data_block_method" id="L-block_generic-data_block_method-0" d="M71.70917150074851,83.5L82.44123666729043,72.375C93.17330183383234,61.25,114.63743216691618,39,132.7366848334581,27.875C150.8359375,16.75,165.5703125,16.75,172.9375,16.75L180.3046875,16.75"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-block_generic LE-plot_block_method" id="L-block_generic-plot_block_method-0" d="M111.1015625,100.25L115.26822916666667,100.25C119.43489583333333,100.25,127.76822916666667,100.25,139.66861979166666,100.25C151.56901041666666,100.25,167.03645833333334,100.25,174.77018229166666,100.25L182.50390625,100.25"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-block_generic LE-transform_block_method" id="L-block_generic-transform_block_method-0" d="M71.70917150074851,117L82.44123666729043,128.125C93.17330183383234,139.25,114.63743216691618,161.5,129.53616400012476,172.625C144.43489583333334,183.75,152.76822916666666,183.75,156.93489583333334,183.75L161.1015625,183.75"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
 <div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel"></span>
+<span class="edgeLabel"></span>
 </div>
-</foreignobject><foreignobject transform="translate( -20.015625, -145)" height="18.5" width="40.03125" class="classTitle">
+</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
 <div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">block</span>
+<span class="edgeLabel"></span>
 </div>
-</foreignobject><foreignobject transform="translate( -101.59375, -110.5)" height="18.5" width="39.15625">
+</foreignobject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignobject height="0" width="0">
 <div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">name</span>
+<span class="edgeLabel"></span>
 </div>
-</foreignobject><foreignobject transform="translate( -101.59375, -88)" height="18.5" width="31.875">
+</foreignobject></g></g></g><g class="nodes"><g transform="translate(55.55078125, 100.25)" id="flowchart-block_generic-12" class="node default default flowchart-label"><rect height="33.5" width="111.1015625" y="-16.75" x="-55.55078125" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-48.05078125, -9.25)" style="" class="label"><rect></rect><foreignobject height="18.5" width="96.1015625">
 <div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">expr</span>
+<span class="nodeLabel">Block generic</span>
 </div>
-</foreignobject><foreignobject transform="translate( -101.59375, -65.5)" height="18.5" width="41.2265625">
+</foreignobject></g></g><g transform="translate(255.51171875, 16.75)" id="flowchart-data_block_method-13" class="node default default flowchart-label"><rect height="33.5" width="150.4140625" y="-16.75" x="-75.20703125" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-67.70703125, -9.25)" style="" class="label"><rect></rect><foreignobject height="18.5" width="135.4140625">
 <div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">result</span>
+<span class="nodeLabel">Data block method</span>
 </div>
-</foreignobject><foreignobject transform="translate( -101.59375, -43)" height="18.5" width="44.6875">
+</foreignobject></g></g><g transform="translate(255.51171875, 100.25)" id="flowchart-plot_block_method-15" class="node default default flowchart-label"><rect height="33.5" width="146.015625" y="-16.75" x="-73.0078125" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-65.5078125, -9.25)" style="" class="label"><rect></rect><foreignobject height="18.5" width="131.015625">
 <div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">layout</span>
+<span class="nodeLabel">Plot block method</span>
 </div>
-</foreignobject><foreignobject transform="translate( -101.59375, -20.5)" height="18.5" width="34">
+</foreignobject></g></g><g transform="translate(255.51171875, 183.75)" id="flowchart-transform_block_method-17" class="node default default flowchart-label"><rect height="33.5" width="188.8203125" y="-16.75" x="-94.41015625" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-86.91015625, -9.25)" style="" class="label"><rect></rect><foreignobject height="18.5" width="173.8203125">
 <div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">class</span>
-</div>
-</foreignobject><foreignobject transform="translate( -101.59375, 14)" height="18.5" width="167.734375">
-<div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">+initialize_block(block)</span>
-</div>
-</foreignobject><foreignobject transform="translate( -101.59375, 36.5)" height="18.5" width="149.4765625">
-<div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">+is_initialized(block)</span>
-</div>
-</foreignobject><foreignobject transform="translate( -101.59375, 59)" height="18.5" width="164.8125">
-<div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">+generate_code(block)</span>
-</div>
-</foreignobject><foreignobject transform="translate( -101.59375, 81.5)" height="18.5" width="195.1796875">
-<div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">+evaluate_block(block, …)</span>
-</div>
-</foreignobject><foreignobject transform="translate( -101.59375, 104)" height="18.5" width="203.1875">
-<div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">+generate_server(block, …)</span>
-</div>
-</foreignobject><foreignobject transform="translate( -101.59375, 126.5)" height="18.5" width="184.421875">
-<div style="display: inline-block; white-space: nowrap;" data-xmlns="http://www.w3.org/1999/xhtml">
-<span class="nodeLabel">+update_fields(block, …)</span>
+<span class="nodeLabel">Transform block method</span>
 </div>
 </foreignobject></g></g></g></g></g>
 </svg>
@@ -1103,7 +1076,11 @@ Imagine if we could build an interactive datapipeline like we would prepare a me
 </div>
 </div>
 </div>
-</section></section>
+</div><div class="column" style="width:40%;">
+<p><strong>S3 OO system</strong><sup>1</sup>: <strong>customize</strong> behavior depending on object <strong>class</strong>.</p>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>S3 Object Oriented system https://adv-r.hadley.nz/s3.html</p></li></ol></aside></section></section>
 <section>
 <section id="we-need-you" class="title-slide slide level1 center" data-stack-name="Conclusion" data-background-image="assets/img/undraw_co_workers_re_1i6i.svg" data-background-size="50%" style="font-size: 1.5em; margin-top: -350px">
 <h1>We need you!</h1>

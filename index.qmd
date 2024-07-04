@@ -502,26 +502,25 @@ register_lm_block <- function(pkg) {
 
 ## Customize blockr {style="font-size: 1.5em"}
 
-:::{incremental}
-- S3 programing: allows to customize behavior depending on object class
-:::
+::::{.columns}
 
+:::{.column width=60%}
 ```{mermaid}
 %%| mermaid-format: svg
-classDiagram
-  class block
-  block : +name
-  block : +expr
-  block : +result
-  block : +layout
-  block : +class
-  block : +initialize_block(block)
-  block : +is_initialized(block)
-  block : +generate_code(block)
-  block : +evaluate_block(block, ...)
-  block : +generate_server(block, ...)
-  block : +update_fields(block, ...)
+flowchart LR
+  block_generic[Block generic] --> data_block_method[Data block method]
+  block_generic --> plot_block_method[Plot block method]
+  block_generic --> transform_block_method[Transform block method]
 ```
+:::
+
+:::{.column width=40%}
+__S3 OO system__[^S3]: __customize__ behavior depending on object __class__.
+:::
+
+::::
+
+[^S3]: S3 Object Oriented system https://adv-r.hadley.nz/s3.html
 
 # We need you! {data-stack-name="Conclusion" background-image="assets/img/undraw_co_workers_re_1i6i.svg" background-size="50%" style="font-size: 1.5em; margin-top: -350px"}
 
